@@ -51,7 +51,7 @@
 			"options": "consistent-as-needed"
 		},
 		"object-literal-shorthand": true,
-		"object-literal-sort-keys": true,
+		"object-literal-sort-keys": false,
 		"one-variable-per-declaration": {
 			"options": ["ignore-for-loop"]
 		},
