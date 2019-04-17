@@ -1,7 +1,9 @@
 {
     "dependencies": {
+        "@types/graphql-date": "^1.0.3",
         "apollo-server-express": "^2.4.8",
         "express": "^4.16.4",
+        "graphql": "^14.2.1",
         "graphql-date": "^1.0.3"
     },
     "devDependencies": {

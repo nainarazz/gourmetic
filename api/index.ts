@@ -1,15 +1,15 @@
-import { ApolloServer, gql } from 'apollo-server-express';
 import * as express from 'express';
-import typeDefs from './types';
 import resolvers from './resolvers/queries/recipe';
+import typeDefs from './types';
+import { ApolloServer, gql } from 'apollo-server-express';
+import { DocumentNode } from 'graphql';
 
 const app = express();
 
 const port = process.env.PORT || 4000;
 
-const server = new ApolloServer({
-	//@ts-ignore
-	typeDefs,
+const server: ApolloServer = new ApolloServer({
+	typeDefs: (typeDefs as unknown) as DocumentNode,
 	resolvers,
 });
 
