@@ -1,5 +1,6 @@
 import Recipe from './Recipe';
 import scalars from './scalars';
+import User from './User';
 
 const Root = `
 	# The dummy queries and mutations are necessary because
@@ -22,4 +23,4 @@ const Root = `
 	}
 `;
 
-export default [Root, Recipe, scalars.typeDefs];
+export default [Root, Recipe, User, scalars.typeDefs];
