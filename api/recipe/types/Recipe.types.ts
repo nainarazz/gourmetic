@@ -1,4 +1,4 @@
-export default `
+export const RecipeTypes = `
     enum Meals {
         BREAKFAST
         LUNCH

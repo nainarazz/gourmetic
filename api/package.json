@@ -1,14 +1,15 @@
 {
     "dependencies": {
-        "@types/graphql-date": "^1.0.3",
         "apollo-server-express": "^2.4.8",
         "express": "^4.16.4",
         "graphql": "^14.2.1",
-        "graphql-date": "^1.0.3"
+        "graphql-date": "^1.0.3",
+        "graphql-tools": "^4.0.4"
     },
     "devDependencies": {
         "@types/express": "^4.16.1",
         "@types/graphql": "^14.2.0",
+        "@types/graphql-date": "^1.0.3",
         "@types/node": "^11.13.4"
     }
 }
