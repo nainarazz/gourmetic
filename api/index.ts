@@ -2,9 +2,12 @@ import * as compression from 'compression';
 import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import { ApolloServer, gql } from 'apollo-server-express';
+import initSentry from '../shared/sentry';
+import { ApolloServer } from 'apollo-server-express';
 import { connectToDb } from './db';
 import { schema } from './schema';
+// tslint:disable-next-line:no-var-requires
+const debug = require('debug')('api');
 
 // tslint:disable-next-line:no-var-requires
 require('now-env');
@@ -28,8 +31,15 @@ const startServer = async () => {
 
 	app.listen(port, () => {
 		// tslint:disable-next-line:no-console
-		console.log(`Listening on port ${port}`);
+		debug(`Listening on port ${port}`);
 	});
 };
+
+try {
+	initSentry();
+} catch (error) {
+	debug('Error initializing sentry');
+	process.exit(1);
+}
 
 startServer();
