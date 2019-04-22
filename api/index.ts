@@ -1,18 +1,33 @@
+import * as compression from 'compression';
 import * as express from 'express';
+import * as helmet from 'helmet';
 import { ApolloServer, gql } from 'apollo-server-express';
+import { connectToDb } from './db';
 import { schema } from './schema';
 
-const app = express();
+// tslint:disable-next-line:no-var-requires
+require('now-env');
 
-const port = process.env.PORT || 4000;
+const startServer = async () => {
+	const app = express();
 
-const server: ApolloServer = new ApolloServer({
-	schema,
-});
+	const db = await connectToDb();
 
-server.applyMiddleware({ app });
+	const port = process.env.PORT || 4000;
+	app.use(compression());
+	app.use(helmet());
 
-app.listen(port, () => {
-	// tslint:disable-next-line:no-console
-	console.log(`Listening on port ${port}`);
-});
+	const server: ApolloServer = new ApolloServer({
+		schema,
+		context: async req => ({ db }),
+	});
+
+	server.applyMiddleware({ app });
+
+	app.listen(port, () => {
+		// tslint:disable-next-line:no-console
+		console.log(`Listening on port ${port}`);
+	});
+};
+
+startServer();
