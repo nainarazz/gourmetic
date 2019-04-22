@@ -1,4 +1,5 @@
 import * as compression from 'compression';
+import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
 import { ApolloServer, gql } from 'apollo-server-express';
@@ -20,6 +21,7 @@ const startServer = async () => {
 	const server: ApolloServer = new ApolloServer({
 		schema,
 		context: async req => ({ db }),
+		validationRules: [depthLimit(10)],
 	});
 
 	server.applyMiddleware({ app });
