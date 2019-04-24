@@ -1,1 +1,1 @@
-export default () => <h1>Hello NextJs !!!</h1>;
+export default () => <h1>Hello NextJs working!!!</h1>;

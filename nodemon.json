@@ -1,6 +1,6 @@
 {
-	"watch": ["api"],
+	"watch": ["src/server"],
 	"ext": "ts",
 	"ignore": ["src/**/*.spec.ts"],
-	"exec": "ts-node --transpile-only ./api/index.ts"
+	"exec": "ts-node --transpile-only ./src/server/index.ts"
 }

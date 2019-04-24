@@ -80,7 +80,12 @@
 		"trailing-comma": {
 			"options": {
 				"esSpecCompliant": true,
-				"multiline": "always",
+				"multiline": {
+					"objects": "always",
+					"arrays": "always",
+					"functions": "never",
+					"typeLiterals": "ignore"
+				},
 				"singleline": "never"
 			}
 		},
