@@ -15,6 +15,7 @@
 		"max-line-length": {
 			"options": 120
 		},
+		"member-access": false,
 		"max-file-line-count": [true, 400],
 		"no-any": true,
 		"no-duplicate-imports": true,
@@ -37,6 +38,7 @@
 		"no-reference": true,
 		"no-reference-import": true,
 		"no-shadowed-variable": true,
+		"no-submodule-imports": false,
 		"no-string-literal": true,
 		"no-string-throw": true,
 		"no-switch-case-fall-through": false,

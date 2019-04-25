@@ -24,6 +24,7 @@
 	"dependencies": {
 		"@sentry/integrations": "^5.1.0",
 		"@sentry/node": "^5.1.0",
+		"@types/styled-components": "^4.1.14",
 		"@zeit/next-typescript": "^1.1.1",
 		"cross-env": "^5.2.0",
 		"debug": "^4.1.1",
