@@ -4,8 +4,8 @@
 	"description": "Make cooking fun, easy , and sociable",
 	"main": "index.js",
 	"scripts": {
-		"dev:web": "cross-env DEBUG=next nodemon",
-		"dev:api": "cross-env DEBUG=api nodemon",
+		"dev:web": "cross-env DEBUG=next nodemon --watch src/server --exec ts-node --transpile-only ./src/server/index.ts",
+		"dev:api": "cross-env DEBUG=api nodemon --watch api --exec ts-node --transpile-only ./api/index.ts",
 		"build": "next build src",
 		"start": "next start src",
 		"lint": "tslint --project tsconfig.json --fix"
