@@ -4,7 +4,7 @@
 	"description": "Make cooking fun, easy , and sociable",
 	"main": "index.js",
 	"scripts": {
-		"dev:web": "cross-env DEBUG=next nodemon --watch src/server --exec ts-node --transpile-only ./src/server/index.ts",
+		"dev:web": "cross-env DEBUG=next nodemon --watch src --exec ts-node --transpile-only ./src/server/index.ts",
 		"dev:api": "cross-env DEBUG=api nodemon --watch api --exec ts-node --transpile-only ./api/index.ts",
 		"build": "next build src",
 		"start": "next start src",
@@ -24,7 +24,6 @@
 	"dependencies": {
 		"@sentry/integrations": "^5.1.0",
 		"@sentry/node": "^5.1.0",
-		"@types/styled-components": "^4.1.14",
 		"@zeit/next-typescript": "^1.1.1",
 		"cross-env": "^5.2.0",
 		"debug": "^4.1.1",
@@ -42,6 +41,7 @@
 		"@types/next": "^8.0.3",
 		"@types/react": "^16.8.13",
 		"@types/react-dom": "^16.8.3",
+		"@types/styled-components": "^4.1.14",
 		"babel-plugin-styled-components": "^1.10.0",
 		"husky": "^1.3.1",
 		"nodemon": "^1.18.11",
