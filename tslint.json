@@ -64,7 +64,7 @@
 		"prefer-const": true,
 		"prefer-for-of": true,
 		"quotemark": {
-			"options": ["single", "avoid-escape"]
+			"options": ["single", "avoid-escape", "jsx-double"]
 		},
 		"radix": true,
 		"semicolon": {
