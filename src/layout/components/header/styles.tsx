@@ -70,5 +70,6 @@ export const SearchBar = styled.div`
 		border-radius: 0 2.18rem 2.18rem 0;
 		cursor: pointer;
 		font-size: 1.25rem;
+		background: #008000;
 	}
 `;

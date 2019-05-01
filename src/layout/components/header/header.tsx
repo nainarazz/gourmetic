@@ -1,4 +1,6 @@
 import React from 'react';
+import { faSearch as search } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	Button,
 	Container,
@@ -21,7 +23,7 @@ export const Header = () => (
 						placeholder="What food are you looking for?"
 					/>
 					<button type="submit">
-						<i />
+						<FontAwesomeIcon icon={search} />
 					</button>
 				</SearchBar>
 				<ButtonsContainer>
