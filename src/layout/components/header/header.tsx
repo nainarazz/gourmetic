@@ -1,16 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faSearch as search,
-	faBars as bars,
-} from '@fortawesome/free-solid-svg-icons';
+import { SearchBarComponent } from '../search-bar/search-bar';
 import {
 	Button,
 	Container,
 	Logo,
 	ButtonsContainer,
 	HeaderItems,
-	SearchBar,
 	DrawerToggleButton,
 } from './styles';
 
@@ -18,30 +15,31 @@ interface HeaderProps {
 	drawerClickHandler(): void;
 }
 
-export const Header: React.SFC<HeaderProps> = props => (
-	<React.Fragment>
-		<Container>
-			<HeaderItems>
-				<DrawerToggleButton onClick={props.drawerClickHandler}>
-					<FontAwesomeIcon icon={bars} />
-				</DrawerToggleButton>
-				<Logo>
-					<span>gourmetic</span>
-				</Logo>
-				<SearchBar>
-					<input
-						type="text"
-						placeholder="What food are you looking for?"
+export const Header: React.SFC<HeaderProps> = props => {
+	const [inputExpanded, setInputExpanded] = useState(false);
+
+	return (
+		<React.Fragment>
+			<Container>
+				<HeaderItems>
+					<DrawerToggleButton onClick={props.drawerClickHandler}>
+						<FontAwesomeIcon icon={bars} />
+					</DrawerToggleButton>
+					<Logo showLogo={!inputExpanded}>
+						<span>gourmetic</span>
+					</Logo>
+					<SearchBarComponent
+						searchInputExpanded={!inputExpanded}
+						searchClickHandler={() =>
+							setInputExpanded(!inputExpanded)
+						}
 					/>
-					<button type="submit">
-						<FontAwesomeIcon icon={search} />
-					</button>
-				</SearchBar>
-				<ButtonsContainer>
-					<Button>Meal Planner</Button>
-					<Button>Sign In</Button>
-				</ButtonsContainer>
-			</HeaderItems>
-		</Container>
-	</React.Fragment>
-);
+					<ButtonsContainer>
+						<Button>Meal Planner</Button>
+						<Button>Sign In</Button>
+					</ButtonsContainer>
+				</HeaderItems>
+			</Container>
+		</React.Fragment>
+	);
+};

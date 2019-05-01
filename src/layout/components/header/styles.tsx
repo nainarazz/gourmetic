@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface HeaderStyleProps {
+	showLogo: boolean;
+}
+
 export const Container = styled.div`
 	position: fixed;
 	background-color: #5cb818;
@@ -43,41 +47,7 @@ export const Logo = styled.div`
 	font-size: 2rem;
 	color: #fff;
 	flex-grow: 1;
-`;
-
-export const SearchBar = styled.div`
-	width: 60%;
-	position: relative;
-	display: flex;
-	flex-grow: 1;
-
-	input {
-		width: 100%;
-		border: 3px solid transparent;
-		border-right: none;
-		padding: 0.6rem;
-		border-radius: 2.18rem 0 0 2.18rem;
-		outline: none;
-		color: #5cb818;
-		text-overflow: ellipsis;
-		font-size: 1rem;
-	}
-
-	input:focus {
-		color: #5cb818;
-	}
-
-	button {
-		width: 2.5rem;
-		height: 3.125rem;
-		border: 1px solid transparent;
-		text-align: center;
-		color: #fff;
-		border-radius: 0 2.18rem 2.18rem 0;
-		cursor: pointer;
-		font-size: 1.25rem;
-		background: #008000;
-	}
+	display: ${(prop: HeaderStyleProps) => (prop.showLogo ? '' : 'none')};
 `;
 
 export const DrawerToggleButton = styled.button`
