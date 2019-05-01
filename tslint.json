@@ -12,6 +12,7 @@
 		"eofline": true,
 		"import-spacing": true,
 		"indent": true,
+		"interface-name": false,
 		"max-line-length": {
 			"options": 120
 		},

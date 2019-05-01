@@ -1,6 +1,9 @@
-import React from 'react';
-import { faSearch as search } from '@fortawesome/free-solid-svg-icons';
+import React, { Props } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+	faSearch as search,
+	faBars as bars,
+} from '@fortawesome/free-solid-svg-icons';
 import {
 	Button,
 	Container,
@@ -8,9 +11,14 @@ import {
 	ButtonsContainer,
 	HeaderItems,
 	SearchBar,
+	DrawerToggleButton,
 } from './styles';
 
-export const Header = () => (
+interface HeaderProps {
+	drawerClickHandler(): void;
+}
+
+export const Header: React.SFC<HeaderProps> = props => (
 	<React.Fragment>
 		<Container>
 			<HeaderItems>
@@ -30,6 +38,9 @@ export const Header = () => (
 					<Button>Meal Planner</Button>
 					<Button>Sign In</Button>
 				</ButtonsContainer>
+				<DrawerToggleButton onClick={props.drawerClickHandler}>
+					<FontAwesomeIcon icon={bars} />
+				</DrawerToggleButton>
 			</HeaderItems>
 		</Container>
 	</React.Fragment>

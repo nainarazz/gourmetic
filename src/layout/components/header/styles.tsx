@@ -23,8 +23,8 @@ export const ButtonsContainer = styled.div`
 export const Button = styled.div`
 	padding: 0.25rem 0.5rem;
 	font-size: 1.09375rem;
-	background-color: #fff;
-	color: #5cb818;
+	background-color: #008000;
+	color: #fff;
 	margin: 0 10px;
 	border-radius: 8px;
 	font-weight: 500;
@@ -37,7 +37,7 @@ export const Button = styled.div`
 
 export const Logo = styled.div`
 	font-size: 2rem;
-	color: #f2f0f2;
+	color: #fff;
 `;
 
 export const SearchBar = styled.div`
@@ -71,5 +71,17 @@ export const SearchBar = styled.div`
 		cursor: pointer;
 		font-size: 1.25rem;
 		background: #008000;
+	}
+`;
+
+export const DrawerToggleButton = styled.button`
+	font-size: 1.5rem;
+	color: #fff;
+	background: none;
+	border: none;
+	outline: none;
+
+	:hover {
+		cursor: pointer;
 	}
 `;

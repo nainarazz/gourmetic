@@ -1,6 +1,6 @@
 import App, { AppComponentContext, Container } from 'next/app';
 import React from 'react';
-import { AppLayout } from '../layout/components/app-layout/app-layout';
+import { AppLayout } from '../layout/containers/app-layout/app-layout';
 import { NextContext } from 'next';
 
 class MyApp extends App {
