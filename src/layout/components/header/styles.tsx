@@ -17,7 +17,11 @@ export const HeaderItems = styled.div`
 `;
 
 export const ButtonsContainer = styled.div`
-	display: flex;
+	display: none;
+
+	@media (min-width: 1020px) {
+		display: flex;
+	}
 `;
 
 export const Button = styled.div`
@@ -38,12 +42,14 @@ export const Button = styled.div`
 export const Logo = styled.div`
 	font-size: 2rem;
 	color: #fff;
+	flex-grow: 1;
 `;
 
 export const SearchBar = styled.div`
 	width: 60%;
 	position: relative;
 	display: flex;
+	flex-grow: 1;
 
 	input {
 		width: 100%;
@@ -83,5 +89,9 @@ export const DrawerToggleButton = styled.button`
 
 	:hover {
 		cursor: pointer;
+	}
+
+	@media (min-width: 1020px) {
+		display: none;
 	}
 `;

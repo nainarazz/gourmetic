@@ -1,4 +1,4 @@
-import React, { Props } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faSearch as search,
@@ -22,6 +22,9 @@ export const Header: React.SFC<HeaderProps> = props => (
 	<React.Fragment>
 		<Container>
 			<HeaderItems>
+				<DrawerToggleButton onClick={props.drawerClickHandler}>
+					<FontAwesomeIcon icon={bars} />
+				</DrawerToggleButton>
 				<Logo>
 					<span>gourmetic</span>
 				</Logo>
@@ -38,9 +41,6 @@ export const Header: React.SFC<HeaderProps> = props => (
 					<Button>Meal Planner</Button>
 					<Button>Sign In</Button>
 				</ButtonsContainer>
-				<DrawerToggleButton onClick={props.drawerClickHandler}>
-					<FontAwesomeIcon icon={bars} />
-				</DrawerToggleButton>
 			</HeaderItems>
 		</Container>
 	</React.Fragment>
