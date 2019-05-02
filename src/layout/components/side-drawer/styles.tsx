@@ -18,3 +18,21 @@ export const Container = styled.div`
 		props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
 	transition: transform 0.3s ease-out;
 `;
+
+export const SideDrawerLogo = styled.div`
+	background: #5cb818;
+	height: 30%;
+`;
+
+export const SideDrawerItem = styled.div`
+	padding: 1rem 2.5rem;
+	font-size: 1.5rem;
+	span {
+		margin: 0 2rem;
+	}
+	:hover {
+		background-color: #5cb818;
+		color: #fff;
+		cursor: pointer;
+	}
+`;

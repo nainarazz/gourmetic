@@ -48,6 +48,10 @@ export const Logo = styled.div`
 	color: #fff;
 	flex-grow: 1;
 	display: ${(prop: HeaderStyleProps) => (prop.showLogo ? '' : 'none')};
+
+	:hover {
+		cursor: pointer;
+	}
 `;
 
 export const DrawerToggleButton = styled.button`
