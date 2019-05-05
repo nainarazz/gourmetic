@@ -6,6 +6,7 @@ interface HeaderStyleProps {
 
 export const Container = styled.div`
 	position: fixed;
+	z-index: 400;
 	background-color: #5cb818;
 	width: 100%;
 	padding: 1rem;

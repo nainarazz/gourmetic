@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { useState } from 'react';
 import { Backdrop } from '../../../shared/components/backdrop/backdrop';
 import { createGlobalStyle } from 'styled-components';
 import { Header } from '../../components/header/header';
+import { MainContainer } from '../../components/main/main';
 import { SideDrawer } from '../../components/side-drawer/side-drawer';
 
 const GlobalStyle = createGlobalStyle`
@@ -10,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-export const AppLayout: FunctionComponent = props => {
+export const AppLayout: React.SFC = props => {
 	const [sideDrawerIsOpen, setSideDrawerIsOpen] = useState(false);
 	let backdrop: JSX.Element | null = null;
 
@@ -28,7 +29,7 @@ export const AppLayout: FunctionComponent = props => {
 			/>
 			{backdrop}
 			<SideDrawer isOpen={sideDrawerIsOpen} />
-			{props.children}
+			<MainContainer>{props.children}</MainContainer>
 		</div>
 	);
 };
