@@ -7,7 +7,11 @@ import Document, {
 	NextDocumentContext,
 } from 'next/document';
 
-export default class MyDocument extends Document {
+interface DocumentProps {
+	styleTags: string;
+}
+
+export default class MyDocument extends Document<DocumentProps> {
 	static getInitialProps({ renderPage }: NextDocumentContext) {
 		const sheet = new ServerStyleSheet();
 		const page = renderPage(App => props =>
@@ -20,7 +24,7 @@ export default class MyDocument extends Document {
 	render() {
 		return (
 			<html>
-				<Head />
+				<Head>{this.props.styleTags}</Head>
 				<body>
 					<Main />
 					<NextScript />
