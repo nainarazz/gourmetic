@@ -6,25 +6,43 @@ export const ImageWrapper = styled.div`
 	margin: 1rem 1rem 1rem;
 	flex-grow: 1;
 
-	@media (min-width: 768px) {
+	@media (min-width: 730px) {
 		max-width: 44%;
 	}
 
 	@media (min-width: 1020px) {
+		max-width: 44%;
+	}
+
+	@media (min-width: 1330px) {
+		max-width: 30%;
 	}
 `;
 
 export const Photo = styled.div`
-	border: 2px solid green;
 	box-sizing: border-box;
-	height: 18rem;
+	height: 15rem;
+	position: relative;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+	border-radius: 2px;
 `;
 
 export const CardDescription = styled.div`
-	height: 30%;
-	border: 2px solid red;
-	position: absolute;
-	bottom: 0;
 	width: 100%;
 	box-sizing: border-box;
+	padding-top: 1.5rem;
+`;
+
+export const LoveIcon = styled.div`
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+`;
+
+export const Likes = styled.div`
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	margin: 1rem;
 `;

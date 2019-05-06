@@ -7,5 +7,7 @@ export const RecipeList = () => (
 		<RecipeCard />
 		<RecipeCard />
 		<RecipeCard />
+		<RecipeCard />
+		<RecipeCard />
 	</Container>
 );
