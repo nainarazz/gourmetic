@@ -1,7 +1,7 @@
 {
 	"env": {
 		"NODE_ENV": "development",
-		"MONGO_URL": "localhost:4000",
+		"MONGO_URL": "mongodb://naina:admin12345admin@ds054479.mlab.com:54479/gourmetic",
 		"SENTRY_DSN": "sentry dsn"
 	}
 }

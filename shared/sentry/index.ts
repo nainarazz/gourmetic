@@ -1,10 +1,11 @@
 import * as Sentry from '@sentry/node';
 import { RewriteFrames } from '@sentry/integrations';
 import { rootDirectory } from '../../api/root';
+// tslint:disable-next-line:no-var-requires
+const debug = require('debug')('sentry');
 
 let initSentry = () => {
-	// tslint:disable-next-line:no-console
-	console.log('sentry not working in development mode');
+	/** */
 };
 
 if (process.env.NODE_ENV === 'production') {
@@ -18,6 +19,8 @@ if (process.env.NODE_ENV === 'production') {
 			],
 		});
 	};
+} else {
+	debug('not working in development mode');
 }
 
 export default initSentry;

@@ -6,26 +6,31 @@ export const RECIPES_LIST = [
 		meal: ['BREAKFAST', 'LUNCH', 'SUPPER'],
 		preptime: 2,
 		cookingTime: 2,
-		ingredients: ['1/2 onion', 'salt', 'oil', 'tomatoes'],
+		ingredients: [
+			{ measurement: 'pieces', quantity: '1/2', item: 'onion' },
+			{ measurement: '', quantity: '', item: 'salt' },
+			{ measurement: '', quantity: '', item: 'oil' },
+			{ measurement: 'piece', quantity: '1', item: 'tomatoes' },
+		],
 		instructions: [
 			{
-				image: '',
+				imageUrl: '',
 				stepNumber: 1,
 				description: 'Chop onion and tomatoes',
 			},
 			{
-				image: '',
+				imageUrl: '',
 				stepNumber: 2,
 				description: 'Beat the eggs.',
 			},
 			{
-				image: '',
+				imageUrl: '',
 				stepNumber: 3,
 				description:
 					'Mix the onions and tomatoes in the egg. Add salt.',
 			},
 			{
-				image: '',
+				imageUrl: '',
 				stepNumber: 4,
 				description: 'Fry egg.',
 			},

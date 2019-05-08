@@ -1,7 +1,7 @@
 import customScalars from './custom-scalars/scalars';
 import { makeExecutableSchema } from 'graphql-tools';
 import { RecipeRootQuery } from './recipe/resolvers/queries/index';
-import { RecipeTypes } from './recipe/types/Recipe.types';
+import { RecipeTypes } from './recipe/types/Recipe';
 import { UserType } from './user/types/User';
 
 const Root = `

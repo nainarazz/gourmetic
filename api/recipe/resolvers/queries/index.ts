@@ -1,4 +1,4 @@
-import { recipeList } from './recipe-list.query';
+import { recipeList } from './recipe-list';
 
 export const RecipeRootQuery = {
 	Query: {

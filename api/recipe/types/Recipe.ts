@@ -15,9 +15,15 @@ export const RecipeTypes = `
     }
 
     type Instructions {
-        image: String
+        imageUrl: String
         stepNumber: Int!
         description: String!
+    }
+
+    type Ingredient {
+        measurement: String
+        item: String!
+        quantity: String
     }
 
     type Recipe {
@@ -27,7 +33,7 @@ export const RecipeTypes = `
         meal: [Meals]
         prepTime: Int
         cookingTime: Int
-        ingredients: [String!]!
+        ingredients: [Ingredient!]!
         instructions: [Instructions]!
         yield: Int
         image: String
