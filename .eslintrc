@@ -13,7 +13,7 @@
 	],
 	"parserOptions": {
 		"sourceType": "module",
-		"ecmaVersion": 6
+		"ecmaVersion": 2018
 	},
 	"settings": {
 		"react": {
@@ -21,7 +21,6 @@
 		}
 	},
 	"rules": {
-		"linebreak-style": ["error", "unix"],
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "warn",
 		"no-console": "error",
@@ -33,6 +32,7 @@
 		"max-len": "warn",
 		"max-lines": ["warn", { "max": 400 }],
 		"max-statements": "warn",
-		"no-bitwise": "error"
+		"no-bitwise": "error",
+		"no-unused-vars": "warn"
 	}
 }
