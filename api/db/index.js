@@ -1,9 +1,9 @@
-import * as mongoose from 'mongoose';
-import '../recipe/models/Recipe';
+const mongoose = require('mongoose');
+require('../recipe/models/Recipe');
 require('now-env');
 const debug = require('debug')('api');
 
-export const connectToDb = async () => {
+const connectToDb = async () => {
 	try {
 		const url = process.env.MONGO_URL || '';
 		const connection = await mongoose.connect(url);
@@ -13,3 +13,5 @@ export const connectToDb = async () => {
 		throw new Error(`There is a problem connecting to database. ${error}`);
 	}
 };
+
+module.exports = connectToDb;

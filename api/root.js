@@ -1,1 +1,1 @@
-export const rootDirectory = __dirname || process.cwd();
+module.exports = __dirname || process.cwd();

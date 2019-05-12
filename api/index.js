@@ -1,11 +1,11 @@
-import * as compression from 'compression';
-import * as depthLimit from 'graphql-depth-limit';
-import * as express from 'express';
-import * as helmet from 'helmet';
-import initSentry from '../shared/sentry';
-import { ApolloServer } from 'apollo-server-express';
-import { connectToDb } from './db';
-import { schema } from './schema';
+const compression = require('compression');
+const depthLimit = require('graphql-depth-limit');
+const express = require('express');
+const helmet = require('helmet');
+const initSentry = require('../shared/sentry');
+const ApolloServer = require('apollo-server-express');
+const connectToDb = require('./db');
+const schema = require('./schema');
 const debug = require('debug')('api');
 
 require('now-env');
@@ -28,7 +28,6 @@ const startServer = async () => {
 	server.applyMiddleware({ app });
 
 	app.listen(port, () => {
-		// tslint:disable-next-line:no-console
 		debug(`Listening on port ${port}`);
 	});
 };

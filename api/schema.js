@@ -1,8 +1,8 @@
-import customScalars from './custom-scalars/scalars';
-import { makeExecutableSchema } from 'graphql-tools';
-import { RecipeRootQuery } from './recipe/resolvers/queries/index';
-import { RecipeTypes } from './recipe/types/Recipe';
-import { UserType } from './user/types/User';
+const customScalars = require('./custom-scalars/scalars');
+const makeExecutableSchema = require('graphql-tools');
+const RecipeRootQuery = require('./recipe/resolvers/queries/index');
+const RecipeTypes = require('./recipe/types/Recipe');
+const UserType = require('./user/types/User');
 
 const Root = `
 	# The dummy queries and mutations are necessary because
@@ -34,4 +34,4 @@ const resolvers = {
 	// Mutations below
 };
 
-export const schema = makeExecutableSchema({ typeDefs, resolvers });
+module.exports = makeExecutableSchema({ typeDefs, resolvers });

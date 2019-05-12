@@ -1,4 +1,4 @@
-export const RECIPES_LIST = [
+const RECIPES_LIST = [
 	{
 		_id: '12345',
 		name: 'Omelet',
@@ -43,3 +43,7 @@ export const RECIPES_LIST = [
 		updatedAt: new Date(),
 	},
 ];
+
+module.exports = {
+	RECIPES_LIST,
+};

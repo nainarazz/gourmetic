@@ -1,7 +1,6 @@
-import * as Sentry from '@sentry/node';
-import { RewriteFrames } from '@sentry/integrations';
-import { rootDirectory } from '../../api/root';
-// tslint:disable-next-line:no-var-requires
+const Sentry = require('@sentry/node');
+const RewriteFrames = require('@sentry/integrations');
+const rootDirectory = require('../../api/root');
 const debug = require('debug')('sentry');
 
 let initSentry = () => {
@@ -23,4 +22,4 @@ if (process.env.NODE_ENV === 'production') {
 	debug('not working in development mode');
 }
 
-export default initSentry;
+module.exports = initSentry;

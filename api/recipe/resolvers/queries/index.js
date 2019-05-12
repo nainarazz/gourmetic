@@ -1,6 +1,6 @@
-import { recipeList } from './recipe-list';
+const recipeList = require('./recipe-list');
 
-export const RecipeRootQuery = {
+module.exports = {
 	Query: {
 		recipeList,
 	},

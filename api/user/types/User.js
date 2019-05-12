@@ -1,4 +1,4 @@
-export const UserType = `
+exports.UserType = `
     type User {
         _id: ID!
         firstName: String!

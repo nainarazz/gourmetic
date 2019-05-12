@@ -1,8 +1,8 @@
-import DataLoader from 'dataloader';
+const DataLoader = require('dataloader');
 
 const createLoader = (mongoDbModelName, batchFn) => {
 	return new DataLoader(keys => batchFn(mongoDbModelName, keys), {
 		cacheKeyFn: key => key.toString(),
 	});
 };
-export default createLoader;
+module.exports = createLoader;

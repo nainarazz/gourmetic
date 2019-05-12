@@ -1,4 +1,4 @@
-export const RecipeTypes = `
+const Recipe = `
     enum Meals {
         BREAKFAST
         LUNCH
@@ -47,3 +47,6 @@ export const RecipeTypes = `
         recipeList: [Recipe]
     }
 `;
+module.exports = {
+	Recipe,
+};

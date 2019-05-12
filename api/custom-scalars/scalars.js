@@ -8,7 +8,7 @@ const resolvers = {
 	Date: GraphQLDate,
 };
 
-export default {
+module.exports = {
 	typeDefs,
 	resolvers,
 };
