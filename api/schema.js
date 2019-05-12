@@ -25,12 +25,7 @@ const Root = `
 	}
 `;
 
-const typeDefs: string[] = [
-	Root,
-	customScalars.typeDefs,
-	RecipeTypes,
-	UserType,
-];
+const typeDefs = [Root, customScalars.typeDefs, RecipeTypes, UserType];
 
 const resolvers = {
 	...customScalars.resolvers,

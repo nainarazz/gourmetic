@@ -1,11 +1,9 @@
 import * as mongoose from 'mongoose';
 import '../recipe/models/Recipe';
-// tslint:disable-next-line:no-var-requires
 require('now-env');
-// tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 
-export const connectToDb = async (): Promise<typeof mongoose | undefined> => {
+export const connectToDb = async () => {
 	try {
 		const url = process.env.MONGO_URL || '';
 		const connection = await mongoose.connect(url);

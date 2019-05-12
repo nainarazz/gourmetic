@@ -11,11 +11,7 @@ import {
 	DrawerToggleButton,
 } from './styles';
 
-interface HeaderProps {
-	drawerClickHandler(): void;
-}
-
-export const Header: React.SFC<HeaderProps> = props => {
+export const Header = props => {
 	const [inputExpanded, setInputExpanded] = useState(false);
 
 	return (

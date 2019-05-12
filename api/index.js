@@ -6,10 +6,8 @@ import initSentry from '../shared/sentry';
 import { ApolloServer } from 'apollo-server-express';
 import { connectToDb } from './db';
 import { schema } from './schema';
-// tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 
-// tslint:disable-next-line:no-var-requires
 require('now-env');
 
 const startServer = async () => {
@@ -21,7 +19,7 @@ const startServer = async () => {
 	app.use(compression());
 	app.use(helmet());
 
-	const server: ApolloServer = new ApolloServer({
+	const server = new ApolloServer({
 		schema,
 		context: async req => ({ db }),
 		validationRules: [depthLimit(10)],

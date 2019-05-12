@@ -1,4 +1,4 @@
-export const routes = {
+module.exports = {
 	'/': 'index',
 	'/about': 'about',
 };

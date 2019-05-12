@@ -9,7 +9,7 @@ import {
 	Likes,
 } from './styles';
 
-export const RecipeCard: React.SFC = () => {
+export const RecipeCard = () => {
 	return (
 		<React.Fragment>
 			<ImageWrapper>

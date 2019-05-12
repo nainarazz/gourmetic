@@ -7,11 +7,7 @@ import {
 	faHome as home,
 } from '@fortawesome/free-solid-svg-icons';
 
-interface SideDrawerProps {
-	isOpen: boolean;
-}
-
-export const SideDrawer: React.SFC<SideDrawerProps> = props => (
+export const SideDrawer = props => (
 	<React.Fragment>
 		<Container isOpen={props.isOpen}>
 			<SideDrawerLogo />

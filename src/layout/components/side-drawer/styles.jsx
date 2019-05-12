@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface StyleProps {
-	isOpen?: boolean;
-}
-
 export const Container = styled.div`
 	height: 100vh;
 	background: #fff;
@@ -14,7 +10,7 @@ export const Container = styled.div`
 	width: 70%;
 	max-width: 400px;
 	z-index: 200;
-	transform: ${(props: StyleProps) =>
+	transform: ${prop =>
 		props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
 	transition: transform 0.3s ease-out;
 `;

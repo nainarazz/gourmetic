@@ -1,0 +1,38 @@
+{
+	"env": {
+		"browser": true,
+		"commonjs": true,
+		"es6": true,
+		"node": true
+	},
+	"plugins": ["react", "react-hooks"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:prettier/recommended"
+	],
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 6
+	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+		"linebreak-style": ["error", "unix"],
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		"no-console": "error",
+		"complexity": "warn",
+		"no-empty-function": "warn",
+		"radix": "error",
+		"camelcase": "warn",
+		"max-depth": "warn",
+		"max-len": "warn",
+		"max-lines": ["warn", { "max": 400 }],
+		"max-statements": "warn",
+		"no-bitwise": "error"
+	}
+}

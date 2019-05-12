@@ -7,12 +7,8 @@ import Document, {
 	NextDocumentContext,
 } from 'next/document';
 
-interface DocumentProps {
-	styleTags: string;
-}
-
-export default class MyDocument extends Document<DocumentProps> {
-	static getInitialProps({ renderPage }: NextDocumentContext) {
+export default class MyDocument extends Document {
+	static getInitialProps({ renderPage }) {
 		const sheet = new ServerStyleSheet();
 		const page = renderPage(App => props =>
 			sheet.collectStyles(<App {...props} />)

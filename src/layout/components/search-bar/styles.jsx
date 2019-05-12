@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface SearchBarProps {
-	searchInputExpanded: boolean;
-}
-
 export const SearchBar = styled.div`
 	width: 60%;
 	position: relative;
@@ -13,7 +9,7 @@ export const SearchBar = styled.div`
 
 	input {
 		display: flex;
-		transform: ${(prop: SearchBarProps) =>
+		transform: ${prop =>
 			prop.searchInputExpanded
 				? 'translateX(10000px)'
 				: 'translateX(0px)'};
@@ -55,8 +51,7 @@ export const SearchBar = styled.div`
 		}
 
 		button {
-			display: ${(prop: SearchBarProps) =>
-				prop.searchInputExpanded ? 'none' : ''};
+			display: ${prop => (prop.searchInputExpanded ? 'none' : '')};
 		}
 	}
 `;

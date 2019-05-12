@@ -11,9 +11,9 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 
-export const AppLayout: React.SFC = props => {
+export const AppLayout = props => {
 	const [sideDrawerIsOpen, setSideDrawerIsOpen] = useState(false);
-	let backdrop: JSX.Element | null = null;
+	let backdrop = null;
 
 	if (sideDrawerIsOpen) {
 		backdrop = <Backdrop click={() => setSideDrawerIsOpen(false)} />;

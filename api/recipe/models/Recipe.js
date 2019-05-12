@@ -1,11 +1,5 @@
 import * as mongoose from 'mongoose';
 
-export interface Ingredient {
-	measurement: string;
-	item: string;
-	quantity: string;
-}
-
 const recipeSchema = new mongoose.Schema({
 	name: {
 		type: String,

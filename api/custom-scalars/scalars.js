@@ -1,4 +1,3 @@
-// tslint:disable-next-line: no-var-requires
 const GraphQLDate = require('graphql-date');
 
 const typeDefs = /* GraphQL */ `

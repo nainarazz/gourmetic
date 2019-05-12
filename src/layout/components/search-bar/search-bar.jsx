@@ -6,12 +6,7 @@ import {
 	faTimes as closeButton,
 } from '@fortawesome/free-solid-svg-icons';
 
-interface SearchBarProps {
-	searchInputExpanded: boolean;
-	searchClickHandler(): void;
-}
-
-export const SearchBarComponent: React.SFC<SearchBarProps> = props => {
+export const SearchBarComponent = props => {
 	const icon = props.searchInputExpanded ? (
 		<FontAwesomeIcon icon={search} />
 	) : (

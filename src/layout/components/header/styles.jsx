@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface HeaderStyleProps {
-	showLogo: boolean;
-}
-
 export const Container = styled.div`
 	position: fixed;
 	z-index: 400;
@@ -48,7 +44,7 @@ export const Logo = styled.div`
 	font-size: 2rem;
 	color: #fff;
 	flex-grow: 1;
-	display: ${(prop: HeaderStyleProps) => (prop.showLogo ? '' : 'none')};
+	display: ${prop => (prop.showLogo ? '' : 'none')};
 
 	:hover {
 		cursor: pointer;

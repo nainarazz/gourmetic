@@ -1,8 +1,7 @@
-import * as express from 'express';
-import * as next from 'next';
-import router from './router';
-import { routes as routeList } from '../routes';
-// tslint:disable-next-line:no-var-requires
+const express = require('express');
+const next = require('next');
+const router = require('./router');
+const routeList = require('../routes');
 const debug = require('debug')('next');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -15,12 +14,10 @@ app.prepare().then(() => {
 
 	const routes = router(app, routeList);
 	server.use('/', routes);
-	server.get('*', (req: express.Request, res: express.Response) =>
-		handle(req, res)
-	);
+	server.get('*', (req, res) => handle(req, res));
 
 	const port = process.env.PORT_NEXT || 3000;
-	server.listen(port, (err: Error) => {
+	server.listen(port, err => {
 		if (err) {
 			throw err;
 		}

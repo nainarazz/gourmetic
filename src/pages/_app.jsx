@@ -4,8 +4,8 @@ import { AppLayout } from '../layout/containers/app-layout/app-layout';
 import { NextContext } from 'next';
 
 class MyApp extends App {
-	static async getInitialProps({ Component, ctx }: AppComponentContext) {
-		let pageProps: Partial<NextContext>;
+	static async getInitialProps({ Component, ctx }) {
+		let pageProps;
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx);
 		}
