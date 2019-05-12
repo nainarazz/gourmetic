@@ -1,4 +1,4 @@
-const recipeList = require('./recipe-list');
+const { recipeList } = require('./recipe-list');
 
 module.exports = {
 	Query: {

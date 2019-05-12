@@ -1,4 +1,4 @@
-exports.UserType = `
+exports.User = `
     type User {
         _id: ID!
         firstName: String!
