@@ -1,0 +1,23 @@
+query RecipeList {
+	recipeList {
+		name
+		meal
+		createdAt
+		updatedAt
+		ingredients {
+			item
+			measurement
+			quantity
+		}
+		instructions {
+			stepNumber
+			description
+			imageUrl
+		}
+		image
+		meal
+		prepTime
+		cookingTime
+		isPublic
+	}
+}

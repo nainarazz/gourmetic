@@ -1,4 +1,7 @@
+overwrite: true
 schema: http://localhost:4000/graphql
+documents: ./src/**/*.graphql
+
 require:
     - ts-node/register/transpile-only
 generates:
@@ -6,5 +9,12 @@ generates:
         config:
             contextType: ./context#Context
         plugins:
+            - add: // tslint:disable
             - typescript
             - typescript-resolvers
+    ./src/graphql-generated-types/query-types.tsx:
+        plugins:
+            - add: // tslint:disable
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo
