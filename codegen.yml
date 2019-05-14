@@ -1,0 +1,10 @@
+schema: http://localhost:4000/graphql
+require:
+    - ts-node/register/transpile-only
+generates:
+    ./api/graphql-generated-types/resolvers-types.ts:
+        config:
+            contextType: ./context#Context
+        plugins:
+            - typescript
+            - typescript-resolvers

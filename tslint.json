@@ -1,6 +1,12 @@
 {
 	"defaultSeverity": "error",
 	"extends": ["tslint:latest", "tslint-config-prettier"],
+	"linterOptions": {
+		"exclude": [
+			"api/graphql-generated-types/resolvers-types.ts",
+			"lib/*generated.js"
+		]
+	},
 	"jsRules": {},
 	"rules": {
 		"class-name": true,
