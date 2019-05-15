@@ -1,9 +1,17 @@
 import App, { AppComponentContext, Container } from 'next/app';
 import React from 'react';
+import withApollo from '../withApollo';
+import { ApolloClient } from 'apollo-boost';
+import { ApolloProvider } from 'react-apollo';
 import { AppLayout } from '../layout/containers/app-layout/app-layout';
 import { NextContext } from 'next';
 
-class MyApp extends App {
+interface Props {
+	// tslint:disable-next-line:no-any
+	apollo: ApolloClient<any>;
+}
+
+class MyApp extends App<Props> {
 	static async getInitialProps({ Component, ctx }: AppComponentContext) {
 		let pageProps: Partial<NextContext>;
 		if (Component.getInitialProps) {
@@ -15,15 +23,17 @@ class MyApp extends App {
 	}
 
 	render() {
-		const { Component, pageProps } = this.props;
+		const { Component, pageProps, apollo } = this.props;
 		return (
 			<Container>
-				<AppLayout>
-					<Component {...pageProps} />
-				</AppLayout>
+				<ApolloProvider client={apollo}>
+					<AppLayout>
+						<Component {...pageProps} />
+					</AppLayout>
+				</ApolloProvider>
 			</Container>
 		);
 	}
 }
 
-export default MyApp;
+export default withApollo(MyApp);
