@@ -87,6 +87,7 @@ export type RecipeListQuery = { __typename?: 'Query' } & {
 			Maybe<
 				{ __typename?: 'Recipe' } & Pick<
 					Recipe,
+					| '_id'
 					| 'name'
 					| 'meal'
 					| 'createdAt'
@@ -125,6 +126,7 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export const RecipeListDocument = gql`
 	query RecipeList {
 		recipeList {
+			_id
 			name
 			meal
 			createdAt

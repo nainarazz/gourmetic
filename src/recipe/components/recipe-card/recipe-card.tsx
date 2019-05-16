@@ -1,6 +1,7 @@
 import React from 'react';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Recipe } from '../../../graphql-generated-types/query-types';
 import {
 	CardDescription,
 	ImageWrapper,
@@ -9,7 +10,13 @@ import {
 	Likes,
 } from './styles';
 
-export const RecipeCard: React.SFC = () => {
+interface RecipeCardProps {
+	recipe: Recipe;
+	totalLikes: number;
+	username: string;
+}
+
+export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 	return (
 		<React.Fragment>
 			<ImageWrapper>
@@ -22,12 +29,12 @@ export const RecipeCard: React.SFC = () => {
 						/>
 					</LoveIcon>
 					<Likes>
-						<span>15 Likes</span>
+						<span>{props.totalLikes} Likes</span>
 					</Likes>
 				</Photo>
 				<CardDescription>
-					<div>Recipe Name</div>
-					<div>Username</div>
+					<div>{props.recipe && props.recipe.name}</div>
+					<div>{props.username}</div>
 				</CardDescription>
 			</ImageWrapper>
 		</React.Fragment>
