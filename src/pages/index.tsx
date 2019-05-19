@@ -1,5 +1,4 @@
 import React from 'react';
-import { RecipeList } from '../recipe/components/recipe-list/recipe-list';
 import { RecipeRoot } from '../recipe/containers/recipe-root';
 
 export default () => (

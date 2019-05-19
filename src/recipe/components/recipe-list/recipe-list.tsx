@@ -8,6 +8,9 @@ interface RecipeListProps {
 }
 
 export const RecipeList: React.SFC<RecipeListProps> = props => {
+	if (!props.recipes) {
+		return null;
+	}
 	const recipes = props.recipes.map(r => (
 		<RecipeCard
 			key={(r as Recipe)._id}
