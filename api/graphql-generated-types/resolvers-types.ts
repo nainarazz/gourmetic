@@ -42,6 +42,10 @@ export type Mutation = {
 	dummy?: Maybe<Scalars['String']>;
 };
 
+export type PageInfo = {
+	hasNextPage: Scalars['Boolean'];
+};
+
 /** The dummy queries and mutations are necessary because
  * graphql-js cannot have empty root types and we only extend
  * these types later on
@@ -49,7 +53,17 @@ export type Mutation = {
  */
 export type Query = {
 	dummy?: Maybe<Scalars['String']>;
-	recipeList?: Maybe<Array<Maybe<Recipe>>>;
+	recipeList?: Maybe<RecipeResult>;
+};
+
+/** The dummy queries and mutations are necessary because
+ * graphql-js cannot have empty root types and we only extend
+ * these types later on
+ * Ref: apollographql/graphql-tools#293
+ */
+export type QueryRecipeListArgs = {
+	first?: Maybe<Scalars['Int']>;
+	after?: Maybe<Scalars['String']>;
 };
 
 export type Recipe = {
@@ -67,6 +81,16 @@ export type Recipe = {
 	isPublic?: Maybe<Scalars['Boolean']>;
 	createdAt?: Maybe<Scalars['Date']>;
 	updatedAt?: Maybe<Scalars['Date']>;
+};
+
+export type RecipeEdge = {
+	cursor: Scalars['String'];
+	node: Recipe;
+};
+
+export type RecipeResult = {
+	pageInfo?: Maybe<PageInfo>;
+	edges: Array<Maybe<RecipeEdge>>;
 };
 
 export type Subscription = {
@@ -160,14 +184,17 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
 	Query: {};
 	String: Scalars['String'];
+	Int: Scalars['Int'];
+	RecipeResult: RecipeResult;
+	PageInfo: PageInfo;
+	Boolean: Scalars['Boolean'];
+	RecipeEdge: RecipeEdge;
 	Recipe: Recipe;
 	ID: Scalars['ID'];
 	Meals: Meals;
-	Int: Scalars['Int'];
 	Ingredient: Ingredient;
 	Instructions: Instructions;
 	DietLabels: DietLabels;
-	Boolean: Scalars['Boolean'];
 	Date: Scalars['Date'];
 	Mutation: {};
 	Subscription: {};
@@ -216,15 +243,23 @@ export type MutationResolvers<
 	dummy?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
 
+export type PageInfoResolvers<
+	ContextType = Context,
+	ParentType = ResolversTypes['PageInfo']
+> = {
+	hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+};
+
 export type QueryResolvers<
 	ContextType = Context,
 	ParentType = ResolversTypes['Query']
 > = {
 	dummy?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 	recipeList?: Resolver<
-		Maybe<Array<Maybe<ResolversTypes['Recipe']>>>,
+		Maybe<ResolversTypes['RecipeResult']>,
 		ParentType,
-		ContextType
+		ContextType,
+		QueryRecipeListArgs
 	>;
 };
 
@@ -280,6 +315,30 @@ export type RecipeResolvers<
 	>;
 };
 
+export type RecipeEdgeResolvers<
+	ContextType = Context,
+	ParentType = ResolversTypes['RecipeEdge']
+> = {
+	cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	node?: Resolver<ResolversTypes['Recipe'], ParentType, ContextType>;
+};
+
+export type RecipeResultResolvers<
+	ContextType = Context,
+	ParentType = ResolversTypes['RecipeResult']
+> = {
+	pageInfo?: Resolver<
+		Maybe<ResolversTypes['PageInfo']>,
+		ParentType,
+		ContextType
+	>;
+	edges?: Resolver<
+		Array<Maybe<ResolversTypes['RecipeEdge']>>,
+		ParentType,
+		ContextType
+	>;
+};
+
 export type SubscriptionResolvers<
 	ContextType = Context,
 	ParentType = ResolversTypes['Subscription']
@@ -306,8 +365,11 @@ export type Resolvers<ContextType = Context> = {
 	Ingredient?: IngredientResolvers<ContextType>;
 	Instructions?: InstructionsResolvers<ContextType>;
 	Mutation?: MutationResolvers<ContextType>;
+	PageInfo?: PageInfoResolvers<ContextType>;
 	Query?: QueryResolvers<ContextType>;
 	Recipe?: RecipeResolvers<ContextType>;
+	RecipeEdge?: RecipeEdgeResolvers<ContextType>;
+	RecipeResult?: RecipeResultResolvers<ContextType>;
 	Subscription?: SubscriptionResolvers<ContextType>;
 	User?: UserResolvers<ContextType>;
 };

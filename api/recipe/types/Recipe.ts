@@ -43,7 +43,21 @@ export const RecipeTypes = `
         updatedAt: Date
     }
 
+    type PageInfo {
+        hasNextPage: Boolean!
+    }
+
+    type RecipeEdge {
+        cursor: String!
+        node: Recipe!
+    }
+
+    type RecipeResult {
+        pageInfo: PageInfo
+        edges: [RecipeEdge]!
+    }
+
     extend type Query {
-        recipeList: [Recipe]
+        recipeList(first: Int, after: String): RecipeResult
     }
 `;

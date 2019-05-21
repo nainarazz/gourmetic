@@ -1,24 +1,33 @@
 query RecipeList {
 	recipeList {
-		_id
-		name
-		meal
-		createdAt
-		updatedAt
-		ingredients {
-			item
-			measurement
-			quantity
+		pageInfo {
+			hasNextPage
 		}
-		instructions {
-			stepNumber
-			description
-			imageUrl
+		edges {
+			cursor
+			node {
+				_id
+				name
+				description
+				meal
+				createdAt
+				updatedAt
+				ingredients {
+					item
+					measurement
+					quantity
+				}
+				instructions {
+					stepNumber
+					description
+					imageUrl
+				}
+				image
+				meal
+				prepTime
+				cookingTime
+				isPublic
+			}
 		}
-		image
-		meal
-		prepTime
-		cookingTime
-		isPublic
 	}
 }

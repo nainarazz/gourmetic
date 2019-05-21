@@ -1,6 +1,7 @@
 import customScalars from './custom-scalars/scalars';
 import { IResolvers, makeExecutableSchema } from 'graphql-tools';
-import { RecipeRootQuery } from './recipe/resolvers/queries/index';
+import { merge } from 'lodash';
+import { RecipeRootResolver } from './recipe/resolvers/queries/index';
 import { RecipeTypes } from './recipe/types/Recipe';
 import { UserType } from './user/types/User';
 
@@ -32,12 +33,11 @@ const typeDefs: string[] = [
 	UserType,
 ];
 
-const resolvers = {
-	Query: {
-		// queries
-		...(RecipeRootQuery as IResolvers),
-		// Mutations below
-	},
-};
+const resolvers = merge(
+	{},
+	// queries
+	RecipeRootResolver as IResolvers
+	// Mutations below
+);
 
 export const schema = makeExecutableSchema({ typeDefs, resolvers });
