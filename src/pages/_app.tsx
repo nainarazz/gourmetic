@@ -3,7 +3,7 @@ import React from 'react';
 import withApollo from '../withApollo';
 import { ApolloClient } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { AppLayout } from '../layout/containers/app-layout/app-layout';
+import { AppLayout } from '../layout/containers/app-layout/app-layout.container';
 import { NextContext } from 'next';
 
 interface Props {

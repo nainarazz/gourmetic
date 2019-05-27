@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, SideDrawerItem, SideDrawerLogo } from './styles';
+import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCalendarAlt as calendar,

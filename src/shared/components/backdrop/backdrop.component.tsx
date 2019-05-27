@@ -1,5 +1,5 @@
 import React from 'react';
-import { Backdrop as BackdropComponent } from './styles';
+import { Backdrop as BackdropComponent } from './backdrop.style';
 
 interface BackdropProps {
 	click(): void;

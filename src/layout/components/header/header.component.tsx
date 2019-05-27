@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SearchBarComponent } from '../search-bar/search-bar';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
 import {
 	Button,
 	Container,
@@ -9,7 +9,7 @@ import {
 	ButtonsContainer,
 	HeaderItems,
 	DrawerToggleButton,
-} from './styles';
+} from './header.style';
 
 interface HeaderProps {
 	drawerClickHandler(): void;

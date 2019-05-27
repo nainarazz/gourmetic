@@ -1,4 +1,4 @@
-import { Context } from './../../../graphql-generated-types/context';
+import { Context } from '../../../graphql-generated-types/context';
 import { decode, encode } from '../../../utils/base64';
 import { PaginationOptions } from '../../../utils/pagination';
 import { Recipe } from '../../../../src/graphql-generated-types/query-types';

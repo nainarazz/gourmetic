@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Backdrop } from '../../../shared/components/backdrop/backdrop';
+import { Backdrop } from '../../../shared/components/backdrop/backdrop.component';
 import { createGlobalStyle } from 'styled-components';
-import { Header } from '../../components/header/header';
-import { MainContainer } from '../../components/main/main';
-import { SideDrawer } from '../../components/side-drawer/side-drawer';
+import { Header } from '../../components/header/header.component';
+import { MainContainer } from '../../components/main/main.component';
+import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
 
 const GlobalStyle = createGlobalStyle`
     body {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SearchBar } from './styles';
+import { SearchBar } from './search-bar.style';
 import {
 	faSearch as search,
 	faTimes as closeButton,

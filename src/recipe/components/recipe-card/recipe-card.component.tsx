@@ -8,7 +8,7 @@ import {
 	LoveIcon,
 	Photo,
 	Likes,
-} from './styles';
+} from './recipe-card.style';
 
 interface RecipeCardProps {
 	recipe: Recipe;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RecipeRoot } from '../recipe/containers/recipe-root';
+import { RecipeRoot } from '../recipe/containers/recipe-root.container';
 
 export default () => (
 	<React.Fragment>

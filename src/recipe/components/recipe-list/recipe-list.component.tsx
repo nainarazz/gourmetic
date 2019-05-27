@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container } from './styles';
+import { Container } from './recipe-list.style';
 import { Recipe } from '../../../graphql-generated-types/query-types';
-import { RecipeCard } from '../recipe-card/recipe-card';
+import { RecipeCard } from '../recipe-card/recipe-card.component';
 import { RecipeEdge } from '../../../../api/graphql-generated-types/resolvers-types';
 
 interface RecipeListProps {

@@ -2,8 +2,8 @@ import customScalars from './custom-scalars/scalars';
 import { IResolvers, makeExecutableSchema } from 'graphql-tools';
 import { merge } from 'lodash';
 import { RecipeRootResolver } from './recipe/resolvers/queries/index';
-import { RecipeTypes } from './recipe/types/Recipe';
-import { UserType } from './user/types/User';
+import { RecipeTypes } from './recipe/types/Recipe.type';
+import { UserType } from './user/types/User.type';
 
 const Root = `
 	# The dummy queries and mutations are necessary because

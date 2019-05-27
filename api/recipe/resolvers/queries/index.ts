@@ -1,5 +1,5 @@
 import { Context } from '../../../graphql-generated-types/context';
-import { getRecipeList } from './recipe';
+import { getRecipeList } from './recipe.query';
 import { UserInputError } from 'apollo-server-core';
 import {
 	QueryResolvers,

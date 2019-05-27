@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import '../recipe/models/Recipe';
+import '../recipe/models/Recipe.model';
 // tslint:disable-next-line:no-var-requires
 require('now-env');
 // tslint:disable-next-line:no-var-requires
