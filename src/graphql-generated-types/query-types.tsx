@@ -103,7 +103,10 @@ export type User = {
 	lastName: Scalars['String'];
 	email: Scalars['String'];
 };
-export type RecipeListQueryVariables = {};
+export type RecipeListQueryVariables = {
+	first?: Maybe<Scalars['Int']>;
+	after?: Maybe<Scalars['String']>;
+};
 
 export type RecipeListQuery = { __typename?: 'Query' } & {
 	recipeList: Maybe<
@@ -163,8 +166,8 @@ import * as ReactApollo from 'react-apollo';
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
 export const RecipeListDocument = gql`
-	query RecipeList {
-		recipeList {
+	query RecipeList($first: Int, $after: String) {
+		recipeList(first: $first, after: $after) {
 			pageInfo {
 				hasNextPage
 			}
