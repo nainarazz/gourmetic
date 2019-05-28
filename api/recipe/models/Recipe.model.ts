@@ -1,51 +1,42 @@
 import * as mongoose from 'mongoose';
+import { decode, encode } from '../../utils/base64';
+import { PaginationOptions } from '../../utils/pagination';
+import { Recipe } from '../../../src/graphql-generated-types/query-types';
 
-export interface Ingredient {
-	measurement: string;
-	item: string;
-	quantity: string;
-}
+export const getPaginatedRecipes = async (options: PaginationOptions) => {
+	const { first, after } = options;
+	const criteria = after
+		? {
+				_id: {
+					$lt: decode(options.after),
+				},
+		  }
+		: {};
 
-const recipeSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-	},
-	description: {
-		type: String,
-		required: true,
-	},
-	meal: {
-		type: [String],
-	},
-	prepTime: Number,
-	cookingTime: Number,
-	ingredients: [
-		{
-			measurement: String,
-			item: String,
-			quantity: String,
+	let recipes: Recipe[] = await mongoose
+		.model('recipe')
+		.find(criteria)
+		.sort({ _id: -1 })
+		.limit(options.first + 1)
+		.lean()
+		.exec();
+
+	const hasNextPage = recipes.length > first - 1;
+
+	//remove extra
+	if (hasNextPage) {
+		recipes = recipes.slice(0, recipes.length - 1);
+	}
+
+	const edges = recipes.map(r => ({
+		cursor: encode(r._id.toString()),
+		node: r,
+	}));
+
+	return {
+		pageInfo: {
+			hasNextPage,
 		},
-	],
-	instructions: [
-		{
-			imageUrl: String,
-			stepNumber: {
-				type: Number,
-				required: true,
-			},
-			description: {
-				type: String,
-				required: true,
-			},
-		},
-	],
-	yield: Number,
-	image: String,
-	dietLabels: [String],
-	isPublic: Boolean,
-	createdAt: Date,
-	updatedAt: Date,
-});
-
-export const Recipe = mongoose.model('recipe', recipeSchema);
+		edges,
+	};
+};

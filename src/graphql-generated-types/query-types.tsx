@@ -79,6 +79,7 @@ export type Recipe = {
 	image?: Maybe<Scalars['String']>;
 	dietLabels?: Maybe<Array<Maybe<DietLabels>>>;
 	isPublic?: Maybe<Scalars['Boolean']>;
+	createdBy?: Maybe<User>;
 	createdAt?: Maybe<Scalars['Date']>;
 	updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -99,8 +100,8 @@ export type Subscription = {
 
 export type User = {
 	_id: Scalars['ID'];
-	firstName: Scalars['String'];
-	lastName: Scalars['String'];
+	firstname: Scalars['String'];
+	lastname: Scalars['String'];
 	email: Scalars['String'];
 };
 export type RecipeListQueryVariables = {

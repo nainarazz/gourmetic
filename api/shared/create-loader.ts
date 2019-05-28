@@ -1,9 +1,11 @@
-import DataLoader from 'dataloader';
+import * as DataLoader from 'dataloader';
+import { createUserLoader } from '../user/user.loader';
 
 // tslint:disable-next-line:ban-types
-const createLoader = (mongoDbModelName: string, batchFn: Function) => {
-	return new DataLoader(keys => batchFn(mongoDbModelName, keys), {
+export const createLoader = (batchFn: Function) => {
+	return new DataLoader(keys => batchFn(keys), {
 		cacheKeyFn: key => key.toString(),
 	});
 };
-export default createLoader;
+
+export const buildDataLoaders = () => ({ user: createUserLoader() });

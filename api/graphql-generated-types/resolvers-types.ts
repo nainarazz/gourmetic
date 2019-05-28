@@ -79,6 +79,7 @@ export type Recipe = {
 	image?: Maybe<Scalars['String']>;
 	dietLabels?: Maybe<Array<Maybe<DietLabels>>>;
 	isPublic?: Maybe<Scalars['Boolean']>;
+	createdBy?: Maybe<User>;
 	createdAt?: Maybe<Scalars['Date']>;
 	updatedAt?: Maybe<Scalars['Date']>;
 };
@@ -99,8 +100,8 @@ export type Subscription = {
 
 export type User = {
 	_id: Scalars['ID'];
-	firstName: Scalars['String'];
-	lastName: Scalars['String'];
+	firstname: Scalars['String'];
+	lastname: Scalars['String'];
 	email: Scalars['String'];
 };
 import { Context } from './context';
@@ -195,10 +196,10 @@ export type ResolversTypes = {
 	Ingredient: Ingredient;
 	Instructions: Instructions;
 	DietLabels: DietLabels;
+	User: User;
 	Date: Scalars['Date'];
 	Mutation: {};
 	Subscription: {};
-	User: User;
 };
 
 export interface DateScalarConfig
@@ -303,6 +304,11 @@ export type RecipeResolvers<
 		ParentType,
 		ContextType
 	>;
+	createdBy?: Resolver<
+		Maybe<ResolversTypes['User']>,
+		ParentType,
+		ContextType
+	>;
 	createdAt?: Resolver<
 		Maybe<ResolversTypes['Date']>,
 		ParentType,
@@ -355,8 +361,8 @@ export type UserResolvers<
 	ParentType = ResolversTypes['User']
 > = {
 	_id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-	firstName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-	lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	firstname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	lastname?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 };
 

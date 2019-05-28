@@ -39,6 +39,7 @@ export const RecipeTypes = `
         image: String
         dietLabels: [DietLabels]
         isPublic: Boolean
+        createdBy: User
         createdAt: Date
         updatedAt: Date
     }

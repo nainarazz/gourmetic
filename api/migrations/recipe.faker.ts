@@ -24,6 +24,7 @@ export const generateRecipe = () => ({
 	image: '',
 	dietLabels: faker.random.arrayElement(dietLabels),
 	isPublic: faker.random.boolean(),
+	createdBy: '5cec0708fb6fc01bf23cec50',
 	createdAt: new Date(),
 	updatedAt: new Date(),
 });

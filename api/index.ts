@@ -4,6 +4,7 @@ import * as express from 'express';
 import * as helmet from 'helmet';
 import initSentry from '../shared/sentry';
 import { ApolloServer } from 'apollo-server-express';
+import { buildDataLoaders } from './shared/create-loader';
 import { connectToDb } from './db';
 import { schema } from './schema';
 // tslint:disable-next-line:no-var-requires
@@ -23,7 +24,7 @@ const startServer = async () => {
 
 	const server: ApolloServer = new ApolloServer({
 		schema,
-		context: async req => ({ db }),
+		context: async req => ({ db, loaders: buildDataLoaders() }),
 		validationRules: [depthLimit(10)],
 	});
 
