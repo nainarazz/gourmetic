@@ -1,10 +1,10 @@
 import React from 'react';
-import { RecipeRoot } from '../recipe/containers/recipe-root.container';
+import { RecipeListRoot } from '../recipe/containers/recipe-list/recipe-list.container';
 
 export default () => (
 	<React.Fragment>
 		<div>here is some criteria stuff/filter</div>
-		<RecipeRoot />
+		<RecipeListRoot />
 		<div className="footer">here is my footer.</div>
 	</React.Fragment>
 );

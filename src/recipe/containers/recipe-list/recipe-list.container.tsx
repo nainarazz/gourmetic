@@ -1,11 +1,11 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
-import { RECIPE_LIST_QUERY } from '../recipe.graphql';
-import { RecipeEdge } from '../../../api/graphql-generated-types/resolvers-types';
-import { RecipeList } from '../components/recipe-list/recipe-list.component';
-import { RecipeListComponent } from '../../graphql-generated-types/query-types';
+import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
+import { RecipeEdge } from '../../../../api/graphql-generated-types/resolvers-types';
+import { RecipeList } from '../../components/recipe-list/recipe-list.component';
+import { RecipeListComponent } from '../../../graphql-generated-types/query-types';
 
-export const RecipeRoot = () => {
+export const RecipeListRoot = () => {
 	const numberOfPagesToLoad = 15;
 	return (
 		<RecipeListComponent variables={{ first: numberOfPagesToLoad }}>

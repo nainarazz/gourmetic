@@ -153,6 +153,12 @@ export type RecipeListQuery = { __typename?: 'Query' } & {
 											>
 										>
 									>;
+									createdBy: Maybe<
+										{ __typename?: 'User' } & Pick<
+											User,
+											'firstname' | 'lastname'
+										>
+									>;
 								};
 						}
 				>
@@ -192,6 +198,10 @@ export const RecipeListDocument = gql`
 						imageUrl
 					}
 					image
+					createdBy {
+						firstname
+						lastname
+					}
 					meal
 					prepTime
 					cookingTime

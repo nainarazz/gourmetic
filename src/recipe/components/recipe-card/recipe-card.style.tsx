@@ -17,6 +17,10 @@ export const ImageWrapper = styled.div`
 	@media (min-width: 1330px) {
 		max-width: 30%;
 	}
+
+	:hover {
+		cursor: pointer;
+	}
 `;
 
 export const Photo = styled.div`

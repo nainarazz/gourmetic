@@ -26,6 +26,10 @@ export const RECIPE_LIST_QUERY = gql`
 						imageUrl
 					}
 					image
+					createdBy {
+						firstname
+						lastname
+					}
 					meal
 					prepTime
 					cookingTime

@@ -1,4 +1,4 @@
 export const routes = {
 	'/': 'index',
-	'/about': 'about',
+	'/recipe/:name': 'recipe',
 };

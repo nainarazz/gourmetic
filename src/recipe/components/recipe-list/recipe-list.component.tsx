@@ -14,12 +14,15 @@ export const RecipeList: React.SFC<RecipeListProps> = props => {
 	}
 	const recipes = props.recipeEdges.map(e => {
 		const recipe = e.node;
+		const firstname =
+			(e.node.createdBy && e.node.createdBy.firstname) || '';
+		const lastname = (e.node.createdBy && e.node.createdBy.lastname) || '';
 		return (
 			<RecipeCard
 				key={(recipe as Recipe)._id}
 				recipe={recipe as Recipe}
 				totalLikes={15}
-				username={'naina'}
+				username={`${firstname} ${lastname}`}
 			/>
 		);
 	});
