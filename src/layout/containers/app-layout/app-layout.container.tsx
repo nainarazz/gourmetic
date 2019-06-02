@@ -7,7 +7,8 @@ import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
 
 const GlobalStyle = createGlobalStyle`
     body {
-        margin: 0;
+		margin: 0;
+		background-color: #FAFAFA;
     }
 `;
 
