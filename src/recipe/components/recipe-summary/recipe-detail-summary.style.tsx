@@ -18,6 +18,9 @@ export const Description = styled.div`
 		text-align: center;
 		padding: 20px 0;
 	}
+	.description {
+		text-align: center;
+	}
 	width: 90%;
 	margin: auto;
 	padding: 15px 0;

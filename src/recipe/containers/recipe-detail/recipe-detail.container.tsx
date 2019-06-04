@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
+import { Instruction } from '../../components/instructions/instruction.component';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
 
 export const RecipeDetailRoot: React.SFC = () => (
@@ -16,6 +17,7 @@ export const RecipeDetailRoot: React.SFC = () => (
 				title={'Recipe 1'}
 			/>
 			<Ingredient />
+			<Instruction />
 		</RecipeDetailWrapper>
 	</React.Fragment>
 );

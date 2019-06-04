@@ -19,7 +19,7 @@ export const RecipeDetailSummary: React.SFC<
 				<div>by</div> {props.author}
 			</div>
 			<div className="recipe-title">{props.title}</div>
-			{props.description}
+			<div className="description">{props.description}</div>
 		</Description>
 		<RecipeOverview>
 			<div className="item">
