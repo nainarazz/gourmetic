@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const RecipeOverview = styled.div`
 	display: flex;
 	justify-content: space-evenly;
-	padding-bottom: 20px;
+	padding: 15px 0;
+	width: 90%;
+	margin: auto;
 
 	.item {
 		text-align: center;
@@ -16,5 +18,7 @@ export const Description = styled.div`
 		text-align: center;
 		padding: 20px 0;
 	}
-	padding: 0 15px;
+	width: 90%;
+	margin: auto;
+	padding: 15px 0;
 `;

@@ -9,7 +9,7 @@ export const RecipeDetailWrapper = styled.div`
 	box-sizing: border-box;
 	margin-bottom: 20px;
 
-	@media (min-width: 768px) {
+	@media (min-width: 769px) {
 		width: 70%;
 	}
 `;
