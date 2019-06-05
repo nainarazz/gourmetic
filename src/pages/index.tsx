@@ -4,7 +4,7 @@ import { RecipeListRoot } from '../recipe/containers/recipe-list/recipe-list.con
 export default () => (
 	<React.Fragment>
 		<div>here is some criteria stuff/filter</div>
-		<RecipeListRoot />
+		{/* <RecipeListRoot /> */}
 		<div className="footer">here is my footer.</div>
 	</React.Fragment>
 );

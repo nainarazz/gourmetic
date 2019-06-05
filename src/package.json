@@ -1,0 +1,33 @@
+{
+	"name": "src",
+	"version": "1.0.0",
+	"description": "frontend for gourmetic",
+	"dependencies": {
+		"@babel/core": "^7.4.5",
+		"@fortawesome/fontawesome-free-regular": "^5.0.13",
+		"@fortawesome/fontawesome-svg-core": "^1.2.17",
+		"@fortawesome/free-regular-svg-icons": "^5.8.1",
+		"@fortawesome/free-solid-svg-icons": "^5.8.1",
+		"@fortawesome/react-fontawesome": "^0.1.4",
+		"@zeit/next-typescript": "^1.1.1",
+		"apollo-boost": "^0.4.1",
+		"graphql": "^14.2.1",
+		"isomorphic-unfetch": "3.0.0",
+		"next": "^8.0.4",
+		"next-with-apollo": "^3.4.0",
+		"react": "^16.8.6",
+		"react-apollo": "^2.5.5",
+		"react-dom": "^16.8.6",
+		"react-infinite-scroll-component": "^4.5.2",
+		"styled-components": "^4.2.0"
+	},
+	"devDependencies": {
+		"@types/next": "^8.0.3",
+		"@types/react": "^16.8.13",
+		"@types/react-dom": "^16.8.3",
+		"@types/react-infinite-scroll-component": "^4.2.3",
+		"@types/styled-components": "^4.1.14",
+		"babel-plugin-styled-components": "^1.10.0"
+	},
+	"license": "MIT"
+}
