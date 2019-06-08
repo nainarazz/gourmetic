@@ -20,11 +20,7 @@ app.prepare().then(() => {
 	);
 
 	const port = process.env.PORT_NEXT || 3000;
-	server.listen(port, (err: Error) => {
-		if (err) {
-			throw err;
-		}
-
+	server.listen(port, () => {
 		debug(`next server running on port ${port}`);
 	});
 });

@@ -18,7 +18,7 @@ const startServer = async () => {
 
 	const db = await connectToDb();
 
-	const port = process.env.PORT || 4000;
+	const port = process.env.PORT_API || 4000;
 	app.use(compression());
 	app.use(helmet());
 

@@ -7,10 +7,11 @@
 		"dev:web": "cross-env DEBUG=next nodemon --watch src --exec ts-node --transpile-only ./src/server/index.ts",
 		"dev:api": "cross-env DEBUG=api,sentry nodemon --watch api --exec ts-node --transpile-only ./api/index.ts",
 		"build": "next build src",
-		"start": "next start src",
+		"start": "next start src -p $PORT",
 		"lint": "tslint --project tsconfig.json --fix",
 		"generate": "graphql-codegen",
-		"seed": "cross-env DEBUG=seeding ts-node ./api/migrations/index.ts"
+		"seed": "cross-env DEBUG=seeding ts-node ./api/migrations/index.ts",
+		"preinstall": "npm i -g pm2 && pm2 install pm2-logrotate"
 	},
 	"repository": {
 		"type": "git",
