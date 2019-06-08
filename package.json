@@ -11,7 +11,7 @@
 		"lint": "tslint --project tsconfig.json --fix",
 		"generate": "graphql-codegen",
 		"seed": "cross-env DEBUG=seeding ts-node ./api/migrations/index.ts",
-		"preinstall": "npm i -g pm2 && pm2 install pm2-logrotate"
+		"preinstall": "npm i pm2 && pm2 install pm2-logrotate"
 	},
 	"repository": {
 		"type": "git",
