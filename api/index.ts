@@ -2,7 +2,7 @@ import * as compression from 'compression';
 import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import initSentry from '../shared/sentry';
+import initSentry from '../shared/sentry/index';
 import { ApolloServer } from 'apollo-server-express';
 import { buildDataLoaders } from './shared/create-loader';
 import { connectToDb } from './db';
@@ -28,7 +28,7 @@ const startServer = async () => {
 		validationRules: [depthLimit(10)],
 	});
 
-	server.applyMiddleware({ app });
+	server.applyMiddleware({ app, path: '/api' });
 
 	app.listen(port, () => {
 		// tslint:disable-next-line:no-console

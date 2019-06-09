@@ -11,10 +11,11 @@ export const RecipeListRoot = () => {
 		<RecipeListComponent variables={{ first: numberOfPagesToLoad }}>
 			{({ data, fetchMore }) => {
 				const result = data && data.recipeList;
-				const edges: RecipeEdge[] = (result &&
-					result.edges) as RecipeEdge[];
+				const edges: RecipeEdge[] =
+					((result && result.edges) as RecipeEdge[]) || [];
 				const hasNextPage = result && result.pageInfo!.hasNextPage;
-				const cursor = edges[edges.length - 1].cursor;
+				const cursor =
+					edges[edges.length - 1] && edges[edges.length - 1].cursor;
 
 				const onLoadMore = () => {
 					return fetchMore({

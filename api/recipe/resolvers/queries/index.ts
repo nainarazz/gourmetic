@@ -1,6 +1,6 @@
 import { Context } from '../../../graphql-generated-types/context';
 import { createdBy } from './createdBy.query';
-import { getPaginatedRecipes } from '../../models/recipe.model';
+import { getPaginatedRecipes } from '../../models/Recipe.model';
 import { User } from './../../../../src/graphql-generated-types/query-types';
 import {
 	QueryResolvers,

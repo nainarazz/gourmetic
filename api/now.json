@@ -1,0 +1,13 @@
+{
+	"version": 2,
+	"env": {
+		"NODE_ENV": "development",
+		"MONGO_URL": "localhost"
+	},
+	"build": {
+		"env": {
+			"MONGO_URL": "@mongodb-uri",
+			"SENTRY_DSN": "@sentry"
+		}
+	}
+}

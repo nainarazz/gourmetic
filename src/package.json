@@ -2,6 +2,10 @@
 	"name": "src",
 	"version": "1.0.0",
 	"description": "frontend for gourmetic",
+	"scripts": {
+		"build": "next build",
+		"start": "next start"
+	},
 	"dependencies": {
 		"@babel/core": "^7.4.5",
 		"@fortawesome/fontawesome-free-regular": "^5.0.13",

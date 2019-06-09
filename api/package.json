@@ -1,4 +1,7 @@
 {
+	"scripts": {
+		"build": "tsc ./*.ts"
+	},
 	"dependencies": {
 		"@sentry/node": "^5.1.0",
 		"apollo-server-express": "^2.4.8",
@@ -27,6 +30,6 @@
 	},
 	"name": "api",
 	"version": "1.0.0",
-	"main": "index.js",
+	"main": "index.ts",
 	"license": "MIT"
 }
