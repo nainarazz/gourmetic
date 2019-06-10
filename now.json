@@ -2,10 +2,10 @@
 	"version": 2,
 	"builds": [
 		{ "src": "src/package.json", "use": "@now/next" },
-		{ "src": "build-api/main.js", "use": "@now/node-server" }
+		{ "src": "build-api/index.js", "use": "@now/node-server" }
 	],
 	"routes": [
-		{ "src": "/api", "dest": "/build-api/main.js" },
+		{ "src": "/api", "dest": "/build-api/index.js" },
 		{ "src": "^/recipe/(?<name>[^/]+)", "dest": "/src/recipe?name=$name" },
 		{ "src": "/(.*)", "dest": "src/$1" }
 	]

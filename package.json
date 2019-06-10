@@ -12,7 +12,8 @@
 		"lint": "tslint --project tsconfig.json --fix",
 		"generate": "graphql-codegen",
 		"seed": "cross-env DEBUG=seeding ts-node ./api/migrations/index.ts",
-		"now-build": "next build src"
+		"now-build": "next build src",
+		"deploy:prod": "now -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry"
 	},
 	"repository": "git+https://github.com/nainarazz/gourmetic.git",
 	"keywords": [],

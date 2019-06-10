@@ -6,7 +6,7 @@
 	},
 	"build": {
 		"env": {
-			"MONGO_URL": "@mongodb-uri",
+			"MONGO_URL": "@mongo_url",
 			"SENTRY_DSN": "@sentry"
 		}
 	}

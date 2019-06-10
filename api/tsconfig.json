@@ -1,9 +1,7 @@
 {
 	"extends": "../tsconfig.json",
 	"compilerOptions": {
-		"outDir": "../build-api",
-		"outFile": "../build-api/main.js",
-		"module": "system"
+		"outDir": "../build-api"
 	},
 	"exclude": ["node_modules"]
 }
