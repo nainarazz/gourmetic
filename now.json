@@ -8,5 +8,11 @@
 		{ "src": "/api", "dest": "/build-api/index.js" },
 		{ "src": "^/recipe/(?<name>[^/]+)", "dest": "/src/recipe?name=$name" },
 		{ "src": "/(.*)", "dest": "src/$1" }
-	]
+	],
+	"build": {
+		"env": {
+			"MONGO_URL": "@mongo_url",
+			"SENTRY_DSN": "@sentry"
+		}
+	}
 }

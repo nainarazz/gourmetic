@@ -1,8 +1,10 @@
 import * as mongoose from 'mongoose';
 import '../recipe/models';
 import '../user/models';
-// tslint:disable-next-line:no-var-requires
-require('now-env');
+if (!process.env.now) {
+	// tslint:disable-next-line:no-var-requires
+	require('dotenv').config();
+}
 // tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 

@@ -10,8 +10,10 @@ import { schema } from './schema';
 // tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 
-// tslint:disable-next-line:no-var-requires
-require('now-env');
+if (!process.env.now) {
+	// tslint:disable-next-line:no-var-requires
+	require('dotenv').config();
+}
 
 const startServer = async () => {
 	const app = express();
