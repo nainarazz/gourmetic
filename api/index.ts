@@ -2,7 +2,7 @@ import * as compression from 'compression';
 import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import initSentry from '../shared/sentry/index';
+import initSentry from './sentry';
 import { ApolloServer } from 'apollo-server-express';
 import { buildDataLoaders } from './shared/create-loader';
 import { connectToDb } from './db';

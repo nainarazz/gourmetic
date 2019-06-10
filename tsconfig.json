@@ -1,10 +1,8 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
 		"jsx": "react",
 		"moduleResolution": "node",
-		"noEmit": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": false,
 		"preserveConstEnums": true,
@@ -13,8 +11,6 @@
 		"sourceMap": true,
 		"strict": true,
 		"target": "es5",
-		"lib": ["es6", "es7", "dom"],
-		"outDir": "build"
-	},
-	"exclude": ["node_modules", "src", "*.json"]
+		"lib": ["es6", "es7", "dom"]
+	}
 }

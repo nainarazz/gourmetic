@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import { User } from '../../../src/graphql-generated-types/query-types';
+import { User } from '../../graphql-generated-types/resolvers-types';
 
 export const getUsersById = async (keys: string[]) => {
 	return (await mongoose
