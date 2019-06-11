@@ -26,7 +26,7 @@ export default class MyDocument extends Document<DocumentProps> {
 		return (
 			<Html>
 				<Head>
-					{this.props && this.props.styles}
+					{this.props.styleTags}
 					<meta charSet="utf-8" />
 					<meta
 						name="viewport"
