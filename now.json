@@ -5,6 +5,14 @@
 		{ "src": "build-api/index.js", "use": "@now/node-server" }
 	],
 	"routes": [
+		{
+			"src": "^/service-worker.js$",
+			"dest": "/_next/static/service-worker.js",
+			"headers": {
+				"cache-control": "public, max-age=43200, immutable",
+				"Service-Worker-Allowed": "/"
+			}
+		},
 		{ "src": "/api", "dest": "/build-api/index.js" },
 		{ "src": "^/recipe/(?<name>[^/]+)", "dest": "/src/recipe?name=$name" },
 		{ "src": "/(.*)", "dest": "src/$1" }

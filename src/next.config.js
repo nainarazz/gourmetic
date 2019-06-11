@@ -1,4 +1,8 @@
 const withTypescript = require('@zeit/next-typescript');
-module.exports = withTypescript({
-	target: 'serverless',
-});
+const nextOffline = require('next-offline');
+
+module.exports = withTypescript(
+	nextOffline({
+		target: 'serverless',
+	})
+);

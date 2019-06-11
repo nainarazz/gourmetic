@@ -14,12 +14,28 @@ interface Props {
 class MyApp extends App<Props> {
 	static async getInitialProps({ Component, ctx }: AppComponentContext) {
 		let pageProps: Partial<NextContext>;
+
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx);
 		}
 
 		pageProps = { query: ctx.query };
 		return { pageProps };
+	}
+
+	componentDidMount() {
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker
+					.register('/service-worker.js', { scope: '/' })
+					.then(registration => {
+						/** */
+					})
+					.catch(registrationError => {
+						/** */
+					});
+			});
+		}
 	}
 
 	render() {
