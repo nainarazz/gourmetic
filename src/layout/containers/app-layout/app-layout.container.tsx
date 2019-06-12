@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import React, { useState } from 'react';
 import { Backdrop } from '../../../shared/components/backdrop/backdrop.component';
 import { createGlobalStyle } from 'styled-components';
@@ -22,6 +23,9 @@ export const AppLayout: React.SFC = props => {
 
 	return (
 		<div>
+			<Head>
+				<title>Gourmetic</title>
+			</Head>
 			<GlobalStyle />
 			<Header
 				drawerClickHandler={() =>

@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import { decode, encode } from '../../utils/base64';
 import { PaginationOptions } from '../../utils/pagination';
-import { Recipe } from '../../../src/graphql-generated-types/query-types';
+import { Recipe } from '../../graphql-generated-types/resolvers-types';
 
 export const getPaginatedRecipes = async (options: PaginationOptions) => {
 	const { first, after } = options;

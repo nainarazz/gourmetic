@@ -5,6 +5,7 @@ import Document, {
 	Main,
 	NextScript,
 	NextDocumentContext,
+	Html,
 } from 'next/document';
 
 interface DocumentProps {
@@ -23,13 +24,21 @@ export default class MyDocument extends Document<DocumentProps> {
 
 	render() {
 		return (
-			<html>
-				<Head>{this.props.styleTags}</Head>
+			<Html>
+				<Head>
+					{this.props.styleTags}
+					<meta charSet="utf-8" />
+					<meta
+						name="viewport"
+						content="initial-scale=1.0, width=device-width"
+					/>
+					<link rel="manifest" href="/static/manifest.json" />
+				</Head>
 				<body>
 					<Main />
 					<NextScript />
 				</body>
-			</html>
+			</Html>
 		);
 	}
 }

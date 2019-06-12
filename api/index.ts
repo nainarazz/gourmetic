@@ -2,7 +2,7 @@ import * as compression from 'compression';
 import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
-import initSentry from '../shared/sentry';
+import initSentry from './sentry';
 import { ApolloServer } from 'apollo-server-express';
 import { buildDataLoaders } from './shared/create-loader';
 import { connectToDb } from './db';
@@ -10,8 +10,10 @@ import { schema } from './schema';
 // tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 
-// tslint:disable-next-line:no-var-requires
-require('now-env');
+if (!process.env.now) {
+	// tslint:disable-next-line:no-var-requires
+	require('dotenv').config();
+}
 
 const startServer = async () => {
 	const app = express();
@@ -28,7 +30,7 @@ const startServer = async () => {
 		validationRules: [depthLimit(10)],
 	});
 
-	server.applyMiddleware({ app });
+	server.applyMiddleware({ app, path: '/api' });
 
 	app.listen(port, () => {
 		// tslint:disable-next-line:no-console

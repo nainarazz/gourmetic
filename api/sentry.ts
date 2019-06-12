@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/node';
 import { RewriteFrames } from '@sentry/integrations';
-import { rootDirectory } from '../../api/root';
+import { rootDirectory } from './root';
 // tslint:disable-next-line:no-var-requires
 const debug = require('debug')('sentry');
 

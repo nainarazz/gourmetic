@@ -1,6 +1,9 @@
 // tslint:disable
-
+import gql from 'graphql-tag';
+import * as React from 'react';
+import * as ReactApollo from 'react-apollo';
 export type Maybe<T> = T | null;
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
 	ID: string;
@@ -18,12 +21,14 @@ export enum DietLabels {
 }
 
 export type Ingredient = {
+	__typename?: 'Ingredient';
 	measurement?: Maybe<Scalars['String']>;
 	item: Scalars['String'];
 	quantity?: Maybe<Scalars['String']>;
 };
 
 export type Instructions = {
+	__typename?: 'Instructions';
 	imageUrl?: Maybe<Scalars['String']>;
 	stepNumber: Scalars['Int'];
 	description: Scalars['String'];
@@ -39,10 +44,12 @@ export enum Meals {
 }
 
 export type Mutation = {
+	__typename?: 'Mutation';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type PageInfo = {
+	__typename?: 'PageInfo';
 	hasNextPage: Scalars['Boolean'];
 };
 
@@ -52,6 +59,7 @@ export type PageInfo = {
  * Ref: apollographql/graphql-tools#293
  */
 export type Query = {
+	__typename?: 'Query';
 	dummy?: Maybe<Scalars['String']>;
 	recipeList?: Maybe<RecipeResult>;
 };
@@ -67,6 +75,7 @@ export type QueryRecipeListArgs = {
 };
 
 export type Recipe = {
+	__typename?: 'Recipe';
 	_id: Scalars['ID'];
 	name: Scalars['String'];
 	description: Scalars['String'];
@@ -85,20 +94,24 @@ export type Recipe = {
 };
 
 export type RecipeEdge = {
+	__typename?: 'RecipeEdge';
 	cursor: Scalars['String'];
 	node: Recipe;
 };
 
 export type RecipeResult = {
+	__typename?: 'RecipeResult';
 	pageInfo?: Maybe<PageInfo>;
 	edges: Array<Maybe<RecipeEdge>>;
 };
 
 export type Subscription = {
+	__typename?: 'Subscription';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type User = {
+	__typename?: 'User';
 	_id: Scalars['ID'];
 	firstname: Scalars['String'];
 	lastname: Scalars['String'];
@@ -167,11 +180,6 @@ export type RecipeListQuery = { __typename?: 'Query' } & {
 	>;
 };
 
-import gql from 'graphql-tag';
-import * as React from 'react';
-import * as ReactApollo from 'react-apollo';
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
 export const RecipeListDocument = gql`
 	query RecipeList($first: Int, $after: String) {
 		recipeList(first: $first, after: $after) {
@@ -211,16 +219,15 @@ export const RecipeListDocument = gql`
 		}
 	}
 `;
+export type RecipeListComponentProps = Omit<
+	Omit<
+		ReactApollo.QueryProps<RecipeListQuery, RecipeListQueryVariables>,
+		'query'
+	>,
+	'variables'
+> & { variables?: RecipeListQueryVariables };
 
-export const RecipeListComponent = (
-	props: Omit<
-		Omit<
-			ReactApollo.QueryProps<RecipeListQuery, RecipeListQueryVariables>,
-			'query'
-		>,
-		'variables'
-	> & { variables?: RecipeListQueryVariables }
-) => (
+export const RecipeListComponent = (props: RecipeListComponentProps) => (
 	<ReactApollo.Query<RecipeListQuery, RecipeListQueryVariables>
 		query={RecipeListDocument}
 		{...props}

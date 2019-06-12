@@ -1,7 +1,26 @@
 {
-	"env": {
-		"NODE_ENV": "development",
-		"MONGO_URL": "mongodb://naina:nainarazafindrabiby12345@ds054479.mlab.com:54479/gourmetic",
-		"SENTRY_DSN": "sentry dsn"
-	}
+  "version": 2,
+  "builds": [
+    { "src": "src/package.json", "use": "@now/next" },
+    { "src": "build-api/index.js", "use": "@now/node-server" }
+  ],
+  "routes": [
+    {
+      "src": "^/service-worker.js$",
+      "dest": "/_next/static/service-worker.js",
+      "headers": {
+        "cache-control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    { "src": "/api", "dest": "/build-api/index.js" },
+    { "src": "^/recipe/(?<name>[^/]+)", "dest": "/src/recipe?name=$name" },
+    { "src": "/(.*)", "dest": "src/$1" }
+  ],
+  "build": {
+    "env": {
+      "MONGO_URL": "@mongo_url",
+      "SENTRY_DSN": "@sentry"
+    }
+  }
 }
