@@ -10,13 +10,13 @@ import {
 } from '../../../graphql-generated-types/query-types';
 
 interface RecipeDetailProps {
-	id: string | string[] | undefined;
+	id: string;
 }
 
 export const RecipeDetailRoot: NextFunctionComponent<
 	RecipeDetailProps
 > = props => (
-	<RecipeDetailComponent variables={{ id: '5cf69ff6c0ba082038b66f80' }}>
+	<RecipeDetailComponent variables={{ id: props.id }}>
 		{({ data }) => {
 			const recipe = data!.recipeDetail;
 			const authorResult = recipe && recipe.createdBy;
@@ -50,5 +50,3 @@ export const RecipeDetailRoot: NextFunctionComponent<
 		}}
 	</RecipeDetailComponent>
 );
-
-RecipeDetailRoot.getInitialProps = ({ query: { id } }) => ({ id });
