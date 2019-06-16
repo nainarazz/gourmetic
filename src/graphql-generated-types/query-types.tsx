@@ -21,14 +21,12 @@ export enum DietLabels {
 }
 
 export type Ingredient = {
-	__typename?: 'Ingredient';
 	measurement?: Maybe<Scalars['String']>;
 	item: Scalars['String'];
 	quantity?: Maybe<Scalars['String']>;
 };
 
 export type Instructions = {
-	__typename?: 'Instructions';
 	imageUrl?: Maybe<Scalars['String']>;
 	stepNumber: Scalars['Int'];
 	description: Scalars['String'];
@@ -44,12 +42,10 @@ export enum Meals {
 }
 
 export type Mutation = {
-	__typename?: 'Mutation';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type PageInfo = {
-	__typename?: 'PageInfo';
 	hasNextPage: Scalars['Boolean'];
 };
 
@@ -59,7 +55,6 @@ export type PageInfo = {
  * Ref: apollographql/graphql-tools#293
  */
 export type Query = {
-	__typename?: 'Query';
 	dummy?: Maybe<Scalars['String']>;
 	recipeList?: Maybe<RecipeResult>;
 	recipeDetail?: Maybe<Recipe>;
@@ -85,7 +80,6 @@ export type QueryRecipeDetailArgs = {
 };
 
 export type Recipe = {
-	__typename?: 'Recipe';
 	_id: Scalars['ID'];
 	name: Scalars['String'];
 	description: Scalars['String'];
@@ -104,24 +98,20 @@ export type Recipe = {
 };
 
 export type RecipeEdge = {
-	__typename?: 'RecipeEdge';
 	cursor: Scalars['String'];
 	node: Recipe;
 };
 
 export type RecipeResult = {
-	__typename?: 'RecipeResult';
 	pageInfo?: Maybe<PageInfo>;
 	edges: Array<Maybe<RecipeEdge>>;
 };
 
 export type Subscription = {
-	__typename?: 'Subscription';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type User = {
-	__typename?: 'User';
 	_id: Scalars['ID'];
 	firstname: Scalars['String'];
 	lastname: Scalars['String'];
@@ -132,74 +122,68 @@ export type RecipeListQueryVariables = {
 	after?: Maybe<Scalars['String']>;
 };
 
-export type RecipeListQuery = { __typename?: 'Query' } & {
-	recipeList: Maybe<
-		{ __typename?: 'RecipeResult' } & {
-			pageInfo: Maybe<
-				{ __typename?: 'PageInfo' } & Pick<PageInfo, 'hasNextPage'>
-			>;
-			edges: Array<
-				Maybe<
-					{ __typename?: 'RecipeEdge' } & Pick<
-						RecipeEdge,
-						'cursor'
+export type RecipeListQuery = {
+	recipeList: Maybe<{
+		pageInfo: Maybe<Pick<PageInfo, 'hasNextPage'>>;
+		edges: Array<
+			Maybe<
+				Pick<RecipeEdge, 'cursor'> & {
+					node: Pick<
+						Recipe,
+						| '_id'
+						| 'name'
+						| 'description'
+						| 'meal'
+						| 'createdAt'
+						| 'updatedAt'
+						| 'image'
+						| 'meal'
+						| 'prepTime'
+						| 'cookingTime'
+						| 'isPublic'
 					> & {
-							node: { __typename?: 'Recipe' } & Pick<
-								Recipe,
-								| '_id'
-								| 'name'
-								| 'description'
-								| 'meal'
-								| 'createdAt'
-								| 'updatedAt'
-								| 'image'
-								| 'meal'
-								| 'prepTime'
-								| 'cookingTime'
-								| 'isPublic'
-							> & {
-									ingredients: Array<
-										{ __typename?: 'Ingredient' } & Pick<
-											Ingredient,
-											'item' | 'measurement' | 'quantity'
-										>
-									>;
-									instructions: Array<
-										Maybe<
-											{
-												__typename?: 'Instructions';
-											} & Pick<
-												Instructions,
-												| 'stepNumber'
-												| 'description'
-												| 'imageUrl'
-											>
-										>
-									>;
-									createdBy: Maybe<
-										{ __typename?: 'User' } & Pick<
-											User,
-											'firstname' | 'lastname'
-										>
-									>;
-								};
-						}
-				>
-			>;
-		}
-	>;
+						ingredients: Array<
+							Pick<
+								Ingredient,
+								'item' | 'measurement' | 'quantity'
+							>
+						>;
+						instructions: Array<
+							Maybe<
+								Pick<
+									Instructions,
+									'stepNumber' | 'description' | 'imageUrl'
+								>
+							>
+						>;
+						createdBy: Maybe<Pick<User, 'firstname' | 'lastname'>>;
+					};
+				}
+			>
+		>;
+	}>;
 };
 
 export type RecipeDetailQueryVariables = {
 	id?: Maybe<Scalars['ID']>;
 };
 
-export type RecipeDetailQuery = { __typename?: 'Query' } & {
+export type RecipeDetailQuery = {
 	recipeDetail: Maybe<
-		{ __typename?: 'Recipe' } & Pick<
-			Recipe,
-			'name' | 'description' | 'meal'
-		>
+		Pick<Recipe, 'name' | 'description' | 'prepTime' | 'cookingTime'> & {
+			ingredients: Array<
+				Pick<Ingredient, 'item' | 'quantity' | 'measurement'>
+			>;
+			instructions: Array<
+				Maybe<
+					Pick<
+						Instructions,
+						'imageUrl' | 'stepNumber' | 'description'
+					>
+				>
+			>;
+			createdBy: Maybe<Pick<User, 'firstname' | 'lastname'>>;
+		}
 	>;
 };
 
@@ -284,7 +268,22 @@ export const RecipeDetailDocument = gql`
 		recipeDetail(id: $id) {
 			name
 			description
-			meal
+			prepTime
+			cookingTime
+			ingredients {
+				item
+				quantity
+				measurement
+			}
+			instructions {
+				imageUrl
+				stepNumber
+				description
+			}
+			createdBy {
+				firstname
+				lastname
+			}
 		}
 	}
 `;

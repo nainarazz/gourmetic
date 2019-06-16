@@ -2,12 +2,12 @@ import React from 'react';
 import { Description, RecipeOverview } from './recipe-detail-summary.style';
 
 interface RecipeDetailSummaryProps {
-	prepTime: string;
-	cookTime: string;
-	difficulty: string;
-	description: string;
-	author: string;
-	title: string;
+	prepTime: number | null | undefined;
+	cookTime: number | null | undefined;
+	difficulty: string | null | undefined;
+	description: string | null | undefined;
+	author: string | null | undefined;
+	title: string | null | undefined;
 }
 
 export const RecipeDetailSummary: React.SFC<
