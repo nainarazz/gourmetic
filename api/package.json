@@ -1,6 +1,7 @@
 {
 	"scripts": {
-		"build": "tsc"
+		"build": "tsc",
+		"seed": "cross-env DEBUG=seeding ts-node migrations/index.ts"
 	},
 	"dependencies": {
 		"@sentry/node": "^5.1.0",

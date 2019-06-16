@@ -11,7 +11,7 @@
 		"start": "next start",
 		"lint": "tslint --project tsconfig.json --fix",
 		"generate-types": "graphql-codegen",
-		"seed": "cross-env DEBUG=seeding ts-node ./api/migrations/index.ts",
+		"seed": "cd api && yarn seed",
 		"now-build": "next build src",
 		"deploy:prod": "now -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry"
 	},
