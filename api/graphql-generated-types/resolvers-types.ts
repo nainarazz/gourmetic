@@ -65,6 +65,7 @@ export type Query = {
 	__typename?: 'Query';
 	dummy?: Maybe<Scalars['String']>;
 	recipeList?: Maybe<RecipeResult>;
+	recipeDetail?: Maybe<Recipe>;
 };
 
 /** The dummy queries and mutations are necessary because
@@ -75,6 +76,15 @@ export type Query = {
 export type QueryRecipeListArgs = {
 	first?: Maybe<Scalars['Int']>;
 	after?: Maybe<Scalars['String']>;
+};
+
+/** The dummy queries and mutations are necessary because
+ * graphql-js cannot have empty root types and we only extend
+ * these types later on
+ * Ref: apollographql/graphql-tools#293
+ */
+export type QueryRecipeDetailArgs = {
+	id?: Maybe<Scalars['ID']>;
 };
 
 export type Recipe = {
@@ -268,6 +278,12 @@ export type QueryResolvers<
 		ParentType,
 		ContextType,
 		QueryRecipeListArgs
+	>;
+	recipeDetail?: Resolver<
+		Maybe<ResolversTypes['Recipe']>,
+		ParentType,
+		ContextType,
+		QueryRecipeDetailArgs
 	>;
 };
 

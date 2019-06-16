@@ -60,5 +60,6 @@ export const RecipeTypes = `
 
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
+        recipeDetail(id: ID): Recipe
     }
 `;

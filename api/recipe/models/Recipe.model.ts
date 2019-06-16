@@ -40,3 +40,11 @@ export const getPaginatedRecipes = async (options: PaginationOptions) => {
 		edges,
 	};
 };
+
+export const getRecipeDetail = async (id: string) => {
+	return mongoose
+		.model('recipe')
+		.findById(id)
+		.lean()
+		.exec();
+};

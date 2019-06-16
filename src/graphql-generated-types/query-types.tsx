@@ -62,6 +62,7 @@ export type Query = {
 	__typename?: 'Query';
 	dummy?: Maybe<Scalars['String']>;
 	recipeList?: Maybe<RecipeResult>;
+	recipeDetail?: Maybe<Recipe>;
 };
 
 /** The dummy queries and mutations are necessary because
@@ -72,6 +73,15 @@ export type Query = {
 export type QueryRecipeListArgs = {
 	first?: Maybe<Scalars['Int']>;
 	after?: Maybe<Scalars['String']>;
+};
+
+/** The dummy queries and mutations are necessary because
+ * graphql-js cannot have empty root types and we only extend
+ * these types later on
+ * Ref: apollographql/graphql-tools#293
+ */
+export type QueryRecipeDetailArgs = {
+	id?: Maybe<Scalars['ID']>;
 };
 
 export type Recipe = {
@@ -180,6 +190,19 @@ export type RecipeListQuery = { __typename?: 'Query' } & {
 	>;
 };
 
+export type RecipeDetailQueryVariables = {
+	id?: Maybe<Scalars['ID']>;
+};
+
+export type RecipeDetailQuery = { __typename?: 'Query' } & {
+	recipeDetail: Maybe<
+		{ __typename?: 'Recipe' } & Pick<
+			Recipe,
+			'name' | 'description' | 'meal'
+		>
+	>;
+};
+
 export const RecipeListDocument = gql`
 	query RecipeList($first: Int, $after: String) {
 		recipeList(first: $first, after: $after) {
@@ -253,6 +276,52 @@ export function withRecipeList<TProps, TChildProps = {}>(
 		RecipeListProps<TChildProps>
 	>(RecipeListDocument, {
 		alias: 'withRecipeList',
+		...operationOptions,
+	});
+}
+export const RecipeDetailDocument = gql`
+	query RecipeDetail($id: ID) {
+		recipeDetail(id: $id) {
+			name
+			description
+			meal
+		}
+	}
+`;
+export type RecipeDetailComponentProps = Omit<
+	Omit<
+		ReactApollo.QueryProps<RecipeDetailQuery, RecipeDetailQueryVariables>,
+		'query'
+	>,
+	'variables'
+> & { variables?: RecipeDetailQueryVariables };
+
+export const RecipeDetailComponent = (props: RecipeDetailComponentProps) => (
+	<ReactApollo.Query<RecipeDetailQuery, RecipeDetailQueryVariables>
+		query={RecipeDetailDocument}
+		{...props}
+	/>
+);
+
+export type RecipeDetailProps<TChildProps = {}> = Partial<
+	ReactApollo.DataProps<RecipeDetailQuery, RecipeDetailQueryVariables>
+> &
+	TChildProps;
+export function withRecipeDetail<TProps, TChildProps = {}>(
+	operationOptions?: ReactApollo.OperationOption<
+		TProps,
+		RecipeDetailQuery,
+		RecipeDetailQueryVariables,
+		RecipeDetailProps<TChildProps>
+	>
+) {
+	return ReactApollo.withQuery<
+		TProps,
+		RecipeDetailQuery,
+		RecipeDetailQueryVariables,
+		RecipeDetailProps<TChildProps>
+	>(RecipeDetailDocument, {
+		alias: 'withRecipeDetail',
 		...operationOptions,
 	});
 }

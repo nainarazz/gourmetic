@@ -38,4 +38,11 @@ export const RECIPE_LIST_QUERY = gql`
 			}
 		}
 	}
+	query RecipeDetail($id: ID) {
+		recipeDetail(id: $id) {
+			name
+			description
+			meal
+		}
+	}
 `;
