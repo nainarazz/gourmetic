@@ -2,22 +2,51 @@ import React from 'react';
 import { Image, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
 import { Instruction } from '../../components/instructions/instruction.component';
+import { NextFunctionComponent } from 'next';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
+import {
+	RecipeDetailComponent,
+	Instructions,
+} from '../../../graphql-generated-types/query-types';
 
-export const RecipeDetailRoot: React.SFC = () => (
-	<React.Fragment>
-		<RecipeDetailWrapper>
-			<Image>my image here</Image>
-			<RecipeDetailSummary
-				prepTime={'30'}
-				difficulty={'easy'}
-				cookTime={'30'}
-				description={'recipe description here'}
-				author={'Naina Razafindrabiby'}
-				title={'Recipe 1'}
-			/>
-			<Ingredient />
-			<Instruction />
-		</RecipeDetailWrapper>
-	</React.Fragment>
+interface RecipeDetailProps {
+	id: string;
+}
+
+export const RecipeDetailRoot: NextFunctionComponent<
+	RecipeDetailProps
+> = props => (
+	<RecipeDetailComponent variables={{ id: props.id }}>
+		{({ data }) => {
+			const recipe = data!.recipeDetail;
+			const authorResult = recipe && recipe.createdBy;
+			const author =
+				authorResult &&
+				`${authorResult.firstname} ${authorResult.lastname}`;
+			const instructions =
+				recipe && recipe.instructions ? recipe.instructions : [];
+
+			return (
+				<React.Fragment>
+					<RecipeDetailWrapper>
+						<Image>my image here</Image>
+						<RecipeDetailSummary
+							prepTime={recipe && recipe.prepTime}
+							difficulty={'easy'}
+							cookTime={recipe && recipe.prepTime}
+							description={(recipe && recipe.description) || ''}
+							author={author}
+							title={recipe && recipe.name}
+						/>
+						<Ingredient
+							ingredients={(recipe && recipe.ingredients) || []}
+						/>
+						<Instruction
+							instructions={instructions as Instructions[]}
+						/>
+					</RecipeDetailWrapper>
+				</React.Fragment>
+			);
+		}}
+	</RecipeDetailComponent>
 );

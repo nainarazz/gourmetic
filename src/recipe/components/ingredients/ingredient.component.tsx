@@ -5,17 +5,25 @@ import {
 	Item,
 	Title
 	} from './ingredient.style';
+import { Ingredient as IngredientType } from '../../../graphql-generated-types/query-types';
 
-export const Ingredient: React.SFC = () => (
+interface IngredientProps {
+	ingredients: IngredientType[];
+}
+
+export const Ingredient: React.SFC<IngredientProps> = props => (
 	<React.Fragment>
 		<IngredientsWrapper>
 			<Title>Ingredients</Title>
 			<Contents>
-				<Item>3/4 cups flour</Item>
-				<Item>2 large eggs</Item>
-				<Item>1/4 spoon salt</Item>
-				<Item>2 cups raising</Item>
-				<Item>1 teaspoon sugar</Item>
+				{props.ingredients.map((ingredient, index) => (
+					<Item key={index}>
+						<span>
+							{ingredient.quantity} {ingredient.measurement}{' '}
+							{ingredient.item}
+						</span>
+					</Item>
+				))}
 			</Contents>
 		</IngredientsWrapper>
 	</React.Fragment>

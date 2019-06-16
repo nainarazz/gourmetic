@@ -21,14 +21,12 @@ export enum DietLabels {
 }
 
 export type Ingredient = {
-	__typename?: 'Ingredient';
 	measurement?: Maybe<Scalars['String']>;
 	item: Scalars['String'];
 	quantity?: Maybe<Scalars['String']>;
 };
 
 export type Instructions = {
-	__typename?: 'Instructions';
 	imageUrl?: Maybe<Scalars['String']>;
 	stepNumber: Scalars['Int'];
 	description: Scalars['String'];
@@ -44,12 +42,10 @@ export enum Meals {
 }
 
 export type Mutation = {
-	__typename?: 'Mutation';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type PageInfo = {
-	__typename?: 'PageInfo';
 	hasNextPage: Scalars['Boolean'];
 };
 
@@ -59,9 +55,9 @@ export type PageInfo = {
  * Ref: apollographql/graphql-tools#293
  */
 export type Query = {
-	__typename?: 'Query';
 	dummy?: Maybe<Scalars['String']>;
 	recipeList?: Maybe<RecipeResult>;
+	recipeDetail?: Maybe<Recipe>;
 };
 
 /** The dummy queries and mutations are necessary because
@@ -74,8 +70,16 @@ export type QueryRecipeListArgs = {
 	after?: Maybe<Scalars['String']>;
 };
 
+/** The dummy queries and mutations are necessary because
+ * graphql-js cannot have empty root types and we only extend
+ * these types later on
+ * Ref: apollographql/graphql-tools#293
+ */
+export type QueryRecipeDetailArgs = {
+	id?: Maybe<Scalars['ID']>;
+};
+
 export type Recipe = {
-	__typename?: 'Recipe';
 	_id: Scalars['ID'];
 	name: Scalars['String'];
 	description: Scalars['String'];
@@ -94,24 +98,20 @@ export type Recipe = {
 };
 
 export type RecipeEdge = {
-	__typename?: 'RecipeEdge';
 	cursor: Scalars['String'];
 	node: Recipe;
 };
 
 export type RecipeResult = {
-	__typename?: 'RecipeResult';
 	pageInfo?: Maybe<PageInfo>;
 	edges: Array<Maybe<RecipeEdge>>;
 };
 
 export type Subscription = {
-	__typename?: 'Subscription';
 	dummy?: Maybe<Scalars['String']>;
 };
 
 export type User = {
-	__typename?: 'User';
 	_id: Scalars['ID'];
 	firstname: Scalars['String'];
 	lastname: Scalars['String'];
@@ -122,60 +122,67 @@ export type RecipeListQueryVariables = {
 	after?: Maybe<Scalars['String']>;
 };
 
-export type RecipeListQuery = { __typename?: 'Query' } & {
-	recipeList: Maybe<
-		{ __typename?: 'RecipeResult' } & {
-			pageInfo: Maybe<
-				{ __typename?: 'PageInfo' } & Pick<PageInfo, 'hasNextPage'>
-			>;
-			edges: Array<
-				Maybe<
-					{ __typename?: 'RecipeEdge' } & Pick<
-						RecipeEdge,
-						'cursor'
+export type RecipeListQuery = {
+	recipeList: Maybe<{
+		pageInfo: Maybe<Pick<PageInfo, 'hasNextPage'>>;
+		edges: Array<
+			Maybe<
+				Pick<RecipeEdge, 'cursor'> & {
+					node: Pick<
+						Recipe,
+						| '_id'
+						| 'name'
+						| 'description'
+						| 'meal'
+						| 'createdAt'
+						| 'updatedAt'
+						| 'image'
+						| 'meal'
+						| 'prepTime'
+						| 'cookingTime'
+						| 'isPublic'
 					> & {
-							node: { __typename?: 'Recipe' } & Pick<
-								Recipe,
-								| '_id'
-								| 'name'
-								| 'description'
-								| 'meal'
-								| 'createdAt'
-								| 'updatedAt'
-								| 'image'
-								| 'meal'
-								| 'prepTime'
-								| 'cookingTime'
-								| 'isPublic'
-							> & {
-									ingredients: Array<
-										{ __typename?: 'Ingredient' } & Pick<
-											Ingredient,
-											'item' | 'measurement' | 'quantity'
-										>
-									>;
-									instructions: Array<
-										Maybe<
-											{
-												__typename?: 'Instructions';
-											} & Pick<
-												Instructions,
-												| 'stepNumber'
-												| 'description'
-												| 'imageUrl'
-											>
-										>
-									>;
-									createdBy: Maybe<
-										{ __typename?: 'User' } & Pick<
-											User,
-											'firstname' | 'lastname'
-										>
-									>;
-								};
-						}
+						ingredients: Array<
+							Pick<
+								Ingredient,
+								'item' | 'measurement' | 'quantity'
+							>
+						>;
+						instructions: Array<
+							Maybe<
+								Pick<
+									Instructions,
+									'stepNumber' | 'description' | 'imageUrl'
+								>
+							>
+						>;
+						createdBy: Maybe<Pick<User, 'firstname' | 'lastname'>>;
+					};
+				}
+			>
+		>;
+	}>;
+};
+
+export type RecipeDetailQueryVariables = {
+	id?: Maybe<Scalars['ID']>;
+};
+
+export type RecipeDetailQuery = {
+	recipeDetail: Maybe<
+		Pick<Recipe, 'name' | 'description' | 'prepTime' | 'cookingTime'> & {
+			ingredients: Array<
+				Pick<Ingredient, 'item' | 'quantity' | 'measurement'>
+			>;
+			instructions: Array<
+				Maybe<
+					Pick<
+						Instructions,
+						'imageUrl' | 'stepNumber' | 'description'
+					>
 				>
 			>;
+			createdBy: Maybe<Pick<User, 'firstname' | 'lastname'>>;
 		}
 	>;
 };
@@ -253,6 +260,67 @@ export function withRecipeList<TProps, TChildProps = {}>(
 		RecipeListProps<TChildProps>
 	>(RecipeListDocument, {
 		alias: 'withRecipeList',
+		...operationOptions,
+	});
+}
+export const RecipeDetailDocument = gql`
+	query RecipeDetail($id: ID) {
+		recipeDetail(id: $id) {
+			name
+			description
+			prepTime
+			cookingTime
+			ingredients {
+				item
+				quantity
+				measurement
+			}
+			instructions {
+				imageUrl
+				stepNumber
+				description
+			}
+			createdBy {
+				firstname
+				lastname
+			}
+		}
+	}
+`;
+export type RecipeDetailComponentProps = Omit<
+	Omit<
+		ReactApollo.QueryProps<RecipeDetailQuery, RecipeDetailQueryVariables>,
+		'query'
+	>,
+	'variables'
+> & { variables?: RecipeDetailQueryVariables };
+
+export const RecipeDetailComponent = (props: RecipeDetailComponentProps) => (
+	<ReactApollo.Query<RecipeDetailQuery, RecipeDetailQueryVariables>
+		query={RecipeDetailDocument}
+		{...props}
+	/>
+);
+
+export type RecipeDetailProps<TChildProps = {}> = Partial<
+	ReactApollo.DataProps<RecipeDetailQuery, RecipeDetailQueryVariables>
+> &
+	TChildProps;
+export function withRecipeDetail<TProps, TChildProps = {}>(
+	operationOptions?: ReactApollo.OperationOption<
+		TProps,
+		RecipeDetailQuery,
+		RecipeDetailQueryVariables,
+		RecipeDetailProps<TChildProps>
+	>
+) {
+	return ReactApollo.withQuery<
+		TProps,
+		RecipeDetailQuery,
+		RecipeDetailQueryVariables,
+		RecipeDetailProps<TChildProps>
+	>(RecipeDetailDocument, {
+		alias: 'withRecipeDetail',
 		...operationOptions,
 	});
 }

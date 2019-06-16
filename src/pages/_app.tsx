@@ -23,21 +23,6 @@ class MyApp extends App<Props> {
 		return { pageProps };
 	}
 
-	componentDidMount() {
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker
-					.register('/service-worker.js', { scope: '/' })
-					.then(registration => {
-						/** */
-					})
-					.catch(registrationError => {
-						/** */
-					});
-			});
-		}
-	}
-
 	render() {
 		const { Component, pageProps, apollo } = this.props;
 		return (

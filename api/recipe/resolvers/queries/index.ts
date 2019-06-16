@@ -1,7 +1,10 @@
 import { Context } from '../../../graphql-generated-types/context';
 import { createdBy } from './createdBy.query';
-import { getPaginatedRecipes } from '../../models/Recipe.model';
 import { User } from '../../../graphql-generated-types/resolvers-types';
+import {
+	getPaginatedRecipes,
+	getRecipeDetail,
+} from '../../models/Recipe.model';
 import {
 	QueryResolvers,
 	Recipe,
@@ -11,6 +14,7 @@ import {
 const QueryResolver: QueryResolvers<Context, Recipe> = {
 	recipeList: async (parent, { first, after }) =>
 		getPaginatedRecipes({ first: first!, after: after! }),
+	recipeDetail: async (parent, args) => getRecipeDetail(args.id as string),
 };
 
 const RecipeResolver: RecipeResolvers<Context> = {

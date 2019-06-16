@@ -21,8 +21,8 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 	return (
 		<React.Fragment>
 			<Link
-				href={`/recipe?name=${props.recipe.name}`}
-				as={`/recipe/${props.recipe.name}`}
+				href={`/recipe?id=${props.recipe._id}`}
+				as={`/recipe/${props.recipe._id}`}
 			>
 				<ImageWrapper>
 					<Photo>

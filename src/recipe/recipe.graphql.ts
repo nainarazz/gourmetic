@@ -39,3 +39,28 @@ export const RECIPE_LIST_QUERY = gql`
 		}
 	}
 `;
+
+export const RECIPE_DETAIL = gql`
+	query RecipeDetail($id: ID) {
+		recipeDetail(id: $id) {
+			name
+			description
+			prepTime
+			cookingTime
+			ingredients {
+				item
+				quantity
+				measurement
+			}
+			instructions {
+				imageUrl
+				stepNumber
+				description
+			}
+			createdBy {
+				firstname
+				lastname
+			}
+		}
+	}
+`;
