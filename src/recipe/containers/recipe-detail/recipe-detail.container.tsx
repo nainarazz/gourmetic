@@ -18,7 +18,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 > = props => (
 	<RecipeDetailComponent variables={{ id: props.id }}>
 		{({ data }) => {
-			const recipe = data!.recipeDetail;
+			const recipe = data && data.recipeDetail;
 			const authorResult = recipe && recipe.createdBy;
 			const author =
 				authorResult &&
