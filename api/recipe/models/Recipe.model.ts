@@ -21,7 +21,7 @@ export const getPaginatedRecipes = async (options: PaginationOptions) => {
 		.lean()
 		.exec();
 
-	const hasNextPage = recipes.length > first - 1;
+	const hasNextPage = recipes.length > first;
 
 	//remove extra
 	if (hasNextPage) {

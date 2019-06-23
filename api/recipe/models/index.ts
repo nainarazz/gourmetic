@@ -52,4 +52,22 @@ const recipeSchema = new mongoose.Schema({
 	updatedAt: Date,
 });
 
+const recipeReactionSchema = new mongoose.Schema({
+	recipe: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'recipe',
+		required: true,
+	},
+	user: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'user',
+		required: true,
+	},
+	isLiked: Boolean,
+});
+
 export const Recipe = mongoose.model('recipe', recipeSchema);
+export const RecipeReaction = mongoose.model(
+	'recipeReaction',
+	recipeReactionSchema
+);
