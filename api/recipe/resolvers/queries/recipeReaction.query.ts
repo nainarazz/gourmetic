@@ -1,5 +1,9 @@
-import { getRecipeReaction } from '../../models/RecipeReaction.model';
+import { Context } from './../../../graphql-generated-types/context';
 
-export const recipeReaction = async (userId: string, recipeId: string) => {
-	return getRecipeReaction(userId, recipeId);
+export const recipeReaction = async (
+	userId: string,
+	recipeId: string,
+	context: Context
+) => {
+	return context.loaders.recipeReaction.load({ recipeId, userId });
 };

@@ -27,7 +27,7 @@ const RecipeResolver: RecipeResolvers<Context> = {
 		return user;
 	},
 	reaction: async (parent, args, ctx) => {
-		return recipeReaction(parent.createdBy!._id, parent._id);
+		return recipeReaction(parent.createdBy!._id, parent._id, ctx);
 	},
 };
 

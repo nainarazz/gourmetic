@@ -3,6 +3,7 @@ import DataLoader from 'dataloader';
 
 interface DataLoaderType {
 	user: DataLoader<{}, {}>;
+	recipeReaction: DataLoader<{}, {}>;
 }
 
 export interface Context {
