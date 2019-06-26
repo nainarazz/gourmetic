@@ -34,6 +34,9 @@ export const RECIPE_LIST_QUERY = gql`
 					prepTime
 					cookingTime
 					isPublic
+					reaction {
+						isLiked
+					}
 				}
 			}
 		}

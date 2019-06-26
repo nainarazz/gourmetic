@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
+import { faHeart as heartEmpty } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Recipe } from '../../../graphql-generated-types/query-types';
 import {
@@ -18,6 +19,14 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard: React.SFC<RecipeCardProps> = props => {
+	const recipeLikedByUser =
+		props.recipe.reaction && props.recipe.reaction.isLiked;
+
+	const likeRecipe = (e: React.MouseEvent) => {
+		e.stopPropagation();
+		// perform action to insert like in database
+	};
+
 	return (
 		<React.Fragment>
 			<Link
@@ -26,9 +35,11 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 			>
 				<ImageWrapper>
 					<Photo>
-						<LoveIcon>
+						<LoveIcon onClick={likeRecipe}>
 							<FontAwesomeIcon
-								icon={heartFilled}
+								icon={
+									recipeLikedByUser ? heartFilled : heartEmpty
+								}
 								color="red"
 								size="2x"
 							/>
