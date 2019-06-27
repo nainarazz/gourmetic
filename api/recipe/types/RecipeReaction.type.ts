@@ -5,4 +5,8 @@ export const RecipeReactionTypes = `
         user: User,
         isLiked: Boolean
     }
+
+    extend type Mutation {
+        likeRecipe(recipeId: ID!): RecipeReaction
+    }
 `;

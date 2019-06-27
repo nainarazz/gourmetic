@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose';
+import { Context } from './../../graphql-generated-types/context';
+import { MutationLikeRecipeArgs } from './../../graphql-generated-types/resolvers-types';
 import { RecipeReaction } from '../../graphql-generated-types/resolvers-types';
 
 export interface RecipeReactionKey {
@@ -37,4 +39,15 @@ export const getRecipeReactions = async (
 					r.user!._id.toString() === k.userId.toString()
 			) || {}
 	);
+};
+
+export const likeRecipe = async (
+	args: MutationLikeRecipeArgs,
+	ctx: Context
+) => {
+	return mongoose.model('recipeReaction').create({
+		recipe: args.recipeId,
+		user: '5cec0708fb6fc01bf23cec50',
+		isLiked: true,
+	});
 };
