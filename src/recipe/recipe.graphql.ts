@@ -67,3 +67,16 @@ export const RECIPE_DETAIL = gql`
 		}
 	}
 `;
+
+export const LIKE_RECIPE = gql`
+	mutation LikeRecipe($recipeId: ID!) {
+		likeRecipe(recipeId: $recipeId) {
+			recipe {
+				_id
+			}
+			user {
+				_id
+			}
+		}
+	}
+`;

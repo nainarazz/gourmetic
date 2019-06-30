@@ -16,6 +16,7 @@ interface RecipeCardProps {
 	recipe: Recipe;
 	totalLikes: number;
 	username: string;
+	likeRecipe: () => void;
 }
 
 export const RecipeCard: React.SFC<RecipeCardProps> = props => {
@@ -25,6 +26,7 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 	const likeRecipe = (e: React.MouseEvent) => {
 		e.stopPropagation();
 		// perform action to insert like in database
+		props.likeRecipe();
 	};
 
 	return (
