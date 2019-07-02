@@ -25,6 +25,18 @@ export const RecipeCardContainer: React.SFC<
 				}
 			}}
 			variables={{ recipeId: props.recipe._id }}
+			refetchQueries={() => [
+				{
+					query: RECIPE_LIST_QUERY,
+					// we need to encode id bcoz pagination for cursor in backend is encoded
+					variables: {
+						first: 1,
+						after: Buffer.from(props.previousRecipeId).toString(
+							'base64'
+						),
+					},
+				},
+			]}
 			optimisticResponse={{
 				__typename: 'Mutation',
 				likeRecipe: {
