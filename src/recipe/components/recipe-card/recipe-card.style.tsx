@@ -42,6 +42,9 @@ export const LoveIcon = styled.div`
 	right: 0;
 	top: 0;
 	margin: 1rem;
+	.optimistic {
+		color: green;
+	}
 `;
 
 export const Likes = styled.div`

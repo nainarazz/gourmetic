@@ -4,6 +4,7 @@ import { RecipeCard } from '../../components/recipe-card/recipe-card.component';
 import {
 	LikeRecipeComponent,
 	Recipe,
+	RecipeReaction,
 } from '../../../graphql-generated-types/query-types';
 
 interface RecipeCardContainerProps {
@@ -14,21 +15,31 @@ interface RecipeCardContainerProps {
 export const RecipeCardContainer: React.SFC<
 	RecipeCardContainerProps
 > = props => {
+	let isOptimistic = false;
 	return (
 		<LikeRecipeComponent
-			refetchQueries={() => [
-				{
-					query: RECIPE_LIST_QUERY,
-					variables: {
-						first: 1,
-						// we need to encode id because the api expects encoded id for cursor pagination
-						after: Buffer.from(props.previousRecipeId).toString(
-							'base64'
-						),
-					},
-				},
-			]}
+			update={(store, { data }) => {
+				if (data && data.likeRecipe && data.likeRecipe.recipe) {
+					const id = parseInt(data.likeRecipe.recipe._id, 10);
+					isOptimistic = id < 0;
+				}
+			}}
 			variables={{ recipeId: props.recipe._id }}
+			optimisticResponse={{
+				__typename: 'Mutation',
+				likeRecipe: {
+					__typename: 'RecipeReaction',
+					recipe: {
+						__typename: 'Recipe',
+						_id: Math.round(Math.random() * -1000000).toString(),
+					},
+					user: {
+						__typename: 'User',
+						_id: '5cec0708fb6fc01bf23cec50',
+					},
+					isLiked: true,
+				},
+			}}
 		>
 			{(likeRecipe, { data }) => {
 				const firstname =
@@ -39,13 +50,23 @@ export const RecipeCardContainer: React.SFC<
 					(props.recipe.createdBy &&
 						props.recipe.createdBy.lastname) ||
 					'';
+
+				const recipe = { ...props.recipe };
+
+				if (data) {
+					recipe.reaction = {
+						...(data.likeRecipe as RecipeReaction),
+					};
+				}
+
 				return (
 					<RecipeCard
 						key={props.recipe._id}
-						recipe={props.recipe}
+						recipe={recipe}
 						totalLikes={15}
 						username={`${firstname} ${lastname}`}
 						likeRecipe={likeRecipe}
+						isOptimistic={isOptimistic}
 					/>
 				);
 			}}

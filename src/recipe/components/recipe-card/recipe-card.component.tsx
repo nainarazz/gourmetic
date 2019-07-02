@@ -16,8 +16,20 @@ interface RecipeCardProps {
 	recipe: Recipe;
 	totalLikes: number;
 	username: string;
+	isOptimistic?: boolean;
 	likeRecipe: () => void;
 }
+
+const checkIsOptimistic = (
+	isOptimistic: boolean | undefined,
+	recipe: Recipe
+) => {
+	if (recipe.reaction && recipe.reaction.isLiked) {
+		return 'red';
+	} else {
+		return isOptimistic ? 'rgba(255, 0, 0, 0.5)' : 'red';
+	}
+};
 
 export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 	const recipeLikedByUser =
@@ -40,9 +52,16 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 						<LoveIcon onClick={likeRecipe}>
 							<FontAwesomeIcon
 								icon={
-									recipeLikedByUser ? heartFilled : heartEmpty
+									props.isOptimistic
+										? heartFilled
+										: recipeLikedByUser
+										? heartFilled
+										: heartEmpty
 								}
-								color="red"
+								color={checkIsOptimistic(
+									props.isOptimistic,
+									props.recipe
+								)}
 								size="2x"
 							/>
 						</LoveIcon>

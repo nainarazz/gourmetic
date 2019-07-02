@@ -77,6 +77,7 @@ export const LIKE_RECIPE = gql`
 			user {
 				_id
 			}
+			isLiked
 		}
 	}
 `;
