@@ -6,7 +6,14 @@ export const RecipeReactionTypes = `
         isLiked: Boolean
     }
 
+    input LikeRecipeInput {
+        reactionId: ID
+		recipeId: String
+		userId: String
+		isLiked: Boolean
+    }
+
     extend type Mutation {
-        likeRecipe(recipeId: ID!): RecipeReaction
+        likeRecipe(input: LikeRecipeInput!): RecipeReaction
     }
 `;

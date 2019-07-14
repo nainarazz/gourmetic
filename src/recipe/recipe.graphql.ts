@@ -27,6 +27,7 @@ export const RECIPE_LIST_QUERY = gql`
 					}
 					image
 					createdBy {
+						_id
 						firstname
 						lastname
 					}
@@ -35,6 +36,7 @@ export const RECIPE_LIST_QUERY = gql`
 					cookingTime
 					isPublic
 					reaction {
+						_id
 						isLiked
 					}
 				}
@@ -69,14 +71,9 @@ export const RECIPE_DETAIL = gql`
 `;
 
 export const LIKE_RECIPE = gql`
-	mutation LikeRecipe($recipeId: ID!) {
-		likeRecipe(recipeId: $recipeId) {
-			recipe {
-				_id
-			}
-			user {
-				_id
-			}
+	mutation LikeRecipe($input: LikeRecipeInput!) {
+		likeRecipe(input: $input) {
+			_id
 			isLiked
 		}
 	}

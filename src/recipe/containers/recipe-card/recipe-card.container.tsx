@@ -5,6 +5,7 @@ import {
 	LikeRecipeComponent,
 	Recipe,
 	RecipeReaction,
+	LikeRecipeMutationVariables,
 } from '../../../graphql-generated-types/query-types';
 
 interface RecipeCardContainerProps {
@@ -16,15 +17,26 @@ export const RecipeCardContainer: React.SFC<
 	RecipeCardContainerProps
 > = props => {
 	let isOptimistic = false;
+
+	const likeRecipeInput: LikeRecipeMutationVariables = {
+		input: {
+			recipeId: props.recipe._id,
+			userId: props.recipe.createdBy && props.recipe.createdBy._id,
+			isLiked: props.recipe.reaction && props.recipe.reaction.isLiked,
+			reactionId: props.recipe.reaction && props.recipe.reaction._id,
+		},
+	};
+
 	return (
 		<LikeRecipeComponent
 			update={(store, { data }) => {
-				if (data && data.likeRecipe && data.likeRecipe.recipe) {
-					const id = parseInt(data.likeRecipe.recipe._id, 10);
+				if (data && data.likeRecipe && data.likeRecipe._id) {
+					const reactionId = data.likeRecipe._id;
+					const id = parseInt(reactionId, 10);
 					isOptimistic = id < 0;
 				}
 			}}
-			variables={{ recipeId: props.recipe._id }}
+			variables={likeRecipeInput}
 			refetchQueries={() => [
 				{
 					query: RECIPE_LIST_QUERY,
@@ -40,15 +52,8 @@ export const RecipeCardContainer: React.SFC<
 			optimisticResponse={{
 				__typename: 'Mutation',
 				likeRecipe: {
+					_id: Math.round(Math.random() * -1000000).toString(),
 					__typename: 'RecipeReaction',
-					recipe: {
-						__typename: 'Recipe',
-						_id: Math.round(Math.random() * -1000000).toString(),
-					},
-					user: {
-						__typename: 'User',
-						_id: '5cec0708fb6fc01bf23cec50',
-					},
 					isLiked: true,
 				},
 			}}

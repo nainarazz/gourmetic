@@ -45,9 +45,21 @@ export const likeRecipe = async (
 	args: MutationLikeRecipeArgs,
 	ctx: Context
 ) => {
+	const { reactionId, userId, recipeId, isLiked } = args.input;
+
+	if (reactionId) {
+		return mongoose
+			.model('recipeReaction')
+			.findByIdAndUpdate(
+				reactionId,
+				{ $set: { isLiked: !isLiked } },
+				{ new: true }
+			);
+	}
+
 	return mongoose.model('recipeReaction').create({
-		recipe: args.recipeId,
-		user: '5cec0708fb6fc01bf23cec50',
+		recipe: recipeId,
+		user: userId,
 		isLiked: true,
 	});
 };

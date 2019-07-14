@@ -20,16 +20,8 @@ interface RecipeCardProps {
 	likeRecipe: () => void;
 }
 
-const checkIsOptimistic = (
-	isOptimistic: boolean | undefined,
-	recipe: Recipe
-) => {
-	if (recipe.reaction && recipe.reaction.isLiked) {
-		return 'red';
-	} else {
-		return isOptimistic ? 'rgba(255, 0, 0, 0.5)' : 'red';
-	}
-};
+const checkIsOptimistic = (isOptimistic: boolean | undefined, recipe: Recipe) =>
+	isOptimistic ? 'rgba(255, 0, 0, 0.5)' : 'red';
 
 export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 	const recipeLikedByUser =
