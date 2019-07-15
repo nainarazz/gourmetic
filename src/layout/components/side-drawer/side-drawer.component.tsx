@@ -3,6 +3,7 @@ import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	faCalendarAlt as calendar,
+	faPlusCircle as addButton,
 	faSignInAlt as signIn,
 	faHome as home,
 } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +23,10 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => (
 			<SideDrawerItem>
 				<FontAwesomeIcon icon={calendar} />
 				<span>Meal Planner</span>
+			</SideDrawerItem>
+			<SideDrawerItem>
+				<FontAwesomeIcon icon={addButton} />
+				<span>Create Recipe</span>
 			</SideDrawerItem>
 			<SideDrawerItem>
 				<FontAwesomeIcon icon={signIn} />

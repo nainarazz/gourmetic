@@ -26,9 +26,9 @@ export const SideDrawerLogo = styled.div`
 
 export const SideDrawerItem = styled.div`
 	padding: 1rem 2.5rem;
-	font-size: 1.5rem;
+	font-size: 1rem;
 	span {
-		margin: 0 2rem;
+		margin: 0 1rem;
 	}
 	:hover {
 		background-color: #5cb818;
