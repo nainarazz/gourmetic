@@ -1,6 +1,7 @@
 import React from 'react';
-import { FormikProps, withFormik } from 'formik';
-import { Ingredient, Instruction } from '../../types/recipe.interface';
+import { FieldArray, FormikProps, withFormik } from 'formik';
+import { FormValues } from '../../types/recipe.interface';
+import { IngredientListForm } from '../ingredient-list-form/ingredient-list-form.component';
 import {
 	IngredientsContainer,
 	StyledIngredient,
@@ -14,18 +15,14 @@ import {
 	Input,
 } from '../../../shared/styles/form';
 
-interface FormValues {
-	name: string;
-	description: string;
-	ingredients: Ingredient[];
-	instruction: Instruction[];
-}
-
 const RecipeForm = (props: FormikProps<FormValues>) => {
 	const { values, touched, errors } = props;
 
 	return (
 		<FormikForm className="formik-form">
+			<div className="image">
+				<Input type="file" name={'image'} />
+			</div>
 			<GenericInputContainer>
 				<Label>Name</Label>
 				<Input name={'name'} />
@@ -39,23 +36,17 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 			<IngredientsContainer>
 				<h4>Ingredients</h4>
-				<StyledIngredient>
-					<GenericInputContainer>
-						<Label>Item</Label>
-						<Input name={'name'} />
-					</GenericInputContainer>
-
-					<GenericInputContainer>
-						<Label>Amount</Label>
-						<Input name={'name'} />
-					</GenericInputContainer>
-
-					<GenericInputContainer>
-						<Label>Measurement</Label>
-						<Input name={'name'} />
-					</GenericInputContainer>
-				</StyledIngredient>
-				<button>Add Ingredient</button>
+				<div>
+					<FieldArray
+						name={'ingredients'}
+						render={arrayHelpers => (
+							<IngredientListForm
+								formValues={values}
+								arrayHelpers={arrayHelpers}
+							/>
+						)}
+					/>
+				</div>
 			</IngredientsContainer>
 
 			<InstructionsContainer>
@@ -63,13 +54,18 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<StyledInstruction>
 					<span>1</span>
 					<GenericInputContainer>
-						<Input name={'name'} />
+						<Input name={'instructions'} />
 					</GenericInputContainer>
 					<button>x</button>
 				</StyledInstruction>
-				<button>Add Instruction</button>
+				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
+			<div className="meal-type">
+				<h4>Meal Categories</h4>
+				<div>Breakfast</div>
+				<div>Lunch</div>
+			</div>
 			<button type="submit">Submit</button>
 		</FormikForm>
 	);
@@ -77,19 +73,26 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 export const RecipeFormComponent = withFormik<{}, FormValues>({
 	mapPropsToValues: () => ({
-		description: '',
 		name: '',
+		description: '',
 		instruction: [],
 		ingredients: [],
+		prepTime: 0,
+		cookingTime: 0,
+		difficulty: '',
+		yield: 0,
+		image: '',
+		mealType: '',
+		isPublic: false,
 	}),
 
 	validate: values => {
 		// tslint:disable-next-line:no-any
 		const errors: any = {};
 
-		if (!values.name) {
-			errors.name = 'Required';
-		}
+		// if (!values.name) {
+		// 	errors.name = 'Required';
+		// }
 
 		return errors;
 	},

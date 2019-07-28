@@ -33,3 +33,17 @@ export interface Recipe {
 	createdAt: Date;
 	updatedAt: Date;
 }
+
+export interface FormValues {
+	name: string;
+	description: string;
+	ingredients: Ingredient[];
+	instruction: Instruction[];
+	prepTime: number;
+	cookingTime: number;
+	difficulty: string;
+	yield: number;
+	image: string;
+	mealType: string;
+	isPublic: boolean;
+}
