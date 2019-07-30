@@ -1,17 +1,8 @@
+import { meals } from '../constants/recipe.constants';
+
 export const RecipeTypes = `
     enum Meals {
-        BREAKFAST
-        LUNCH
-        SUPPER
-        SNACK
-        DESSERT
-        ENTREE
-    }
-
-    enum DietLabels {
-        LOW_SALT
-        HIGH_PROTEIN
-        VEGAN
+        ${meals}
     }
 
     type Instructions {
@@ -37,7 +28,6 @@ export const RecipeTypes = `
         instructions: [Instructions]!
         yield: Int
         image: String
-        dietLabels: [DietLabels]
         isPublic: Boolean
         reaction: RecipeReaction
         createdBy: User
