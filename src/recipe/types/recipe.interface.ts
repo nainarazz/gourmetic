@@ -38,7 +38,7 @@ export interface FormValues {
 	name: string;
 	description: string;
 	ingredients: Ingredient[];
-	instruction: Instruction[];
+	instructions: Instruction[];
 	prepTime: number;
 	cookingTime: number;
 	difficulty: string;

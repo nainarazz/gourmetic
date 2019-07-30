@@ -1,7 +1,8 @@
 import React from 'react';
 import { FieldArray, FormikProps, withFormik } from 'formik';
 import { FormValues } from '../../types/recipe.interface';
-import { IngredientListForm } from '../ingredient-list-form/ingredient-list-form.component';
+import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
+import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import {
 	IngredientsContainer,
 	StyledIngredient,
@@ -51,13 +52,17 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 			<InstructionsContainer>
 				<h4>Instructions</h4>
-				<StyledInstruction>
-					<span>1</span>
-					<GenericInputContainer>
-						<Input name={'instructions'} />
-					</GenericInputContainer>
-					<button>x</button>
-				</StyledInstruction>
+				<div>
+					<FieldArray
+						name={'instructions'}
+						render={arrayHelpers => (
+							<InstructionListForm
+								formValues={values}
+								arrayHelpers={arrayHelpers}
+							/>
+						)}
+					/>
+				</div>
 				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
@@ -75,7 +80,7 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 	mapPropsToValues: () => ({
 		name: '',
 		description: '',
-		instruction: [],
+		instructions: [],
 		ingredients: [],
 		prepTime: 0,
 		cookingTime: 0,
