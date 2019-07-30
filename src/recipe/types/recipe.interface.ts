@@ -7,6 +7,11 @@ export enum Meal {
 	Entree = 'ENTREE',
 }
 
+export interface ReactSelectOptions {
+	value: string;
+	label: string;
+}
+
 export interface Instruction {
 	imageUrl: string;
 	stepNumber: number;
@@ -44,6 +49,6 @@ export interface FormValues {
 	difficulty: string;
 	yield: number;
 	image: string;
-	mealType: string;
+	mealType: string[];
 	isPublic: boolean;
 }

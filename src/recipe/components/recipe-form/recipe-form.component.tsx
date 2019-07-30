@@ -1,13 +1,18 @@
 import React from 'react';
-import { FieldArray, FormikProps, withFormik } from 'formik';
+import { CustomMultiSelect } from '../../../shared/components/select/select.component';
+import {
+	FieldArray,
+	FieldProps,
+	FormikProps,
+	withFormik
+	} from 'formik';
 import { FormValues } from '../../types/recipe.interface';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
+import { mealTypeOptions } from '../../constants/recipe.constants';
 import {
 	IngredientsContainer,
-	StyledIngredient,
 	InstructionsContainer,
-	StyledInstruction,
 } from './recipe-form.style';
 import {
 	FormikForm,
@@ -37,39 +42,44 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 			<IngredientsContainer>
 				<h4>Ingredients</h4>
-				<div>
-					<FieldArray
-						name={'ingredients'}
-						render={arrayHelpers => (
-							<IngredientListForm
-								formValues={values}
-								arrayHelpers={arrayHelpers}
-							/>
-						)}
-					/>
-				</div>
+				<FieldArray
+					name={'ingredients'}
+					render={arrayHelpers => (
+						<IngredientListForm
+							formValues={values}
+							arrayHelpers={arrayHelpers}
+						/>
+					)}
+				/>
 			</IngredientsContainer>
 
 			<InstructionsContainer>
 				<h4>Instructions</h4>
-				<div>
-					<FieldArray
-						name={'instructions'}
-						render={arrayHelpers => (
-							<InstructionListForm
-								formValues={values}
-								arrayHelpers={arrayHelpers}
-							/>
-						)}
-					/>
-				</div>
+				<FieldArray
+					name={'instructions'}
+					render={arrayHelpers => (
+						<InstructionListForm
+							formValues={values}
+							arrayHelpers={arrayHelpers}
+						/>
+					)}
+				/>
 				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
 			<div className="meal-type">
 				<h4>Meal Categories</h4>
-				<div>Breakfast</div>
-				<div>Lunch</div>
+				<Input name={'mealType'}>
+					{({ field, form }: FieldProps) => (
+						<CustomMultiSelect
+							options={mealTypeOptions}
+							handleChange={val =>
+								form.setFieldValue('mealType', val)
+							}
+							selectedValues={field.value}
+						/>
+					)}
+				</Input>
 			</div>
 			<button type="submit">Submit</button>
 		</FormikForm>
@@ -87,7 +97,7 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 		difficulty: '',
 		yield: 0,
 		image: '',
-		mealType: '',
+		mealType: [],
 		isPublic: false,
 	}),
 

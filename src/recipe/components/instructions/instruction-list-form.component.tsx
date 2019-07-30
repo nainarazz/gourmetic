@@ -2,7 +2,7 @@ import React, { ChangeEvent, SFC, useState } from 'react';
 import { emptyInstruction } from '../../constants/recipe.constants';
 import { FieldArrayRenderProps } from 'formik';
 import { FormValues, Instruction } from '../../types/recipe.interface';
-import { GenericInputContainer, Input } from '../../../shared/styles/form';
+import { GenericInputContainer } from '../../../shared/styles/form';
 import { StyledInstruction } from '../recipe-form/recipe-form.style';
 
 interface IngredientListProps {
@@ -16,7 +16,6 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 }) => {
 	const instructions = formValues.instructions;
 	const [instruction, setInstruction] = useState(emptyInstruction);
-	const [stepNumber, setStepNumber] = useState(1);
 
 	const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		const name = event.target.name;
