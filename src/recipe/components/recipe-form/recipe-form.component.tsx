@@ -5,7 +5,8 @@ import {
 	FormikProps,
 	withFormik
 	} from 'formik';
-import { FormValues } from '../../types/recipe.interface';
+import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
+import { getFormattedRecipeData } from './recipe-form.utils';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import {
@@ -63,7 +64,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						<CustomSelect
 							options={recipeDifficulties}
 							handleChange={val =>
-								form.setFieldValue('difficulty', val)
+								form.setFieldValue('difficulty', val.value)
 							}
 							selectedValue={field.value}
 						/>
@@ -103,14 +104,14 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
-			<div className="meal-type">
+			<div className="meals">
 				<h4>Meal Categories</h4>
-				<Input name={'mealType'}>
+				<Input name={'meals'}>
 					{({ field, form }: FieldProps) => (
 						<CustomMultiSelect
 							options={mealTypeOptions}
-							handleChange={val =>
-								form.setFieldValue('mealType', val)
+							handleChange={(val: ReactSelectOptions) =>
+								form.setFieldValue('meals', val)
 							}
 							selectedValues={field.value}
 						/>
@@ -139,7 +140,7 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 		difficulty: '',
 		yield: 0,
 		image: '',
-		mealType: [],
+		meals: [],
 		isPublic: false,
 	}),
 
@@ -155,8 +156,9 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 	},
 
 	handleSubmit: (values, { setSubmitting }) => {
+		const formattedData = getFormattedRecipeData(values);
 		setTimeout(() => {
-			alert(JSON.stringify(values, null, 2));
+			alert(JSON.stringify(formattedData, null, 2));
 			setSubmitting(false);
 		}, 1000);
 	},

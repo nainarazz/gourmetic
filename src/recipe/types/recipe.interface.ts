@@ -33,11 +33,12 @@ export interface Ingredient {
 export interface Recipe {
 	name: string;
 	description: string;
-	meal: Meal;
+	meals: string[];
 	prepTime: number;
 	cookingTime: number;
-	ingredients: Ingredient;
-	instructions: Instruction;
+	difficulty: string;
+	ingredients: Ingredient[];
+	instructions: Instruction[];
 	yield: number;
 	image: string;
 	isPublic: boolean;
@@ -55,6 +56,6 @@ export interface FormValues {
 	difficulty: string;
 	yield: number;
 	image: string;
-	mealType: string[];
+	meals: ReactSelectOptions[];
 	isPublic: boolean;
 }
