@@ -1,5 +1,4 @@
 import React from 'react';
-import { CustomMultiSelect } from '../../../shared/components/select/select.component';
 import {
 	FieldArray,
 	FieldProps,
@@ -9,7 +8,14 @@ import {
 import { FormValues } from '../../types/recipe.interface';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
-import { mealTypeOptions } from '../../constants/recipe.constants';
+import {
+	CustomMultiSelect,
+	CustomSelect,
+} from '../../../shared/components/select/select.component';
+import {
+	mealTypeOptions,
+	recipeDifficulties,
+} from '../../constants/recipe.constants';
 import {
 	IngredientsContainer,
 	InstructionsContainer,
@@ -38,6 +44,36 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			<GenericInputContainer>
 				<Label>Description</Label>
 				<Input component="textarea" name={'description'} />
+			</GenericInputContainer>
+
+			<GenericInputContainer>
+				<Label>Prep Time</Label>
+				<Input name={'prepTime'} type="number" />
+			</GenericInputContainer>
+
+			<GenericInputContainer>
+				<Label>Cooking Time</Label>
+				<Input name={'cookingTime'} type="number" />
+			</GenericInputContainer>
+
+			<GenericInputContainer>
+				<Label>Difficulty</Label>
+				<Input name={'difficulty'}>
+					{({ field, form }: FieldProps) => (
+						<CustomSelect
+							options={recipeDifficulties}
+							handleChange={val =>
+								form.setFieldValue('difficulty', val)
+							}
+							selectedValue={field.value}
+						/>
+					)}
+				</Input>
+			</GenericInputContainer>
+
+			<GenericInputContainer>
+				<Label>Servings</Label>
+				<Input name={'yield'} type="number" />
 			</GenericInputContainer>
 
 			<IngredientsContainer>
@@ -81,6 +117,12 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 					)}
 				</Input>
 			</div>
+
+			<GenericInputContainer>
+				<Input name={'isPublic'} type="checkbox" />
+				<Label>Is Public?</Label>
+			</GenericInputContainer>
+
 			<button type="submit">Submit</button>
 		</FormikForm>
 	);

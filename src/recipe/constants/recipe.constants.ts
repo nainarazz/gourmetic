@@ -1,5 +1,9 @@
-import { Ingredient, Instruction } from '../types/recipe.interface';
 import { Meal, ReactSelectOptions } from './../types/recipe.interface';
+import {
+	Ingredient,
+	Instruction,
+	RecipeDifficulty,
+} from '../types/recipe.interface';
 
 export const emptyIngredient: Ingredient = {
 	item: '',
@@ -38,4 +42,10 @@ export const mealTypeOptions: ReactSelectOptions[] = [
 		value: Meal.Entree,
 		label: 'Entree',
 	},
+];
+
+export const recipeDifficulties: ReactSelectOptions[] = [
+	{ value: RecipeDifficulty.Easy, label: 'Easy' },
+	{ value: RecipeDifficulty.Medium, label: 'Medium' },
+	{ value: RecipeDifficulty.Hard, label: 'Hard' },
 ];

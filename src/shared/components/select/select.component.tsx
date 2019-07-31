@@ -6,6 +6,7 @@ interface SelectProps {
 	options: ReactSelectOptions[];
 	handleChange: (val: ReactSelectOptions) => void;
 	selectedValues?: ReactSelectOptions[];
+	selectedValue?: ReactSelectOptions;
 }
 
 export const CustomMultiSelect: SFC<SelectProps> = ({
@@ -19,6 +20,21 @@ export const CustomMultiSelect: SFC<SelectProps> = ({
 			defaultValue={selectedValues}
 			closeMenuOnSelect={false}
 			isMulti
+			// tslint:disable-next-line:no-any
+			onChange={(e: any) => handleChange(e)}
+		/>
+	);
+};
+
+export const CustomSelect: SFC<SelectProps> = ({
+	options,
+	handleChange,
+	selectedValue,
+}) => {
+	return (
+		<Select
+			options={options}
+			defaultValue={selectedValue}
 			// tslint:disable-next-line:no-any
 			onChange={(e: any) => handleChange(e)}
 		/>
