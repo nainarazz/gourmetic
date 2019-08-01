@@ -15,6 +15,8 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 	arrayHelpers,
 }) => {
 	const [ingredient, setIngredient] = useState(emptyIngredient);
+	const allFieldsFilled =
+		ingredient.item && ingredient.measurement && ingredient.quantity;
 
 	// tslint:disable-next-line:no-any
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,13 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 			[name]: value,
 		};
 		setIngredient(modifiedIngredient);
+	};
+
+	const addIngredient = () => {
+		if (allFieldsFilled) {
+			arrayHelpers.push(ingredient);
+			setIngredient(emptyIngredient);
+		}
 	};
 
 	return (
@@ -73,10 +82,8 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 			</StyledIngredient>
 			<button
 				type="button"
-				onClick={() => {
-					arrayHelpers.push(ingredient);
-					setIngredient(emptyIngredient);
-				}}
+				disabled={!allFieldsFilled}
+				onClick={() => addIngredient()}
 			>
 				Add Ingredient
 			</button>

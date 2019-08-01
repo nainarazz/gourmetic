@@ -28,7 +28,8 @@
 		"react-dom": "^16.8.6",
 		"react-infinite-scroll-component": "^4.5.2",
 		"react-select": "^3.0.4",
-		"styled-components": "^4.2.0"
+		"styled-components": "^4.2.0",
+		"yup": "^0.27.0"
 	},
 	"devDependencies": {
 		"@types/next": "^8.0.3",
@@ -36,6 +37,7 @@
 		"@types/react-dom": "^16.8.3",
 		"@types/react-infinite-scroll-component": "^4.2.3",
 		"@types/styled-components": "^4.1.14",
+		"@types/yup": "^0.26.22",
 		"babel-plugin-styled-components": "^1.10.0"
 	},
 	"license": "MIT"

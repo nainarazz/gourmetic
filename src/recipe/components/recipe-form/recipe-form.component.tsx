@@ -1,14 +1,16 @@
+import * as Yup from 'yup';
 import React from 'react';
-import {
-	FieldArray,
-	FieldProps,
-	FormikProps,
-	withFormik
-	} from 'formik';
 import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from './recipe-form.utils';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
+import {
+	FieldArray,
+	FieldProps,
+	FormikProps,
+	withFormik,
+	ErrorMessage,
+} from 'formik';
 import {
 	CustomMultiSelect,
 	CustomSelect,
@@ -29,7 +31,7 @@ import {
 } from '../../../shared/styles/form';
 
 const RecipeForm = (props: FormikProps<FormValues>) => {
-	const { values, touched, errors } = props;
+	const { values } = props;
 
 	return (
 		<FormikForm className="formik-form">
@@ -39,22 +41,25 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			<GenericInputContainer>
 				<Label>Name</Label>
 				<Input name={'name'} />
-				{errors.name && touched.name && <div>{errors.name}</div>}
+				<ErrorMessage name="name" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Description</Label>
 				<Input component="textarea" name={'description'} />
+				<ErrorMessage name="description" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Prep Time</Label>
-				<Input name={'prepTime'} type="number" />
+				<Input name={'prepTime'} type="number" min="0" />
+				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Cooking Time</Label>
-				<Input name={'cookingTime'} type="number" />
+				<Input name={'cookingTime'} type="number" min="0" />
+				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
@@ -70,11 +75,13 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				</Input>
+				<ErrorMessage name="difficulty" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Servings</Label>
-				<Input name={'yield'} type="number" />
+				<Label>Yield</Label>
+				<Input name={'yield'} type="number" min="0" />
+				<ErrorMessage name="yield" />
 			</GenericInputContainer>
 
 			<IngredientsContainer>
@@ -88,6 +95,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				/>
+				<ErrorMessage name="ingredients" />
 			</IngredientsContainer>
 
 			<InstructionsContainer>
@@ -101,6 +109,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				/>
+				<ErrorMessage name="instructions" />
 				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
@@ -117,6 +126,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				</Input>
+				<ErrorMessage name="meals" />
 			</div>
 
 			<GenericInputContainer>
@@ -143,18 +153,19 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 		meals: [],
 		isPublic: false,
 	}),
-
-	validate: values => {
-		// tslint:disable-next-line:no-any
-		const errors: any = {};
-
-		// if (!values.name) {
-		// 	errors.name = 'Required';
-		// }
-
-		return errors;
-	},
-
+	validationSchema: Yup.object().shape({
+		name: Yup.string().required('Recipe name is required.'),
+		description: Yup.string().required(
+			'Please enter a short description about recipe.'
+		),
+		instructions: Yup.array().required('Instruction is required.'),
+		ingredients: Yup.array().required('Ingredient is required.'),
+		difficulty: Yup.string().required('Please select difficulty.'),
+		meals: Yup.array().required('Please select at least 1 meal.'),
+		yield: Yup.number()
+			.required('Yield is required')
+			.min(1, 'Yield is required.'),
+	}),
 	handleSubmit: (values, { setSubmitting }) => {
 		const formattedData = getFormattedRecipeData(values);
 		setTimeout(() => {
@@ -162,5 +173,5 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 			setSubmitting(false);
 		}, 1000);
 	},
-	// displayName: 'RecipeForm',
+	displayName: 'RecipeForm',
 })(RecipeForm);

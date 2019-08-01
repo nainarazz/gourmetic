@@ -28,6 +28,13 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 		setInstruction(modifiedInstruction);
 	};
 
+	const addInstruction = () => {
+		if (instruction.description) {
+			arrayHelpers.push(instruction);
+			setInstruction(emptyInstruction);
+		}
+	};
+
 	return (
 		<React.Fragment>
 			{instructions.map((ins, i) => {
@@ -56,10 +63,8 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 				</GenericInputContainer>
 				<button
 					type="button"
-					onClick={() => {
-						arrayHelpers.push(instruction);
-						setInstruction(emptyInstruction);
-					}}
+					onClick={() => addInstruction()}
+					disabled={!instruction.description}
 				>
 					add instruction
 				</button>
