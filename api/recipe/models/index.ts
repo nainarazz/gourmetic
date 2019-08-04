@@ -42,7 +42,6 @@ const recipeSchema = new mongoose.Schema({
 	],
 	yield: Number,
 	image: String,
-	dietLabels: [String],
 	isPublic: Boolean,
 	createdBy: {
 		type: mongoose.Schema.Types.ObjectId,

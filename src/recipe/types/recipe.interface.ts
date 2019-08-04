@@ -8,9 +8,9 @@ export enum Meal {
 }
 
 export enum RecipeDifficulty {
-	Easy = 'Easy',
-	Medium = 'Medium',
-	Hard = 'Hard',
+	Easy = 'EASY',
+	Medium = 'MEDIUM',
+	Hard = 'HARD',
 }
 
 export interface ReactSelectOptions {

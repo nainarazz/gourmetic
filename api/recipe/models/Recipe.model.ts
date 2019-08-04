@@ -1,7 +1,10 @@
 import * as mongoose from 'mongoose';
 import { decode, encode } from '../../utils/base64';
 import { PaginationOptions } from '../../utils/pagination';
-import { Recipe } from '../../graphql-generated-types/resolvers-types';
+import {
+	Recipe,
+	MutationCreateRecipeArgs,
+} from '../../graphql-generated-types/resolvers-types';
 
 export const getPaginatedRecipes = async (options: PaginationOptions) => {
 	const { first, after } = options;
@@ -47,4 +50,24 @@ export const getRecipeDetail = async (id: string) => {
 		.findById(id)
 		.lean()
 		.exec();
+};
+
+export const createRecipe = async (args: MutationCreateRecipeArgs) => {
+	const recipe = {
+		name: args.recipeInput.name,
+		description: args.recipeInput.description,
+		cookingTime: args.recipeInput.cookingTime,
+		prepTime: args.recipeInput.prepTime,
+		ingredients: args.recipeInput.ingredients,
+		instructions: args.recipeInput.instructions,
+		isPublic: args.recipeInput.isPublic,
+		meal: args.recipeInput.meal,
+		yield: args.recipeInput.yield,
+		difficulty: args.recipeInput.difficulty,
+		image: args.recipeInput.image,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		createdBy: '5cec0708fb6fc01bf23cec50',
+	};
+	return mongoose.model('recipe').create(recipe);
 };
