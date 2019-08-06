@@ -19,12 +19,10 @@ const formatRecipeInstructions = (
 const formSelectOptions = (options: ReactSelectOptions[]): string[] =>
 	options.map(o => o.value);
 
-export const getFormattedRecipeData = (data: FormValues): Recipe => {
+export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 	return {
 		...data,
 		meals: formSelectOptions(data.meals as ReactSelectOptions[]),
 		instructions: formatRecipeInstructions(data.instructions),
-		createdAt: new Date(),
-		updatedAt: new Date(),
 	};
 };

@@ -25,7 +25,7 @@ export const RecipeTypes = `
         _id: ID!
         name: String!
         description: String!
-        meal: [Meal]
+        meals: [Meal]
         prepTime: Int
         cookingTime: Int
         difficulty: Difficulty
@@ -69,7 +69,7 @@ export const RecipeTypes = `
     input RecipeInput {
         name: String!
         description: String!
-        meal: [String]
+        meals: [String]
         prepTime: Int
         cookingTime: Int
         difficulty: String

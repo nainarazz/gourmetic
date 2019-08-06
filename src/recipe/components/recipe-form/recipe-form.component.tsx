@@ -1,9 +1,13 @@
 import * as Yup from 'yup';
 import React from 'react';
-import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from './recipe-form.utils';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
+import {
+	FormValues,
+	ReactSelectOptions,
+	Recipe,
+} from '../../types/recipe.interface';
 import {
 	FieldArray,
 	FieldProps,
@@ -30,8 +34,12 @@ import {
 	Input,
 } from '../../../shared/styles/form';
 
+interface RecipeFormProps {
+	handleSubmit: (recipe: Partial<Recipe>) => void;
+}
+
 const RecipeForm = (props: FormikProps<FormValues>) => {
-	const { values } = props;
+	const { values, isSubmitting } = props;
 
 	return (
 		<FormikForm className="formik-form">
@@ -134,12 +142,14 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<Label>Is Public?</Label>
 			</GenericInputContainer>
 
-			<button type="submit">Submit</button>
+			<button type="submit" disabled={isSubmitting}>
+				Submit
+			</button>
 		</FormikForm>
 	);
 };
 
-export const RecipeFormComponent = withFormik<{}, FormValues>({
+export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 	mapPropsToValues: () => ({
 		name: '',
 		description: '',
@@ -166,12 +176,9 @@ export const RecipeFormComponent = withFormik<{}, FormValues>({
 			.required('Yield is required')
 			.min(1, 'Yield is required.'),
 	}),
-	handleSubmit: (values, { setSubmitting }) => {
+	handleSubmit: (values, { props }) => {
 		const formattedData = getFormattedRecipeData(values);
-		setTimeout(() => {
-			alert(JSON.stringify(formattedData, null, 2));
-			setSubmitting(false);
-		}, 1000);
+		props.handleSubmit(formattedData);
 	},
 	displayName: 'RecipeForm',
 })(RecipeForm);

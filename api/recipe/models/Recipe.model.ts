@@ -61,7 +61,7 @@ export const createRecipe = async (args: MutationCreateRecipeArgs) => {
 		ingredients: args.recipeInput.ingredients,
 		instructions: args.recipeInput.instructions,
 		isPublic: args.recipeInput.isPublic,
-		meal: args.recipeInput.meal,
+		meals: args.recipeInput.meals,
 		yield: args.recipeInput.yield,
 		difficulty: args.recipeInput.difficulty,
 		image: args.recipeInput.image,

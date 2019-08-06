@@ -12,7 +12,7 @@ export const RECIPE_LIST_QUERY = gql`
 					_id
 					name
 					description
-					meal
+					meals
 					createdAt
 					updatedAt
 					ingredients {
@@ -31,7 +31,7 @@ export const RECIPE_LIST_QUERY = gql`
 						firstname
 						lastname
 					}
-					meal
+					meals
 					prepTime
 					cookingTime
 					isPublic
@@ -75,6 +75,15 @@ export const LIKE_RECIPE = gql`
 		likeRecipe(input: $input) {
 			_id
 			isLiked
+		}
+	}
+`;
+
+export const CREATE_RECIPE = gql`
+	mutation CreateRecipe($input: RecipeInput!) {
+		createRecipe(recipeInput: $input) {
+			_id
+			name
 		}
 	}
 `;
