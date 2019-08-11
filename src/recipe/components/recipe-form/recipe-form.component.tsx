@@ -35,7 +35,7 @@ import {
 } from '../../../shared/styles/form';
 
 interface RecipeFormProps {
-	handleSubmit: (recipe: Partial<Recipe>) => void;
+	handleSubmit: (recipe: Partial<Recipe>) => Promise<void>;
 }
 
 const RecipeForm = (props: FormikProps<FormValues>) => {
@@ -176,9 +176,14 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			.required('Yield is required')
 			.min(1, 'Yield is required.'),
 	}),
-	handleSubmit: (values, { props }) => {
+	handleSubmit: async (values, { props, setSubmitting }) => {
 		const formattedData = getFormattedRecipeData(values);
-		props.handleSubmit(formattedData);
+		try {
+			await props.handleSubmit(formattedData);
+			setSubmitting(false);
+		} catch (error) {
+			setSubmitting(false);
+		}
 	},
 	displayName: 'RecipeForm',
 })(RecipeForm);

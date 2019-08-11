@@ -5,17 +5,21 @@ import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 
 export const RecipeFormContainer = () => {
-	const [recipe, useRecipe] = useState<Partial<Recipe>>();
+	const [recipe, setRecipe] = useState<Partial<Recipe>>();
 
-	const handleSubmit = (rec: Partial<Recipe>, createRecipeFn: () => void) => {
-		useRecipe(rec);
-		createRecipeFn();
+	const handleSubmit = (
+		rec: Partial<Recipe>,
+		// tslint:disable-next-line:no-any
+		createRecipeFn: () => Promise<any>
+	) => {
+		setRecipe(rec);
+		return createRecipeFn();
 	};
 	return (
 		<React.Fragment>
 			<RecipeDetailWrapper>
 				<CreateRecipeComponent variables={{ input: recipe as Recipe }}>
-					{(createRecipe, { data }) => {
+					{createRecipe => {
 						return (
 							<RecipeFormComponent
 								handleSubmit={(value: Partial<Recipe>) =>
