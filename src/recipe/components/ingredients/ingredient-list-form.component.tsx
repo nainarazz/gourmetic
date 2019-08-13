@@ -2,8 +2,12 @@ import React, { ChangeEvent, SFC, useState } from 'react';
 import { emptyIngredient } from '../../constants/recipe.constants';
 import { FieldArrayRenderProps } from 'formik';
 import { FormValues, Ingredient } from '../../types/recipe.interface';
-import { GenericInputContainer } from '../../../shared/styles/form';
 import { StyledIngredient } from '../recipe-form/recipe-form.style';
+import {
+	GenericInputContainer,
+	Label,
+	StyledFormikInput,
+} from '../../../shared/styles/forms';
 
 interface IngredientListProps {
 	formValues: FormValues;
@@ -54,8 +58,8 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 			})}
 			<StyledIngredient>
 				<GenericInputContainer>
-					<label>Quantity</label>
-					<input
+					<Label>Quantity</Label>
+					<StyledFormikInput
 						name="quantity"
 						value={ingredient.quantity}
 						onChange={handleChange}
@@ -63,8 +67,8 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				</GenericInputContainer>
 
 				<GenericInputContainer>
-					<label>Measurement</label>
-					<input
+					<Label>Measurement</Label>
+					<StyledFormikInput
 						name="measurement"
 						value={ingredient.measurement}
 						onChange={handleChange}
@@ -72,8 +76,8 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				</GenericInputContainer>
 
 				<GenericInputContainer>
-					<label>Item</label>
-					<input
+					<Label>Item</Label>
+					<StyledFormikInput
 						value={ingredient.item}
 						name="item"
 						onChange={handleChange}

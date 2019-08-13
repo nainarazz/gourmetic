@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { BaseButton } from '../../../shared/styles/buttons';
+import { themeColor } from '../../../shared/themes/colors';
 
 interface HeaderStyleProps {
 	showLogo: boolean;
@@ -7,7 +9,7 @@ interface HeaderStyleProps {
 export const Container = styled.div`
 	position: fixed;
 	z-index: 400;
-	background-color: #5cb818;
+	background-color: ${themeColor.mainBrand};
 	width: 100%;
 	padding: 1rem;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -29,20 +31,7 @@ export const ButtonsContainer = styled.div`
 	}
 `;
 
-export const Button = styled.div`
-	padding: 0.25rem 0.5rem;
-	font-size: 1.09375rem;
-	background-color: #008000;
-	color: #fff;
-	margin: 0 10px;
-	border-radius: 8px;
-	font-weight: 500;
-	line-height: 1.5;
-
-	:hover {
-		cursor: pointer;
-	}
-`;
+export const Button = styled(BaseButton)``;
 
 export const Logo = styled.div`
 	font-size: 2rem;

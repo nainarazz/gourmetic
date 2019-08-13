@@ -31,8 +31,9 @@ import {
 	FormikForm,
 	GenericInputContainer,
 	Label,
-	Input,
-} from '../../../shared/styles/form';
+	StyledFormikInput,
+	StyledFormikTextArea,
+} from '../../../shared/styles/forms';
 
 interface RecipeFormProps {
 	handleSubmit: (recipe: Partial<Recipe>) => Promise<void>;
@@ -44,35 +45,38 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 	return (
 		<FormikForm className="formik-form">
 			<div className="image">
-				<Input type="file" name={'image'} />
+				<StyledFormikInput type="file" name={'image'} />
 			</div>
 			<GenericInputContainer>
 				<Label>Name</Label>
-				<Input name={'name'} />
+				<StyledFormikInput name={'name'} />
 				<ErrorMessage name="name" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Description</Label>
-				<Input component="textarea" name={'description'} />
+				<StyledFormikTextArea
+					component="textarea"
+					name={'description'}
+				/>
 				<ErrorMessage name="description" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Prep Time</Label>
-				<Input name={'prepTime'} type="number" min="0" />
+				<StyledFormikInput name={'prepTime'} type="number" min="0" />
 				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Cooking Time</Label>
-				<Input name={'cookingTime'} type="number" min="0" />
+				<StyledFormikInput name={'cookingTime'} type="number" min="0" />
 				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Difficulty</Label>
-				<Input name={'difficulty'}>
+				<StyledFormikInput name={'difficulty'}>
 					{({ field, form }: FieldProps) => (
 						<CustomSelect
 							options={recipeDifficulties}
@@ -82,13 +86,13 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 							selectedValue={field.value}
 						/>
 					)}
-				</Input>
+				</StyledFormikInput>
 				<ErrorMessage name="difficulty" />
 			</GenericInputContainer>
 
 			<GenericInputContainer>
 				<Label>Yield</Label>
-				<Input name={'yield'} type="number" min="0" />
+				<StyledFormikInput name={'yield'} type="number" min="0" />
 				<ErrorMessage name="yield" />
 			</GenericInputContainer>
 
@@ -123,7 +127,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 			<div className="meals">
 				<h4>Meal Categories</h4>
-				<Input name={'meals'}>
+				<StyledFormikInput name={'meals'}>
 					{({ field, form }: FieldProps) => (
 						<CustomMultiSelect
 							options={mealTypeOptions}
@@ -133,12 +137,12 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 							selectedValues={field.value}
 						/>
 					)}
-				</Input>
+				</StyledFormikInput>
 				<ErrorMessage name="meals" />
 			</div>
 
 			<GenericInputContainer>
-				<Input name={'isPublic'} type="checkbox" />
+				<StyledFormikInput name={'isPublic'} type="checkbox" />
 				<Label>Is Public?</Label>
 			</GenericInputContainer>
 
