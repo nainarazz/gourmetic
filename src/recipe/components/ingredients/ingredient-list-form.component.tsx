@@ -33,9 +33,11 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 	arrayHelpers,
 }) => {
 	const [ingredient, setIngredient] = useState(emptyIngredient);
-	// if user choose to put quantity, they must also enter measurement
+
+	// a user should be able to enter just the item, or the item, quantity and measurement together
 	const allFieldsFilled =
-		ingredient.item && ingredient.measurement && ingredient.quantity;
+		(ingredient.item && ingredient.measurement && ingredient.quantity) ||
+		(ingredient.item && !ingredient.measurement && !ingredient.quantity);
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const name = event.target.name;
