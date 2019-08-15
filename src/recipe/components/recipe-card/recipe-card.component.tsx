@@ -9,7 +9,6 @@ import {
 	ImageWrapper,
 	LoveIcon,
 	Photo,
-	Likes,
 } from './recipe-card.style';
 
 interface RecipeCardProps {
@@ -57,9 +56,6 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 								size="2x"
 							/>
 						</LoveIcon>
-						<Likes>
-							<span>{props.totalLikes} Likes</span>
-						</Likes>
 					</Photo>
 					<CardDescription>
 						<div>{props.recipe && props.recipe.name}</div>
