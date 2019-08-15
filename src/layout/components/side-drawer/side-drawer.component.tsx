@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,6 +11,7 @@ import {
 
 interface SideDrawerProps {
 	isOpen: boolean;
+	toggleSideDrawer: () => void;
 }
 
 export const SideDrawer: React.SFC<SideDrawerProps> = props => (
@@ -17,16 +19,24 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => (
 		<Container isOpen={props.isOpen}>
 			<SideDrawerLogo />
 			<SideDrawerItem>
-				<FontAwesomeIcon icon={home} />
-				<span>Home</span>
+				<Link href={`/`}>
+					<div onClick={props.toggleSideDrawer}>
+						<FontAwesomeIcon icon={home} />
+						<span>Home</span>
+					</div>
+				</Link>
 			</SideDrawerItem>
 			<SideDrawerItem>
 				<FontAwesomeIcon icon={calendar} />
 				<span>Meal Planner</span>
 			</SideDrawerItem>
 			<SideDrawerItem>
-				<FontAwesomeIcon icon={addButton} />
-				<span>Create Recipe</span>
+				<Link href={`/new-recipe`} as={`new-recipe`}>
+					<div onClick={props.toggleSideDrawer}>
+						<FontAwesomeIcon icon={addButton} />
+						<span>Create Recipe</span>
+					</div>
+				</Link>
 			</SideDrawerItem>
 			<SideDrawerItem>
 				<FontAwesomeIcon icon={signIn} />

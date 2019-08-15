@@ -23,6 +23,10 @@ export const AppLayout: React.SFC = props => {
 	const [sideDrawerIsOpen, setSideDrawerIsOpen] = useState(false);
 	let backdrop: JSX.Element | null = null;
 
+	const toggleSideDrawer = () => {
+		setSideDrawerIsOpen(!sideDrawerIsOpen);
+	};
+
 	const userRouter = useRouter();
 	const newRecipeButton = urlAtHomePage(
 		userRouter && userRouter.pathname
@@ -48,7 +52,10 @@ export const AppLayout: React.SFC = props => {
 				}
 			/>
 			{backdrop}
-			<SideDrawer isOpen={sideDrawerIsOpen} />
+			<SideDrawer
+				isOpen={sideDrawerIsOpen}
+				toggleSideDrawer={toggleSideDrawer}
+			/>
 			<MainContainer>{props.children}</MainContainer>
 			{newRecipeButton}
 		</div>
