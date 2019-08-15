@@ -1,8 +1,9 @@
 import React, { ChangeEvent, SFC, useState } from 'react';
+import { ButtonText } from '../../../shared/styles/buttons';
 import { emptyInstruction } from '../../constants/recipe.constants';
 import { FieldArrayRenderProps } from 'formik';
 import { FormValues, Instruction } from '../../types/recipe.interface';
-import { StyledInstruction } from '../recipe-form/recipe-form.style';
+import { StyledInstruction } from './instruction.style';
 import {
 	GenericInputContainer,
 	StyledFormikTextArea,
@@ -65,14 +66,14 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 						onChange={handleChange}
 					/>
 				</GenericInputContainer>
-				<button
-					type="button"
-					onClick={() => addInstruction()}
-					disabled={!instruction.description}
-				>
-					add instruction
-				</button>
 			</StyledInstruction>
+			<ButtonText
+				type="button"
+				onClick={() => addInstruction()}
+				disabled={!instruction.description}
+			>
+				Add
+			</ButtonText>
 		</React.Fragment>
 	);
 };

@@ -16,4 +16,33 @@ export const BaseButton = styled.button`
 	:hover {
 		cursor: pointer;
 	}
+
+	:disabled {
+		opacity: 0.3;
+	}
+`;
+
+export const PlusRoundButton = styled(BaseButton)`
+	border-radius: 50%;
+	padding: 0.2rem 0.4rem;
+	line-height: initial;
+	transform: translateY(85%);
+	height: 30px;
+	width: 30px;
+	background-color: ${themeColor.purple};
+`;
+
+export const ButtonText = styled(BaseButton)`
+	margin: 0;
+	font-size: 0.8rem;
+	border-radius: 5px;
+	background-color: ${themeColor.purple};
+`;
+
+export const SubmitButton = styled(BaseButton)`
+	margin: 0;
+	background-color: ${themeColor.purple};
+	min-width: 30%;
+	width: 30%;
+	border-radius: 5px;
 `;

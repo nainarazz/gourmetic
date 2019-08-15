@@ -1,13 +1,21 @@
 import React, { ChangeEvent, SFC, useState } from 'react';
 import { emptyIngredient } from '../../constants/recipe.constants';
+import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
 import { FieldArrayRenderProps } from 'formik';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormValues, Ingredient } from '../../types/recipe.interface';
-import { StyledIngredient } from '../recipe-form/recipe-form.style';
 import {
 	GenericInputContainer,
 	Label,
 	StyledFormikInput,
 } from '../../../shared/styles/forms';
+import {
+	QuantityInputContainer,
+	MeasurementInputContainer,
+	StyledIngredient,
+	AddButtonSmallScreen,
+	AddButtonLargeScreen,
+} from './ingredient.style';
 
 interface IngredientListProps {
 	formValues: FormValues;
@@ -57,23 +65,23 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				);
 			})}
 			<StyledIngredient>
-				<GenericInputContainer>
+				<QuantityInputContainer>
 					<Label>Quantity</Label>
 					<StyledFormikInput
 						name="quantity"
 						value={ingredient.quantity}
 						onChange={handleChange}
 					/>
-				</GenericInputContainer>
+				</QuantityInputContainer>
 
-				<GenericInputContainer>
+				<MeasurementInputContainer>
 					<Label>Measurement</Label>
 					<StyledFormikInput
 						name="measurement"
 						value={ingredient.measurement}
 						onChange={handleChange}
 					/>
-				</GenericInputContainer>
+				</MeasurementInputContainer>
 
 				<GenericInputContainer>
 					<Label>Item</Label>
@@ -83,14 +91,21 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 						onChange={handleChange}
 					/>
 				</GenericInputContainer>
+				<AddButtonLargeScreen
+					disabled={!allFieldsFilled}
+					onClick={() => addIngredient()}
+					type="button"
+				>
+					<FontAwesomeIcon icon={plusIcon} />
+				</AddButtonLargeScreen>
 			</StyledIngredient>
-			<button
-				type="button"
+			<AddButtonSmallScreen
 				disabled={!allFieldsFilled}
 				onClick={() => addIngredient()}
+				type="button"
 			>
-				Add Ingredient
-			</button>
+				Add
+			</AddButtonSmallScreen>
 		</React.Fragment>
 	);
 };

@@ -31,3 +31,7 @@ export const StepNumber = styled.div`
 	margin-right: 10px;
 	font-size: 0.8rem;
 `;
+
+export const StyledInstruction = styled.div`
+	display: flex;
+`;

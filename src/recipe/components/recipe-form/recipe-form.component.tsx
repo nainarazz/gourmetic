@@ -3,6 +3,7 @@ import React from 'react';
 import { getFormattedRecipeData } from './recipe-form.utils';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
+import { SubmitButton } from '../../../shared/styles/buttons';
 import {
 	FormValues,
 	ReactSelectOptions,
@@ -122,7 +123,6 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 					)}
 				/>
 				<ErrorMessage name="instructions" />
-				<button type="button">Add Instruction</button>
 			</InstructionsContainer>
 
 			<div className="meals">
@@ -146,9 +146,11 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<Label>Is Public?</Label>
 			</GenericInputContainer>
 
-			<button type="submit" disabled={isSubmitting}>
-				Submit
-			</button>
+			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+				<SubmitButton type="submit" disabled={isSubmitting}>
+					Submit
+				</SubmitButton>
+			</div>
 		</FormikForm>
 	);
 };
