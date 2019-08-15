@@ -33,6 +33,10 @@ export default class MyDocument extends Document<DocumentProps> {
 						content="initial-scale=1.0, width=device-width"
 					/>
 					<link rel="manifest" href="/static/manifest.json" />
+					<link
+						href="https://fonts.googleapis.com/css?family=Roboto:400,500,900&display=swap"
+						rel="stylesheet"
+					/>
 				</Head>
 				<body>
 					<Main />
