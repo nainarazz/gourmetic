@@ -48,7 +48,7 @@ export interface Recipe {
 
 export interface FormValues {
 	name: string;
-	description: string;
+	recipeDescription: string;
 	ingredients: Ingredient[];
 	instructions: Instruction[];
 	prepTime: number;

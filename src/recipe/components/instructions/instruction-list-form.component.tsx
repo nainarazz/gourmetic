@@ -1,8 +1,11 @@
 import React, { ChangeEvent, SFC, useState } from 'react';
-import { ButtonText } from '../../../shared/styles/buttons';
+import { ButtonText, InputClearButton } from '../../../shared/styles/buttons';
 import { emptyInstruction } from '../../constants/recipe.constants';
+import { faTimesCircle as clearButton } from '@fortawesome/free-solid-svg-icons';
 import { FieldArrayRenderProps } from 'formik';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormValues, Instruction } from '../../types/recipe.interface';
+import { ItemIndex } from '../ingredients/ingredient.style';
 import { StyledInstruction } from './instruction.style';
 import {
 	GenericInputContainer,
@@ -44,16 +47,16 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 			{instructions.map((ins, i) => {
 				return (
 					<div key={i}>
-						<span>{i + 1}</span>
+						<ItemIndex>{i + 1}</ItemIndex> -{' '}
 						<span>{ins.description}</span>
-						<button
+						<InputClearButton
 							type="button"
 							onClick={() => {
 								arrayHelpers.remove(i);
 							}}
 						>
-							remove instruction
-						</button>
+							<FontAwesomeIcon icon={clearButton} color="red" />
+						</InputClearButton>
 					</div>
 				);
 			})}

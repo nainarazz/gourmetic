@@ -1,9 +1,14 @@
 import React, { ChangeEvent, SFC, useState } from 'react';
 import { emptyIngredient } from '../../constants/recipe.constants';
-import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
+import { errorColor } from '../../../shared/themes/colors';
 import { FieldArrayRenderProps } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormValues, Ingredient } from '../../types/recipe.interface';
+import { InputClearButton } from '../../../shared/styles/buttons';
+import {
+	faPlus as plusIcon,
+	faTimesCircle as clearButton,
+} from '@fortawesome/free-solid-svg-icons';
 import {
 	GenericInputContainer,
 	Label,
@@ -15,6 +20,7 @@ import {
 	StyledIngredient,
 	AddButtonSmallScreen,
 	AddButtonLargeScreen,
+	ItemIndex,
 } from './ingredient.style';
 
 interface IngredientListProps {
@@ -27,10 +33,10 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 	arrayHelpers,
 }) => {
 	const [ingredient, setIngredient] = useState(emptyIngredient);
+	// if user choose to put quantity, they must also enter measurement
 	const allFieldsFilled =
 		ingredient.item && ingredient.measurement && ingredient.quantity;
 
-	// tslint:disable-next-line:no-any
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const name = event.target.name;
 		const value = event.target.value;
@@ -54,13 +60,14 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 			{formValues.ingredients.map((ing, index) => {
 				return (
 					<div key={index}>
+						<ItemIndex>{index + 1} </ItemIndex>-{' '}
 						{`${ing.quantity} ${ing.measurement} ${ing.item}`}
-						<button
+						<InputClearButton
 							type="button"
 							onClick={() => arrayHelpers.remove(index)}
 						>
-							Remove Ingredient
-						</button>
+							<FontAwesomeIcon icon={clearButton} color="red" />
+						</InputClearButton>
 					</div>
 				);
 			})}

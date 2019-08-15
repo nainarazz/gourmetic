@@ -53,4 +53,5 @@ export const StyledFormikTextArea = styled(StyledFormikInput)`
 export const FormikErrorWrapper = styled.div`
 	font-size: 0.8rem;
 	color: ${errorColor.message};
+	margin: 5px 0;
 `;

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ButtonText, PlusRoundButton } from '../../../shared/styles/buttons';
 import { GenericInputContainer } from '../../../shared/styles/forms';
+import { themeColor } from '../../../shared/themes/colors';
 
 export const IngredientsWrapper = styled.div`
 	width: 90%;
@@ -23,6 +24,13 @@ export const Item = styled.div`
 	text-align: center;
 	border-bottom: 1px solid lightgrey;
 	margin: 1rem;
+`;
+
+export const ItemIndex = styled.span`
+	color: ${themeColor.darkAccent};
+	font-weight: 900;
+	margin-left: 10px;
+	font-size: 0.9rem;
 `;
 
 export const StyledIngredient = styled.div`

@@ -46,12 +46,12 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 	const { values, isSubmitting, errors, touched } = props;
 
 	return (
-		<FormikForm className="formik-form">
+		<FormikForm>
 			<div className="image">
 				<StyledFormikInput type="file" name={'image'} />
 			</div>
 			<GenericInputContainer>
-				<Label htmlFor="description">
+				<Label>
 					Name<span className="required">*</span>
 				</Label>
 				<StyledFormikInput
@@ -70,12 +70,13 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<StyledFormikTextArea
 					component="textarea"
 					error={
-						(errors.description && touched.description) as boolean
+						(errors.recipeDescription &&
+							touched.recipeDescription) as boolean
 					}
-					name={'description'}
+					name={'recipeDescription'}
 				/>
 				<FormikErrorWrapper>
-					<ErrorMessage name="description" />
+					<ErrorMessage name="recipeDescription" />
 				</FormikErrorWrapper>
 			</GenericInputContainer>
 
@@ -213,7 +214,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 	mapPropsToValues: () => ({
 		name: '',
-		description: '',
+		recipeDescription: '',
 		instructions: [],
 		ingredients: [],
 		prepTime: 0,
@@ -226,7 +227,7 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 	}),
 	validationSchema: Yup.object().shape({
 		name: Yup.string().required('Recipe name is required.'),
-		description: Yup.string().required(
+		recipeDescription: Yup.string().required(
 			'Please enter a short description about recipe.'
 		),
 		instructions: Yup.array().required('Instruction is required.'),

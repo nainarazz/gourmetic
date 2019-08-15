@@ -12,4 +12,5 @@ export const InstructionsContainer = styled.div`
 
 export const Privacy = styled.span`
 	font-size: 0.8rem;
+	margin-bottom: 20px;
 `;

@@ -46,3 +46,13 @@ export const SubmitButton = styled(BaseButton)`
 	width: 30%;
 	border-radius: 5px;
 `;
+
+// To be used with font awesome clear icon. Font awesome icon will be the text in button tag
+export const InputClearButton = styled.button`
+	border: none;
+	outline: none;
+	background: transparent;
+	:hover {
+		cursor: pointer;
+	}
+`;
