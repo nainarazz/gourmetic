@@ -3,7 +3,7 @@ import { borderColor, errorColor, themeColor } from '../themes/colors';
 import { Field, Form } from 'formik';
 
 interface FormikInputProps {
-	error?: boolean;
+	error?: string;
 	fieldName?: string;
 }
 

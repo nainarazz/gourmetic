@@ -55,7 +55,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 					Name<span className="required">*</span>
 				</Label>
 				<StyledFormikInput
-					error={(errors.name && touched.name) as boolean}
+					error={errors.name && touched.name ? 'true' : ''}
 					name={'name'}
 				/>
 				<FormikErrorWrapper>
@@ -70,8 +70,9 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<StyledFormikTextArea
 					component="textarea"
 					error={
-						(errors.recipeDescription &&
-							touched.recipeDescription) as boolean
+						errors.recipeDescription && touched.recipeDescription
+							? 'true'
+							: ''
 					}
 					name={'recipeDescription'}
 				/>
@@ -102,9 +103,10 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 								form.setFieldValue('difficulty', val.value)
 							}
 							selectedValue={field.value}
-							hasError={
-								(errors.difficulty &&
-									touched.difficulty) as boolean
+							error={
+								errors.difficulty && touched.difficulty
+									? 'true'
+									: ''
 							}
 						/>
 					)}
@@ -119,7 +121,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 					Yield<span className="required">*</span>
 				</Label>
 				<StyledFormikInput
-					error={(errors.yield && touched.yield) as boolean}
+					error={errors.yield && touched.yield ? 'true' : ''}
 					name={'yield'}
 					type="number"
 					min="0"
@@ -177,10 +179,12 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 								form.setFieldValue('meals', val)
 							}
 							selectedValues={field.value}
-							hasError={
-								(errors.meals &&
-									!!errors.meals.length &&
-									touched.meals) as boolean
+							error={
+								errors.meals &&
+								!!errors.meals.length &&
+								touched.meals
+									? 'true'
+									: ''
 							}
 						/>
 					)}

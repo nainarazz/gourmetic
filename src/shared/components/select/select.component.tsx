@@ -8,11 +8,11 @@ interface SelectProps {
 	handleChange: (val: ReactSelectOptions) => void;
 	selectedValues?: ReactSelectOptions[];
 	selectedValue?: ReactSelectOptions;
-	hasError?: boolean;
+	error?: string;
 }
 
 // see react-select doc for options regarding styles
-const getStyles = (hasError: boolean) => {
+const getStyles = (hasError: string) => {
 	return {
 		// tslint:disable-next-line:no-any
 		control: (provided: any, state: any) => ({
@@ -44,12 +44,12 @@ export const CustomMultiSelect: SFC<SelectProps> = ({
 	options,
 	handleChange,
 	selectedValues,
-	hasError,
+	error,
 }) => {
 	return (
 		<Select
 			options={options}
-			styles={getStyles(hasError as boolean)}
+			styles={getStyles(error as string)}
 			defaultValue={selectedValues}
 			closeMenuOnSelect={false}
 			isMulti
@@ -63,12 +63,12 @@ export const CustomSelect: SFC<SelectProps> = ({
 	options,
 	handleChange,
 	selectedValue,
-	hasError,
+	error,
 }) => {
 	return (
 		<Select
 			options={options}
-			styles={getStyles(hasError as boolean)}
+			styles={getStyles(error as string)}
 			defaultValue={selectedValue}
 			// tslint:disable-next-line:no-any
 			onChange={(e: any) => handleChange(e)}
