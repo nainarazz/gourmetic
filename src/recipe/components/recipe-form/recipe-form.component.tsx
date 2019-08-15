@@ -27,6 +27,7 @@ import {
 import {
 	IngredientsContainer,
 	InstructionsContainer,
+	Privacy,
 } from './recipe-form.style';
 import {
 	FormikForm,
@@ -34,6 +35,7 @@ import {
 	Label,
 	StyledFormikInput,
 	StyledFormikTextArea,
+	FormikErrorWrapper,
 } from '../../../shared/styles/forms';
 
 interface RecipeFormProps {
@@ -41,7 +43,7 @@ interface RecipeFormProps {
 }
 
 const RecipeForm = (props: FormikProps<FormValues>) => {
-	const { values, isSubmitting } = props;
+	const { values, isSubmitting, errors, touched } = props;
 
 	return (
 		<FormikForm className="formik-form">
@@ -49,34 +51,48 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<StyledFormikInput type="file" name={'image'} />
 			</div>
 			<GenericInputContainer>
-				<Label>Name</Label>
-				<StyledFormikInput name={'name'} />
-				<ErrorMessage name="name" />
+				<Label htmlFor="description">
+					Name<span className="required">*</span>
+				</Label>
+				<StyledFormikInput
+					error={(errors.name && touched.name) as boolean}
+					name={'name'}
+				/>
+				<FormikErrorWrapper>
+					<ErrorMessage name="name" />
+				</FormikErrorWrapper>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Description</Label>
+				<Label>
+					Description<span className="required">*</span>
+				</Label>
 				<StyledFormikTextArea
 					component="textarea"
+					error={
+						(errors.description && touched.description) as boolean
+					}
 					name={'description'}
 				/>
-				<ErrorMessage name="description" />
+				<FormikErrorWrapper>
+					<ErrorMessage name="description" />
+				</FormikErrorWrapper>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Prep Time</Label>
+				<Label>Prep Time (minutes)</Label>
 				<StyledFormikInput name={'prepTime'} type="number" min="0" />
-				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Cooking Time</Label>
+				<Label>Cooking Time (minutes)</Label>
 				<StyledFormikInput name={'cookingTime'} type="number" min="0" />
-				<span>min</span>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Difficulty</Label>
+				<Label>
+					Difficulty<span className="required">*</span>
+				</Label>
 				<StyledFormikInput name={'difficulty'}>
 					{({ field, form }: FieldProps) => (
 						<CustomSelect
@@ -85,20 +101,37 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 								form.setFieldValue('difficulty', val.value)
 							}
 							selectedValue={field.value}
+							hasError={
+								(errors.difficulty &&
+									touched.difficulty) as boolean
+							}
 						/>
 					)}
 				</StyledFormikInput>
-				<ErrorMessage name="difficulty" />
+				<FormikErrorWrapper>
+					<ErrorMessage name="difficulty" />
+				</FormikErrorWrapper>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Yield</Label>
-				<StyledFormikInput name={'yield'} type="number" min="0" />
-				<ErrorMessage name="yield" />
+				<Label>
+					Yield<span className="required">*</span>
+				</Label>
+				<StyledFormikInput
+					error={(errors.yield && touched.yield) as boolean}
+					name={'yield'}
+					type="number"
+					min="0"
+				/>
+				<FormikErrorWrapper>
+					<ErrorMessage name="yield" />
+				</FormikErrorWrapper>
 			</GenericInputContainer>
 
 			<IngredientsContainer>
-				<h4>Ingredients</h4>
+				<Label>
+					Ingredients<span className="required">*</span>
+				</Label>
 				<FieldArray
 					name={'ingredients'}
 					render={arrayHelpers => (
@@ -108,11 +141,15 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				/>
-				<ErrorMessage name="ingredients" />
+				<FormikErrorWrapper>
+					<ErrorMessage name="ingredients" />
+				</FormikErrorWrapper>
 			</IngredientsContainer>
 
 			<InstructionsContainer>
-				<h4>Instructions</h4>
+				<Label>
+					Instructions<span className="required">*</span>
+				</Label>
 				<FieldArray
 					name={'instructions'}
 					render={arrayHelpers => (
@@ -122,11 +159,15 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						/>
 					)}
 				/>
-				<ErrorMessage name="instructions" />
+				<FormikErrorWrapper>
+					<ErrorMessage name="instructions" />
+				</FormikErrorWrapper>
 			</InstructionsContainer>
 
-			<div className="meals">
-				<h4>Meal Categories</h4>
+			<GenericInputContainer>
+				<Label>
+					Meal Categories<span className="required">*</span>
+				</Label>
 				<StyledFormikInput name={'meals'}>
 					{({ field, form }: FieldProps) => (
 						<CustomMultiSelect
@@ -135,17 +176,31 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 								form.setFieldValue('meals', val)
 							}
 							selectedValues={field.value}
+							hasError={
+								(errors.meals &&
+									!!errors.meals.length &&
+									touched.meals) as boolean
+							}
 						/>
 					)}
 				</StyledFormikInput>
-				<ErrorMessage name="meals" />
-			</div>
+				<FormikErrorWrapper>
+					<ErrorMessage name="meals" />
+				</FormikErrorWrapper>
+			</GenericInputContainer>
 
-			<GenericInputContainer>
+			<GenericInputContainer style={{ flexDirection: 'row' }}>
 				<StyledFormikInput name={'isPublic'} type="checkbox" />
 				<Label>Is Public?</Label>
 			</GenericInputContainer>
 
+			<Privacy>
+				<i>
+					By default your recipe can only be viewed by you. If you
+					want to make it public, please send an email to
+					gourmetic@gmail.com.
+				</i>
+			</Privacy>
 			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
 				<SubmitButton type="submit" disabled={isSubmitting}>
 					Submit
@@ -177,7 +232,9 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 		instructions: Yup.array().required('Instruction is required.'),
 		ingredients: Yup.array().required('Ingredient is required.'),
 		difficulty: Yup.string().required('Please select difficulty.'),
-		meals: Yup.array().required('Please select at least 1 meal.'),
+		meals: Yup.array()
+			.nullable()
+			.required('Please select at least 1 meal.'),
 		yield: Yup.number()
 			.required('Yield is required')
 			.min(1, 'Yield is required.'),
