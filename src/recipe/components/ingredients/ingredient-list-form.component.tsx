@@ -1,6 +1,5 @@
 import React, { ChangeEvent, SFC, useState } from 'react';
 import { emptyIngredient } from '../../constants/recipe.constants';
-import { errorColor } from '../../../shared/themes/colors';
 import { FieldArrayRenderProps } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FormValues, Ingredient } from '../../types/recipe.interface';

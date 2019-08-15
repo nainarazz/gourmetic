@@ -21,6 +21,7 @@ export const GenericInputContainer = styled.div`
 
 export const Label = styled.label`
 	margin-bottom: 5px;
+	font-size: 0.9rem;
 	span.required {
 		color: ${errorColor.message};
 	}
