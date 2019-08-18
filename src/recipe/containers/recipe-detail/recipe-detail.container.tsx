@@ -6,7 +6,7 @@ import { NextFunctionComponent } from 'next';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
 import {
 	RecipeDetailComponent,
-	Instructions,
+	Instruction as IInstruction,
 } from '../../../graphql-generated-types/query-types';
 
 interface RecipeDetailProps {
@@ -29,7 +29,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 			return (
 				<React.Fragment>
 					<RecipeDetailWrapper>
-						<Image>my image here</Image>
+						<Image imageUrl={(recipe && recipe.image) || ''} />
 						<RecipeDetailSummary
 							prepTime={recipe && recipe.prepTime}
 							difficulty={'easy'}
@@ -42,7 +42,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 							ingredients={(recipe && recipe.ingredients) || []}
 						/>
 						<Instruction
-							instructions={instructions as Instructions[]}
+							instructions={instructions as IInstruction[]}
 						/>
 					</RecipeDetailWrapper>
 				</React.Fragment>

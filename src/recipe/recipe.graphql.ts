@@ -66,6 +66,7 @@ export const RECIPE_DETAIL = gql`
 				firstname
 				lastname
 			}
+			image
 		}
 	}
 `;

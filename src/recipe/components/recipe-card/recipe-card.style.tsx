@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface RecipeCardProps {
+	imageUrl?: string;
+}
+
 export const ImageWrapper = styled.div`
 	width: 19rem;
 	position: relative;
@@ -29,6 +33,8 @@ export const Photo = styled.div`
 	position: relative;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	border-radius: 2px;
+	background-image: url(${(props: RecipeCardProps) => props.imageUrl ? props.imageUrl : ''});
+	background-size: cover;
 `;
 
 export const CardDescription = styled.div`

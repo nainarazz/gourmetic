@@ -1,14 +1,9 @@
 import * as Yup from 'yup';
 import React from 'react';
-import { getFormattedRecipeData } from './recipe-form.utils';
+import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import { SubmitButton } from '../../../shared/styles/buttons';
-import {
-	FormValues,
-	ReactSelectOptions,
-	Recipe,
-} from '../../types/recipe.interface';
 import {
 	FieldArray,
 	FieldProps,
@@ -39,16 +34,29 @@ import {
 } from '../../../shared/styles/forms';
 
 interface RecipeFormProps {
-	handleSubmit: (recipe: Partial<Recipe>) => Promise<void>;
+	handleSubmit: (recipe: FormValues) => Promise<void>;
 }
 
+const FILE_IMAGE_SIZE_LIMIT = 10000000;
+
 const RecipeForm = (props: FormikProps<FormValues>) => {
-	const { values, isSubmitting, errors, touched } = props;
+	const { values, isSubmitting, errors, touched, setFieldValue } = props;
+
+	// tslint:disable-next-line:no-any
+	const handleImageInputChange = (e: any) =>
+		setFieldValue('image', e.currentTarget.files[0]);
 
 	return (
 		<FormikForm>
 			<div className="image">
-				<StyledFormikInput type="file" name={'image'} />
+				<input
+					id="image"
+					type="file"
+					accept="image/*"
+					name={'image'}
+					onChange={handleImageInputChange}
+				/>
+				{errors.image && touched.image && <span>{errors.image}</span>}
 			</div>
 			<GenericInputContainer>
 				<Label>
@@ -230,6 +238,11 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 		isPublic: false,
 	}),
 	validationSchema: Yup.object().shape({
+		image: Yup.mixed().test(
+			'fileSize',
+			'File too large',
+			value => (value && value.size <= FILE_IMAGE_SIZE_LIMIT) || true
+		),
 		name: Yup.string().required('Recipe name is required.'),
 		recipeDescription: Yup.string().required(
 			'Please enter a short description about recipe.'
@@ -245,9 +258,8 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			.min(1, 'Yield is required.'),
 	}),
 	handleSubmit: async (values, { props, setSubmitting }) => {
-		const formattedData = getFormattedRecipeData(values);
 		try {
-			await props.handleSubmit(formattedData);
+			await props.handleSubmit(values);
 			setSubmitting(false);
 		} catch (error) {
 			setSubmitting(false);

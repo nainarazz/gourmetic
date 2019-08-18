@@ -3,7 +3,7 @@ import {
 	Instruction,
 	Recipe,
 	ReactSelectOptions,
-} from './../../types/recipe.interface';
+} from './types/recipe.interface';
 
 const formatRecipeInstructions = (
 	instructions: Instruction[]
@@ -30,7 +30,7 @@ export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 		instructions: formatRecipeInstructions(data.instructions),
 		yield: data.yield,
 		meals: formSelectOptions(data.meals as ReactSelectOptions[]),
-		image: data.image,
+		image: '',
 		isPublic: data.isPublic,
 	};
 };

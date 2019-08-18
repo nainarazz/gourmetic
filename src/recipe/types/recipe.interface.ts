@@ -19,7 +19,7 @@ export interface ReactSelectOptions {
 }
 
 export interface Instruction {
-	imageUrl: string;
+	imageUrl?: string | null | undefined;
 	stepNumber: number;
 	description: string;
 }
@@ -55,7 +55,7 @@ export interface FormValues {
 	cookingTime: number;
 	difficulty: string;
 	yield: number;
-	image: string;
+	image: string | File;
 	meals: ReactSelectOptions[];
 	isPublic: boolean;
 }

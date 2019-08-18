@@ -19,9 +19,6 @@ const QueryResolver: QueryResolvers<Context, Recipe> = {
 };
 
 const RecipeResolver: RecipeResolvers<Context> = {
-	image: () => {
-		return 'image url here';
-	},
 	createdBy: async (parent, args, ctx) => {
 		const user = (await createdBy(parent.createdBy!._id, ctx)) as User;
 		return user;
