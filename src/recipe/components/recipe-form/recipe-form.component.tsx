@@ -59,10 +59,11 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				{errors.image && touched.image && <span>{errors.image}</span>}
 			</div>
 			<GenericInputContainer>
-				<Label>
+				<Label htmlFor="recipe-name">
 					Name<span className="required">*</span>
 				</Label>
 				<StyledFormikInput
+					id="recipe-name"
 					error={errors.name && touched.name ? 'true' : ''}
 					name={'name'}
 				/>
@@ -72,10 +73,11 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>
+				<Label htmlFor="recipe-description">
 					Description<span className="required">*</span>
 				</Label>
 				<StyledFormikTextArea
+					id="recipe-description"
 					component="textarea"
 					error={
 						errors.recipeDescription && touched.recipeDescription
@@ -90,20 +92,30 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Prep Time (minutes)</Label>
-				<StyledFormikInput name={'prepTime'} type="number" min="0" />
+				<Label htmlFor="prep-time">Prep Time (minutes)</Label>
+				<StyledFormikInput
+					id="prep-time"
+					name={'prepTime'}
+					type="number"
+					min="0"
+				/>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>Cooking Time (minutes)</Label>
-				<StyledFormikInput name={'cookingTime'} type="number" min="0" />
+				<Label htmlFor="cooking-time">Cooking Time (minutes)</Label>
+				<StyledFormikInput
+					id="cooking-time"
+					name={'cookingTime'}
+					type="number"
+					min="0"
+				/>
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>
+				<Label htmlFor="difficulty">
 					Difficulty<span className="required">*</span>
 				</Label>
-				<StyledFormikInput name={'difficulty'}>
+				<StyledFormikInput id="difficulty" name={'difficulty'}>
 					{({ field, form }: FieldProps) => (
 						<CustomSelect
 							options={recipeDifficulties}
@@ -125,10 +137,11 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			</GenericInputContainer>
 
 			<GenericInputContainer>
-				<Label>
+				<Label htmlFor="yield">
 					Yield<span className="required">*</span>
 				</Label>
 				<StyledFormikInput
+					id="yield"
 					error={errors.yield && touched.yield ? 'true' : ''}
 					name={'yield'}
 					type="number"
@@ -158,9 +171,6 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			</IngredientsContainer>
 
 			<InstructionsContainer>
-				<Label>
-					Instructions<span className="required">*</span>
-				</Label>
 				<FieldArray
 					name={'instructions'}
 					render={arrayHelpers => (
@@ -203,8 +213,12 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 			</GenericInputContainer>
 
 			<GenericInputContainer style={{ flexDirection: 'row' }}>
-				<StyledFormikInput name={'isPublic'} type="checkbox" />
-				<Label>Is Public?</Label>
+				<StyledFormikInput
+					id="privacy"
+					name={'isPublic'}
+					type="checkbox"
+				/>
+				<Label htmlFor="privacy">Is Public?</Label>
 			</GenericInputContainer>
 
 			<Privacy>

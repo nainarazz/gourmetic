@@ -74,8 +74,9 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 			})}
 			<StyledIngredient>
 				<QuantityInputContainer>
-					<Label>Quantity</Label>
+					<Label htmlFor="quantity">Quantity</Label>
 					<StyledFormikInput
+						id="quantity"
 						name="quantity"
 						value={ingredient.quantity}
 						onChange={handleChange}
@@ -83,8 +84,9 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				</QuantityInputContainer>
 
 				<MeasurementInputContainer>
-					<Label>Measurement</Label>
+					<Label htmlFor="measurement">Measurement</Label>
 					<StyledFormikInput
+						id="measurement"
 						name="measurement"
 						value={ingredient.measurement}
 						onChange={handleChange}
@@ -92,8 +94,9 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				</MeasurementInputContainer>
 
 				<GenericInputContainer>
-					<Label>Item</Label>
+					<Label htmlFor="ingredient-item">Item</Label>
 					<StyledFormikInput
+						id="ingredient-item"
 						value={ingredient.item}
 						name="item"
 						onChange={handleChange}

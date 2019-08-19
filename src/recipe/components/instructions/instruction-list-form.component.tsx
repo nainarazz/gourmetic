@@ -10,6 +10,7 @@ import { StyledInstruction } from './instruction.style';
 import {
 	GenericInputContainer,
 	StyledFormikTextArea,
+	Label,
 } from '../../../shared/styles/forms';
 
 interface IngredientListProps {
@@ -62,7 +63,11 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 			})}
 			<StyledInstruction>
 				<GenericInputContainer style={{ width: '100%' }}>
+					<Label htmlFor="instruction">
+						Instructions<span className="required">*</span>
+					</Label>
 					<StyledFormikTextArea
+						id="instruction"
 						name="description"
 						component="textarea"
 						value={instruction.description}
