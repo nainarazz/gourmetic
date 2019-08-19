@@ -13,7 +13,7 @@
 		"generate-types": "graphql-codegen",
 		"seed": "cd api && yarn seed",
 		"now-build": "next build src",
-		"deploy:prod": "now -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry"
+		"deploy:prod": "now -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry -e CLOUDINARY_CLOUD_NAME=@cloudinary_cloud_name -e CLOUDINARY_UPLOAD_PRESET=@cloudinary_upload_preset"
 	},
 	"repository": "git+https://github.com/nainarazz/gourmetic.git",
 	"keywords": [],

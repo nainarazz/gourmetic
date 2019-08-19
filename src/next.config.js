@@ -3,6 +3,10 @@ const nextOffline = require('next-offline');
 
 const nextConfig = {
 	target: 'serverless',
+	env: {
+		CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
+		CLOUDINARY_UPLOAD_PRESET: process.env.CLOUDINARY_UPLOAD_PRESET,
+	},
 	workboxOpts: {
 		swDest: 'static/service-worker.js',
 		runtimeCaching: [

@@ -23,8 +23,8 @@ export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 	return {
 		name: data.name,
 		description: data.recipeDescription,
-		prepTime: data.prepTime,
-		cookingTime: data.cookingTime,
+		prepTime: data.prepTime || 0,
+		cookingTime: data.cookingTime || 0,
 		difficulty: data.difficulty,
 		ingredients: data.ingredients,
 		instructions: formatRecipeInstructions(data.instructions),
