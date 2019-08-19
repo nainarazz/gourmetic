@@ -28,7 +28,7 @@
 			"type": "image/png"
 		}
 	],
-	"start_url": "/",
+	"start_url": "https://gourmetic.nainarazz.now.sh/",
 	"display": "standalone",
 	"background_color": "#5cb818",
 	"theme_color": "#5cb818"
