@@ -62,7 +62,9 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				return (
 					<div key={index}>
 						<ItemIndex>{index + 1} </ItemIndex>-{' '}
-						{`${ing.quantity} ${ing.measurement} ${ing.item}`}
+						<span style={{ fontSize: '0.8rem' }}>{`${
+							ing.quantity
+						} ${ing.measurement} ${ing.item}`}</span>
 						<InputClearButton
 							type="button"
 							onClick={() => arrayHelpers.remove(index)}

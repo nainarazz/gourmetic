@@ -3,6 +3,7 @@ import React from 'react';
 import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
+import { PhotoInput } from '../../../shared/components/photo-input/photo-input.component';
 import { SubmitButton } from '../../../shared/styles/buttons';
 import {
 	FieldArray,
@@ -48,14 +49,8 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 
 	return (
 		<FormikForm>
-			<div className="image">
-				<input
-					id="image"
-					type="file"
-					accept="image/*"
-					name={'image'}
-					onChange={handleImageInputChange}
-				/>
+			<div>
+				<PhotoInput handleImageInputChange={handleImageInputChange} />
 				{errors.image && touched.image && <span>{errors.image}</span>}
 			</div>
 			<GenericInputContainer>

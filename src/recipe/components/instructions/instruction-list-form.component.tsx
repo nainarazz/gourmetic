@@ -49,7 +49,9 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 				return (
 					<div key={i}>
 						<ItemIndex>{i + 1}</ItemIndex> -{' '}
-						<span>{ins.description}</span>
+						<span style={{ fontSize: '0.8rem' }}>
+							{ins.description}
+						</span>
 						<InputClearButton
 							type="button"
 							onClick={() => {
