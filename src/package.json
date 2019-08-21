@@ -7,6 +7,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"@apollo/react-hooks": "^3.0.1",
 		"@babel/core": "^7.4.5",
 		"@fortawesome/fontawesome-free-regular": "^5.0.13",
 		"@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -15,7 +16,7 @@
 		"@fortawesome/react-fontawesome": "^0.1.4",
 		"@types/react-select": "^3.0.0",
 		"@zeit/next-typescript": "^1.1.1",
-		"apollo-boost": "^0.4.1",
+		"apollo-boost": "^0.4.4",
 		"formik": "^1.5.8",
 		"graphql": "^14.2.1",
 		"isomorphic-unfetch": "3.0.0",
@@ -24,7 +25,7 @@
 		"next-offline": "^4.0.2",
 		"next-with-apollo": "^3.4.0",
 		"react": "^16.8.6",
-		"react-apollo": "^2.5.5",
+		"react-apollo": "^3.0.1",
 		"react-dom": "^16.8.6",
 		"react-infinite-scroll-component": "^4.5.2",
 		"react-select": "^3.0.4",

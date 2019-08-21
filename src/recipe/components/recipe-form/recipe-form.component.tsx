@@ -266,10 +266,14 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			.required('Yield is required')
 			.min(1, 'Yield is required.'),
 	}),
-	handleSubmit: async (values, { props, setSubmitting }) => {
+	handleSubmit: async (
+		values,
+		{ props, setSubmitting, resetForm, setFieldValue }
+	) => {
 		try {
 			await props.handleSubmit(values);
 			setSubmitting(false);
+			resetForm();
 		} catch (error) {
 			setSubmitting(false);
 		}
