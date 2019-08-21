@@ -7,7 +7,10 @@ import { Header } from '../../components/header/header.component';
 import { MainContainer } from '../../components/main/main.component';
 import { PlusButton } from './app-layout.style';
 import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
+import { ToastContainer } from 'react-toastify';
 import { useRouter } from 'next/router';
+import './toast-container.css';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -58,6 +61,7 @@ export const AppLayout: React.SFC = props => {
 			/>
 			<MainContainer>{props.children}</MainContainer>
 			{newRecipeButton}
+			<ToastContainer hideProgressBar toastClassName="toast-container" />
 		</div>
 	);
 };

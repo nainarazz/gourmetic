@@ -5,6 +5,7 @@ import { IngredientListForm } from '../ingredients/ingredient-list-form.componen
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import { PhotoInput } from '../../../shared/components/photo-input/photo-input.component';
 import { SubmitButton } from '../../../shared/styles/buttons';
+import { toast } from 'react-toastify';
 import {
 	FieldArray,
 	FieldProps,
@@ -273,8 +274,14 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 		try {
 			await props.handleSubmit(values);
 			setSubmitting(false);
+			toast.success('🚀 Successfully saved recipe!', {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			resetForm();
 		} catch (error) {
+			toast.error('✖️ Failed to create recipe.', {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
 			setSubmitting(false);
 		}
 	},

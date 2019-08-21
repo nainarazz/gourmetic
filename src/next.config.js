@@ -1,5 +1,6 @@
 const withTypescript = require('@zeit/next-typescript');
 const nextOffline = require('next-offline');
+const withCSS = require('@zeit/next-css');
 
 const nextConfig = {
 	target: 'serverless',
@@ -37,4 +38,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = nextOffline(withTypescript(nextConfig));
+module.exports = nextOffline(withTypescript(withCSS(nextConfig)));
