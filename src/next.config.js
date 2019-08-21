@@ -11,6 +11,16 @@ const nextConfig = {
 		swDest: 'static/service-worker.js',
 		runtimeCaching: [
 			{
+				urlPattern: /^https?.*/,
+				handler: 'NetworkFirst',
+				options: {
+					cacheName: 'offlineCache',
+					expiration: {
+						maxEntries: 200,
+					},
+				},
+			},
+			{
 				urlPattern: /.png$|.jpg$|.jpeg$|.gif$/,
 				handler: 'CacheFirst',
 			},
