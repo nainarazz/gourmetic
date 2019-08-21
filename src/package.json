@@ -7,6 +7,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"@apollo/react-components": "^3.0.1",
 		"@apollo/react-hooks": "^3.0.1",
 		"@babel/core": "^7.4.5",
 		"@fortawesome/fontawesome-free-regular": "^5.0.13",
