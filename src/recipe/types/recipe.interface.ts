@@ -53,7 +53,7 @@ export interface FormValues {
 	instructions: Instruction[];
 	prepTime: number;
 	cookingTime: number;
-	difficulty: string;
+	difficulty: ReactSelectOptions;
 	yield: number;
 	image: string | File;
 	meals: ReactSelectOptions[];

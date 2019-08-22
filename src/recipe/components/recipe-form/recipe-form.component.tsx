@@ -48,10 +48,16 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 	const handleImageInputChange = (e: any) =>
 		setFieldValue('image', e.currentTarget.files[0]);
 
+	const handleClearImage = () => setFieldValue('image', '');
+
 	return (
 		<FormikForm>
 			<div>
-				<PhotoInput handleImageInputChange={handleImageInputChange} />
+				<PhotoInput
+					value={values.image}
+					handleClearImage={handleClearImage}
+					handleImageInputChange={handleImageInputChange}
+				/>
 				{errors.image && touched.image && <span>{errors.image}</span>}
 			</div>
 			<GenericInputContainer>
@@ -116,7 +122,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 						<CustomSelect
 							options={recipeDifficulties}
 							handleChange={val =>
-								form.setFieldValue('difficulty', val.value)
+								form.setFieldValue('difficulty', val)
 							}
 							selectedValue={field.value}
 							error={
@@ -212,6 +218,7 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<StyledFormikInput
 					id="privacy"
 					name={'isPublic'}
+					checked={values.isPublic}
 					type="checkbox"
 				/>
 				<Label htmlFor="privacy">Is Public?</Label>
@@ -241,7 +248,7 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 		ingredients: [],
 		prepTime: 0,
 		cookingTime: 0,
-		difficulty: '',
+		difficulty: { value: '', label: '' },
 		yield: 0,
 		image: '',
 		meals: [],
@@ -279,7 +286,7 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			});
 			resetForm();
 		} catch (error) {
-			toast.error('✖️ Failed to create recipe.', {
+			toast.error('Failed to create recipe.', {
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 			setSubmitting(false);

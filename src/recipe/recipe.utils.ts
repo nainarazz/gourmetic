@@ -25,7 +25,7 @@ export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 		description: data.recipeDescription,
 		prepTime: data.prepTime || 0,
 		cookingTime: data.cookingTime || 0,
-		difficulty: data.difficulty,
+		difficulty: (data.difficulty as ReactSelectOptions).value,
 		ingredients: data.ingredients,
 		instructions: formatRecipeInstructions(data.instructions),
 		yield: data.yield,

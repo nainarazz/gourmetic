@@ -53,6 +53,7 @@ export const CustomMultiSelect: SFC<SelectProps> = ({
 			defaultValue={selectedValues}
 			closeMenuOnSelect={false}
 			isMulti
+			value={selectedValues}
 			// tslint:disable-next-line:no-any
 			onChange={(e: any) => handleChange(e)}
 		/>
@@ -70,6 +71,7 @@ export const CustomSelect: SFC<SelectProps> = ({
 			options={options}
 			styles={getStyles(error as string)}
 			defaultValue={selectedValue}
+			value={selectedValue}
 			// tslint:disable-next-line:no-any
 			onChange={(e: any) => handleChange(e)}
 		/>

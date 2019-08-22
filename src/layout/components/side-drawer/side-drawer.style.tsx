@@ -13,7 +13,7 @@ export const Container = styled.div`
 	left: 0;
 	width: 70%;
 	max-width: 400px;
-	z-index: 200;
+	z-index: 500;
 	transform: ${(props: StyleProps) =>
 		props.isOpen ? 'translateX(0)' : 'translateX(-100%)'};
 	transition: transform 0.3s ease-out;

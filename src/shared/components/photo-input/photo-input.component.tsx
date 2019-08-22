@@ -1,16 +1,24 @@
-import React, { SFC, useEffect, useState } from 'react';
+import React, {
+	SFC,
+	useEffect,
+	useRef,
+	useState
+	} from 'react';
 import { faTimesCircle as clearButton } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image, Input, Label } from './photo-input.style';
 import { InputClearButton } from '../../styles/buttons';
 
 interface PhotoInputProps {
-	// tslint:disable-next-line:no-any
+	// tslint:disable:no-any
 	handleImageInputChange: (event: any) => void;
+	handleClearImage: () => void;
+	value: any;
 }
 
 export const PhotoInput: SFC<PhotoInputProps> = props => {
 	const [selectedFile, setSelectedFile] = useState('');
+	const fileInput = useRef(null);
 
 	// clean up object url
 	useEffect(() => () => URL.revokeObjectURL(selectedFile), []);
@@ -25,7 +33,12 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 
 	// tslint:disable-next-line:no-any
 	const removePhoto = (e: any) => {
-		setSelectedFile('');
+		setSelectedFile(''); // clear the preview photo
+		props.handleClearImage(); // clear the input in form throught the callback
+		if (fileInput.current) {
+			// clear the input file element
+			(fileInput.current as any).value = '';
+		}
 		e.preventDefault();
 	};
 
@@ -35,6 +48,7 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 				id="image"
 				type="file"
 				accept="image/*"
+				ref={fileInput}
 				name={'image'}
 				onChange={handleChange}
 			/>
@@ -42,11 +56,12 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 				<Image
 					alt="image"
 					src={
-						selectedFile ||
-						'/static/images/img-default-placeholder.jpg'
+						selectedFile && props.value
+							? selectedFile
+							: '/static/images/img-default-placeholder.jpg'
 					}
 				/>
-				{selectedFile && (
+				{selectedFile && props.value && (
 					<InputClearButton
 						type="button"
 						style={{
