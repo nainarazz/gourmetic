@@ -1,20 +1,15 @@
+import { difficulties, meals } from '../constants/recipe.constants';
+
 export const RecipeTypes = `
-    enum Meals {
-        BREAKFAST
-        LUNCH
-        SUPPER
-        SNACK
-        DESSERT
-        ENTREE
+    enum Meal {
+        ${meals}
     }
 
-    enum DietLabels {
-        LOW_SALT
-        HIGH_PROTEIN
-        VEGAN
+    enum Difficulty {
+        ${difficulties}
     }
 
-    type Instructions {
+    type Instruction {
         imageUrl: String
         stepNumber: Int!
         description: String!
@@ -30,15 +25,16 @@ export const RecipeTypes = `
         _id: ID!
         name: String!
         description: String!
-        meal: [Meals]
+        meals: [Meal]
         prepTime: Int
         cookingTime: Int
+        difficulty: Difficulty
         ingredients: [Ingredient!]!
-        instructions: [Instructions]!
+        instructions: [Instruction]!
         yield: Int
         image: String
-        dietLabels: [DietLabels]
         isPublic: Boolean
+        reaction: RecipeReaction
         createdBy: User
         createdAt: Date
         updatedAt: Date
@@ -58,8 +54,38 @@ export const RecipeTypes = `
         edges: [RecipeEdge]!
     }
 
+    input IngredientInput {
+        measurement: String
+        item: String!
+        quantity: String
+    }
+
+    input InstructionInput {
+        imageUrl: String
+        stepNumber: Int!
+        description: String!
+    }
+
+    input RecipeInput {
+        name: String!
+        description: String!
+        meals: [String]
+        prepTime: Int
+        cookingTime: Int
+        difficulty: String
+        ingredients: [IngredientInput!]!
+        instructions: [InstructionInput!]!
+        yield: Int
+        image: String
+        isPublic: Boolean
+    }
+
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
         recipeDetail(id: ID): Recipe
+    }
+
+    extend type Mutation {
+        createRecipe(recipeInput: RecipeInput!): Recipe
     }
 `;

@@ -1,5 +1,6 @@
 import { Context } from '../../../graphql-generated-types/context';
 import { createdBy } from './createdBy.query';
+import { recipeReaction } from './recipeReaction.query';
 import { User } from '../../../graphql-generated-types/resolvers-types';
 import {
 	getPaginatedRecipes,
@@ -18,12 +19,12 @@ const QueryResolver: QueryResolvers<Context, Recipe> = {
 };
 
 const RecipeResolver: RecipeResolvers<Context> = {
-	image: () => {
-		return 'image url here';
-	},
 	createdBy: async (parent, args, ctx) => {
 		const user = (await createdBy(parent.createdBy!._id, ctx)) as User;
 		return user;
+	},
+	reaction: async (parent, args, ctx) => {
+		return recipeReaction(parent.createdBy!._id, parent._id, ctx);
 	},
 };
 

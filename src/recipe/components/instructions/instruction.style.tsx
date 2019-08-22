@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeColor } from '../../../shared/themes/colors';
 
 export const InstructionsWrapper = styled.div`
 	width: 90%;
@@ -24,10 +25,14 @@ export const StepNumber = styled.div`
 	width: 27px;
 	height: 25px;
 	line-height: 2;
-	background: green;
+	background: ${themeColor.darkAccent};
 	color: #fff;
 	border-radius: 50%;
 	text-align: center;
 	margin-right: 10px;
 	font-size: 0.8rem;
+`;
+
+export const StyledInstruction = styled.div`
+	display: flex;
 `;

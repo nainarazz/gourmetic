@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instructions } from '../../../graphql-generated-types/query-types';
+import { Instruction as IInstruction } from '../../types/recipe.interface';
 import {
 	InstructionsWrapper,
 	Title,
@@ -9,7 +9,7 @@ import {
 } from './instruction.style';
 
 interface InstructionsProps {
-	instructions: Instructions[];
+	instructions: IInstruction[];
 }
 
 export const Instruction: React.SFC<InstructionsProps> = props => (

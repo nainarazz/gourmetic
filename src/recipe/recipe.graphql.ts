@@ -12,7 +12,7 @@ export const RECIPE_LIST_QUERY = gql`
 					_id
 					name
 					description
-					meal
+					meals
 					createdAt
 					updatedAt
 					ingredients {
@@ -27,13 +27,18 @@ export const RECIPE_LIST_QUERY = gql`
 					}
 					image
 					createdBy {
+						_id
 						firstname
 						lastname
 					}
-					meal
+					meals
 					prepTime
 					cookingTime
 					isPublic
+					reaction {
+						_id
+						isLiked
+					}
 				}
 			}
 		}
@@ -61,6 +66,25 @@ export const RECIPE_DETAIL = gql`
 				firstname
 				lastname
 			}
+			image
+		}
+	}
+`;
+
+export const LIKE_RECIPE = gql`
+	mutation LikeRecipe($input: LikeRecipeInput!) {
+		likeRecipe(input: $input) {
+			_id
+			isLiked
+		}
+	}
+`;
+
+export const CREATE_RECIPE = gql`
+	mutation CreateRecipe($input: RecipeInput!) {
+		createRecipe(recipeInput: $input) {
+			_id
+			name
 		}
 	}
 `;
