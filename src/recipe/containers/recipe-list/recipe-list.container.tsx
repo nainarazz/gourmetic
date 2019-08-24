@@ -1,7 +1,7 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
 import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
-import { RecipeEdge } from '../../../../api/graphql-generated-types/resolvers-types';
+import { RecipeEdge } from '../../types/recipe.interface';
 import { RecipeList } from '../../components/recipe-list/recipe-list.component';
 import { useQuery } from 'react-apollo';
 

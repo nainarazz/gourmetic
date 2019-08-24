@@ -2,7 +2,6 @@ import React from 'react';
 import { Image, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
 import { Instruction } from '../../components/instructions/instruction.component';
-import { Instruction as IInstruction } from '../../../graphql-generated-types/query-types';
 import { NextFunctionComponent } from 'next';
 import { RECIPE_DETAIL } from '../../recipe.graphql';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
@@ -39,7 +38,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 				<Ingredient
 					ingredients={(recipe && recipe.ingredients) || []}
 				/>
-				<Instruction instructions={instructions as IInstruction[]} />
+				<Instruction instructions={instructions} />
 			</RecipeDetailWrapper>
 		</React.Fragment>
 	);

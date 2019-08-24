@@ -3,7 +3,7 @@ import React from 'react';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as heartEmpty } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Recipe } from '../../../graphql-generated-types/query-types';
+import { Recipe } from '../../types/recipe.interface';
 import {
 	CardDescription,
 	ImageWrapper,

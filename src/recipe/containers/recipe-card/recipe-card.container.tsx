@@ -4,9 +4,8 @@ import { RecipeCard } from '../../components/recipe-card/recipe-card.component';
 import { useMutation } from 'react-apollo';
 import {
 	Recipe,
-	RecipeReaction,
 	LikeRecipeMutationVariables,
-} from '../../../graphql-generated-types/query-types';
+} from '../../types/recipe.interface';
 
 interface RecipeCardContainerProps {
 	recipe: Recipe;
@@ -69,7 +68,8 @@ export const RecipeCardContainer: React.SFC<
 
 	if (data) {
 		recipe.reaction = {
-			...(data.likeRecipe as RecipeReaction),
+			// tslint:disable-next-line:no-any
+			...(data.likeRecipe as any),
 		};
 	}
 

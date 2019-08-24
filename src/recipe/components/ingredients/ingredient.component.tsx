@@ -5,7 +5,7 @@ import {
 	Item,
 	Title
 	} from './ingredient.style';
-import { Ingredient as IngredientType } from '../../../graphql-generated-types/query-types';
+import { Ingredient as IngredientType } from '../../types/recipe.interface';
 
 interface IngredientProps {
 	ingredients: IngredientType[];
