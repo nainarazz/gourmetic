@@ -39,7 +39,7 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 				as={`/recipe/${props.recipe._id}`}
 			>
 				<ImageWrapper>
-					<Photo imageUrl={props.recipe.image || ''}>
+					<Photo imageUrl={props.recipe.image.secureUrl || ''}>
 						<LoveIcon onClick={likeRecipe}>
 							<FontAwesomeIcon
 								icon={

@@ -25,7 +25,10 @@ export const RECIPE_LIST_QUERY = gql`
 						description
 						imageUrl
 					}
-					image
+					image {
+						secureUrl
+						publicId
+					}
 					createdBy {
 						_id
 						firstname
@@ -66,7 +69,10 @@ export const RECIPE_DETAIL = gql`
 				firstname
 				lastname
 			}
-			image
+			image {
+				secureUrl
+				publicId
+			}
 		}
 	}
 `;

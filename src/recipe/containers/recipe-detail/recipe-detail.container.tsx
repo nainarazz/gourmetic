@@ -26,7 +26,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 	return (
 		<React.Fragment>
 			<RecipeDetailWrapper>
-				<Image imageUrl={(recipe && recipe.image) || ''} />
+				<Image imageUrl={(recipe && recipe.image.secureUrl) || ''} />
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}
 					difficulty={'easy'}

@@ -21,6 +21,11 @@ export const RecipeTypes = `
         quantity: String
     }
 
+    type Image {
+        secureUrl: String
+        publicId: String
+    }
+
     type Recipe {
         _id: ID!
         name: String!
@@ -32,7 +37,7 @@ export const RecipeTypes = `
         ingredients: [Ingredient!]!
         instructions: [Instruction]!
         yield: Int
-        image: String
+        image: Image
         isPublic: Boolean
         reaction: RecipeReaction
         createdBy: User
@@ -66,6 +71,11 @@ export const RecipeTypes = `
         description: String!
     }
 
+    input ImageInput {
+        secureUrl: String
+        publicId: String
+    }
+
     input RecipeInput {
         name: String!
         description: String!
@@ -76,7 +86,7 @@ export const RecipeTypes = `
         ingredients: [IngredientInput!]!
         instructions: [InstructionInput!]!
         yield: Int
-        image: String
+        image: ImageInput
         isPublic: Boolean
     }
 

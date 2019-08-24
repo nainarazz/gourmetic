@@ -3207,6 +3207,19 @@ cli-width@^2.0.0:
   resolved "https://registry.yarnpkg.com/cli-width/-/cli-width-2.2.0.tgz#ff19ede8a9a5e579324147b0c11f0fbcbabed639"
   integrity sha1-/xnt6Kml5XkyQUewwR8PvLq+1jk=
 
+cloudinary-core@^2.6.2:
+  version "2.7.4"
+  resolved "https://registry.yarnpkg.com/cloudinary-core/-/cloudinary-core-2.7.4.tgz#35db9b8a851ca7ef9feace6e98496a8455de6663"
+  integrity sha512-toaZSJVvpY1bQhqhin6atI1DPfloE/wOS9T6lriHsZVvdNyQu+c9AyNznM5/4NquI2oLr4G2gGgeX0tImnFUaQ==
+
+cloudinary-react@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/cloudinary-react/-/cloudinary-react-1.1.4.tgz#3a845004e254ecc26887a94a3ea265c635ac5511"
+  integrity sha512-vhR/64//Hgx2o21hqTyJzL4taCB3fB+b2PKG7W/1E0elQON/set0fhfHrTVY3urPcvRvNQYJ8nvqNWcXF3iccg==
+  dependencies:
+    cloudinary-core "^2.6.2"
+    prop-types "^15.6.2"
+
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"

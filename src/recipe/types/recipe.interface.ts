@@ -32,6 +32,11 @@ export interface Ingredient {
 	quantity: string;
 }
 
+export interface Image {
+	secureUrl: string;
+	publicId: string;
+}
+
 export interface RecipeReaction {
 	_id: string;
 	recipe: Recipe;
@@ -55,7 +60,7 @@ export interface Recipe {
 	ingredients: Ingredient[];
 	instructions: Instruction[];
 	yield: number;
-	image: string;
+	image: Image;
 	isPublic: boolean;
 	createdBy: User;
 	reaction: RecipeReaction;

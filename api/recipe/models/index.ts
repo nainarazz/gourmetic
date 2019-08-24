@@ -41,7 +41,10 @@ const recipeSchema = new mongoose.Schema({
 		},
 	],
 	yield: Number,
-	image: String,
+	image: {
+		secureUrl: String,
+		publicId: String,
+	},
 	isPublic: Boolean,
 	createdBy: {
 		type: mongoose.Schema.Types.ObjectId,
