@@ -1,5 +1,7 @@
 import React from 'react';
-import { Image, RecipeDetailWrapper } from './recipe-detail.styles';
+import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
+import { Image as CloudinaryImage } from 'cloudinary-react';
+import { ImageWrapper, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
 import { Instruction } from '../../components/instructions/instruction.component';
 import { NextFunctionComponent } from 'next';
@@ -26,7 +28,22 @@ export const RecipeDetailRoot: NextFunctionComponent<
 	return (
 		<React.Fragment>
 			<RecipeDetailWrapper>
-				<Image imageUrl={(recipe && recipe.image.secureUrl) || ''} />
+				<ImageWrapper>
+					{recipe && (
+						<CloudinaryImage
+							cloudName="gourmetic"
+							dpr="auto"
+							width="auto"
+							responsive
+							quality="auto"
+							client_hints="true"
+							publicId={
+								(recipe && recipe.image.publicId) ||
+								DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID
+							}
+						/>
+					)}
+				</ImageWrapper>
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}
 					difficulty={'easy'}
