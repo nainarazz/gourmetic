@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
 	Button,
 	Container,
@@ -18,6 +19,8 @@ interface HeaderProps {
 
 export const Header: React.SFC<HeaderProps> = props => {
 	const [inputExpanded, setInputExpanded] = useState(false);
+	// tslint:disable-next-line:no-any
+	const { isAuthenticated, loginWithRedirect, logout }: any = useAuth0();
 
 	return (
 		<React.Fragment>
@@ -39,7 +42,14 @@ export const Header: React.SFC<HeaderProps> = props => {
 					/>
 					<ButtonsContainer>
 						<Button>Meal Planner</Button>
-						<Button>Sign In</Button>
+						{!isAuthenticated && (
+							<Button onClick={() => loginWithRedirect({})}>
+								Sign In
+							</Button>
+						)}
+						{isAuthenticated && (
+							<Button onClick={logout}>Sign out</Button>
+						)}
 					</ButtonsContainer>
 				</HeaderItems>
 			</Container>

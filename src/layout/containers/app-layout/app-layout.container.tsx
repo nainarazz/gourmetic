@@ -44,7 +44,7 @@ export const AppLayout: React.SFC = props => {
 	}
 
 	return (
-		<div>
+		<React.Fragment>
 			<Head>
 				<title>Gourmetic</title>
 			</Head>
@@ -62,6 +62,6 @@ export const AppLayout: React.SFC = props => {
 			<MainContainer>{props.children}</MainContainer>
 			{newRecipeButton}
 			<ToastContainer hideProgressBar toastClassName="toast-container" />
-		</div>
+		</React.Fragment>
 	);
 };

@@ -46,7 +46,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 				</ImageWrapper>
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}
-					difficulty={'easy'}
+					difficulty={recipe && recipe.difficulty}
 					cookTime={recipe && recipe.prepTime}
 					description={(recipe && recipe.description) || ''}
 					author={author}

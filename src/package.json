@@ -9,6 +9,7 @@
 	"dependencies": {
 		"@apollo/react-components": "^3.0.1",
 		"@apollo/react-hooks": "^3.0.1",
+		"@auth0/auth0-spa-js": "^1.2.2",
 		"@babel/core": "^7.4.5",
 		"@fortawesome/fontawesome-free-regular": "^5.0.13",
 		"@fortawesome/fontawesome-svg-core": "^1.2.17",
