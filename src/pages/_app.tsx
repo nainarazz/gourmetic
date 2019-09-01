@@ -54,6 +54,7 @@ class MyApp extends App<Props> {
 						client_id={config.clientId}
 						redirect_uri={window.location.origin}
 						onRedirectCallback={onRedirectCallback}
+						leeway={60 * 3}
 					>
 						{component}
 					</Auth0Provider>

@@ -19,8 +19,13 @@ interface HeaderProps {
 
 export const Header: React.SFC<HeaderProps> = props => {
 	const [inputExpanded, setInputExpanded] = useState(false);
-	// tslint:disable-next-line:no-any
-	const { isAuthenticated, loginWithRedirect, logout }: any = useAuth0();
+	// tslint:disable:no-any
+	const {
+		isAuthenticated,
+		loginWithRedirect,
+		logout,
+		user,
+	}: any = useAuth0();
 
 	return (
 		<React.Fragment>
