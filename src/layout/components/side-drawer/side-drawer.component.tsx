@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { HOME_PAGE_URL } from 'src/shared/constants';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
 	faCalendarAlt as calendar,
@@ -49,7 +50,17 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 					{!isAuthenticated && (
 						<span onClick={loginWithRedirect}>Sign In</span>
 					)}
-					{isAuthenticated && <span onClick={logout}>Sign Out</span>}
+					{isAuthenticated && (
+						<span
+							onClick={() =>
+								logout({
+									returnTo: HOME_PAGE_URL,
+								})
+							}
+						>
+							Sign Out
+						</span>
+					)}
 				</SideDrawerItem>
 			</Container>
 		</React.Fragment>

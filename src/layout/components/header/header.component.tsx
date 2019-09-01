@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { HOME_PAGE_URL } from 'src/shared/constants';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
@@ -48,12 +49,18 @@ export const Header: React.SFC<HeaderProps> = props => {
 					<ButtonsContainer>
 						<Button>Meal Planner</Button>
 						{!isAuthenticated && (
-							<Button onClick={() => loginWithRedirect({})}>
-								Sign In
-							</Button>
+							<Button onClick={loginWithRedirect}>Sign In</Button>
 						)}
 						{isAuthenticated && (
-							<Button onClick={logout}>Sign out</Button>
+							<Button
+								onClick={() =>
+									logout({
+										returnTo: HOME_PAGE_URL,
+									})
+								}
+							>
+								Sign out
+							</Button>
 						)}
 					</ButtonsContainer>
 				</HeaderItems>
