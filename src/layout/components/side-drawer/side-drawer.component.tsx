@@ -44,7 +44,10 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 					</Link>
 				</SideDrawerItem>
 				<SideDrawerItem
-					onClick={isAuthenticated ? logout : loginWithRedirect}
+					onClick={() => {
+						(isAuthenticated ? logout() : loginWithRedirect());
+						props.toggleSideDrawer();
+					}}
 				>
 					<FontAwesomeIcon icon={signIn} />
 					{!isAuthenticated && (

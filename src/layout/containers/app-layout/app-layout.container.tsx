@@ -8,6 +8,7 @@ import { MainContainer } from '../../components/main/main.component';
 import { PlusButton } from './app-layout.style';
 import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
 import { ToastContainer } from 'react-toastify';
+import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import { useRouter } from 'next/router';
 import './toast-container.css';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -26,6 +27,8 @@ export const AppLayout: React.SFC = props => {
 	const [sideDrawerIsOpen, setSideDrawerIsOpen] = useState(false);
 	let backdrop: JSX.Element | null = null;
 
+	// tslint:disable-next-line:no-any
+	const { loading }: any = useAuth0();
 	const toggleSideDrawer = () => {
 		setSideDrawerIsOpen(!sideDrawerIsOpen);
 	};
@@ -43,12 +46,8 @@ export const AppLayout: React.SFC = props => {
 		backdrop = <Backdrop click={() => setSideDrawerIsOpen(false)} />;
 	}
 
-	return (
+	const pageContents = (
 		<React.Fragment>
-			<Head>
-				<title>Gourmetic</title>
-			</Head>
-			<GlobalStyle />
 			<Header
 				drawerClickHandler={() =>
 					setSideDrawerIsOpen(!sideDrawerIsOpen)
@@ -62,6 +61,16 @@ export const AppLayout: React.SFC = props => {
 			<MainContainer>{props.children}</MainContainer>
 			{newRecipeButton}
 			<ToastContainer hideProgressBar toastClassName="toast-container" />
+		</React.Fragment>
+	);
+
+	return (
+		<React.Fragment>
+			<Head>
+				<title>Gourmetic</title>
+			</Head>
+			<GlobalStyle />
+			{loading ? <span>loading...</span> : pageContents}
 		</React.Fragment>
 	);
 };
