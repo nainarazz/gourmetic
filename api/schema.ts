@@ -5,6 +5,7 @@ import { RecipeReactionTypes } from './recipe/types/RecipeReaction.type';
 import { RecipeRootMutation } from './recipe/resolvers/mutations';
 import { RecipeRootResolver } from './recipe/resolvers/queries/index';
 import { RecipeTypes } from './recipe/types/Recipe.type';
+import { UserRootMutation } from './user/resolvers/mutations';
 import { UserType } from './user/types/User.type';
 
 const Root = `
@@ -41,7 +42,8 @@ const resolvers = merge(
 	// queries
 	RecipeRootResolver as IResolvers,
 	// Mutations below
-	RecipeRootMutation as IResolvers
+	RecipeRootMutation as IResolvers,
+	UserRootMutation as IResolvers
 );
 
 export const schema = makeExecutableSchema({ typeDefs, resolvers });

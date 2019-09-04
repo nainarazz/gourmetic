@@ -1,9 +1,13 @@
 import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+	providerId: {
+		type: String,
+		required: true,
+	},
 	firstname: {
 		type: String,
-		require: true,
+		required: true,
 	},
 	lastname: {
 		type: String,
