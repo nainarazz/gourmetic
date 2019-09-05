@@ -1,32 +1,30 @@
 import App, { AppComponentContext, Container } from 'next/app';
+import Head from 'next/head';
 import React from 'react';
 import withApollo from '../withApollo';
 import { ApolloClient } from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
-import { AppLayout } from '../layout/containers/app-layout/app-layout.container';
-import { Auth0Provider } from 'src/authentication/react-auth0-wrapper';
+import { Auth0Provider } from '../authentication/react-auth0-wrapper';
 import { config } from '../authentication/auth-config';
-import { NextContext } from 'next';
+import { createGlobalStyle } from 'styled-components';
+import { HOME_PAGE_URL } from 'src/shared/constants';
 
 interface Props {
 	// tslint:disable-next-line:no-any
 	apollo: ApolloClient<any>;
 }
 
-// tslint:disable-next-line:no-any
-const onRedirectCallback = (appState: any) => {
-	window.history.replaceState(
-		{},
-		document.title,
-		appState && appState.targetUrl
-			? appState.targetUrl
-			: window.location.pathname
-	);
-};
+const GlobalStyle = createGlobalStyle`
+    body {
+		margin: 0;
+		background-color: #FAFAFA;
+		font-family: 'Roboto', sans-serif;
+    }
+`;
 
 class MyApp extends App<Props> {
 	static async getInitialProps({ Component, ctx }: AppComponentContext) {
-		let pageProps: Partial<NextContext>;
+		let pageProps;
 
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx);
@@ -38,28 +36,23 @@ class MyApp extends App<Props> {
 
 	render() {
 		const { Component, pageProps, apollo } = this.props;
-		const component = (
-			<ApolloProvider client={apollo}>
-				<AppLayout>
-					<Component {...pageProps} />
-				</AppLayout>
-			</ApolloProvider>
-		);
 
 		return (
 			<Container>
-				{(process.browser && (
+				<ApolloProvider client={apollo}>
 					<Auth0Provider
 						domain={config.domain}
 						client_id={config.clientId}
-						redirect_uri={window.location.origin}
-						onRedirectCallback={onRedirectCallback}
+						redirect_uri={`${HOME_PAGE_URL}/callback`}
 						leeway={60 * 3}
 					>
-						{component}
+						<Head>
+							<title>Gourmetic</title>
+						</Head>
+						<GlobalStyle />
+						<Component {...pageProps} />
 					</Auth0Provider>
-				)) ||
-					component}
+				</ApolloProvider>
 			</Container>
 		);
 	}
