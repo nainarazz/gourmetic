@@ -1,7 +1,7 @@
 export const UserType = `
     type User {
         _id: ID!
-        providerId: String!
+        OAuthUniqueAccountId: String!
         firstname: String!
         lastname: String!
         email: String!
@@ -9,7 +9,7 @@ export const UserType = `
     }
 
     input UserInput {
-        providerId: String!
+        OAuthUniqueAccountId: String!
         firstname: String!
         lastname: String!
         email: String!
