@@ -99,7 +99,6 @@ export const CREATE_USER = gql`
 	mutation CreateUser($input: UserInput) {
 		createUser(userInput: $input) {
 			_id
-			providerId
 			firstname
 			lastname
 			email

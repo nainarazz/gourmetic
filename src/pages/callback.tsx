@@ -1,9 +1,22 @@
 import React, { useEffect } from 'react';
+import { CREATE_USER } from 'src/recipe/recipe.graphql';
 import { useAuth0 } from '../authentication/react-auth0-wrapper';
+import { useMutation } from '@apollo/react-hooks';
+import { UserInput } from 'src/user/types/user.interface';
+
+// tslint:disable-next-line:no-any
+const getUserInput = (OAuthUserObj: any): UserInput => ({
+	OAuthUniqueAccountId: OAuthUserObj.sub,
+	firstname: OAuthUserObj.given_name,
+	lastname: OAuthUserObj.family_name,
+	email: OAuthUserObj.email,
+	photo: OAuthUserObj.picture,
+});
 
 export const callback = () => {
 	// tslint:disable-next-line:no-any
 	const { isAuthenticated, user }: any = useAuth0();
+	const [createNewUser] = useMutation(CREATE_USER);
 
 	useEffect(() => {
 		const urlQueryParam = window.location.search;
@@ -23,11 +36,16 @@ export const callback = () => {
 		}
 
 		const firstLogin = localStorage.getItem('first_login');
-		if (firstLogin === null && isAuthenticated) {
-			// TODO graphql query to create new user
-			localStorage.setItem('first_login', new Date().toISOString());
-			localStorage.removeItem('code');
-			window.location.href = '/';
+
+		if (firstLogin === null && isAuthenticated && user) {
+			const userInput: UserInput = getUserInput(user);
+			createNewUser({
+				variables: { input: userInput },
+			}).then(() => {
+				localStorage.setItem('first_login', new Date().toISOString());
+				localStorage.removeItem('code');
+				window.location.href = '/';
+			});
 		}
 
 		if (isAuthenticated) {
