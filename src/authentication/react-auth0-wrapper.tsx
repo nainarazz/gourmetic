@@ -5,6 +5,10 @@ import React, { useContext, useEffect, useState } from 'react';
 const DEFAULT_REDIRECT_CALLBACK = () =>
 	window.history.replaceState({}, document.title, window.location.pathname);
 
+let token = '';
+
+export const getToken = () => token;
+
 export const Auth0Context = React.createContext({});
 export const useAuth0 = () => useContext(Auth0Context);
 
@@ -44,6 +48,7 @@ export const Auth0Provider = ({
 			if (isAuthenticated) {
 				// tslint:disable-next-line:no-shadowed-variable
 				const user = await auth0FromHook.getUser();
+				token = await auth0FromHook.getTokenSilently();
 				setUser(user);
 			}
 
