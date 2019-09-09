@@ -1,12 +1,11 @@
 import * as compression from 'compression';
-import * as depthLimit from 'graphql-depth-limit';
 import * as express from 'express';
 import * as helmet from 'helmet';
 import initSentry from './sentry';
 import { ApolloServer } from 'apollo-server-express';
-import { buildDataLoaders } from './shared/create-loader';
 import { connectToDb } from './db';
-import { schema } from './schema';
+import { createApolloServer } from './apollo';
+
 // tslint:disable-next-line:no-var-requires
 const debug = require('debug')('api');
 
@@ -24,11 +23,7 @@ const startServer = async () => {
 	app.use(compression());
 	app.use(helmet());
 
-	const server: ApolloServer = new ApolloServer({
-		schema,
-		context: async req => ({ db, loaders: buildDataLoaders() }),
-		validationRules: [depthLimit(10)],
-	});
+	const server: ApolloServer = createApolloServer(db);
 
 	server.applyMiddleware({ app, path: '/api' });
 

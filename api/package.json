@@ -17,6 +17,8 @@
 		"graphql-depth-limit": "^1.1.0",
 		"graphql-tools": "^4.0.4",
 		"helmet": "^3.16.0",
+		"jsonwebtoken": "^8.5.1",
+		"jwks-rsa": "^1.6.0",
 		"mongoose": "^5.5.2",
 		"now-env": "^3.2.0"
 	},
@@ -27,6 +29,7 @@
 		"@types/graphql-date": "^1.0.3",
 		"@types/graphql-depth-limit": "^1.1.0",
 		"@types/helmet": "0.0.43",
+		"@types/jsonwebtoken": "^8.3.3",
 		"@types/mongoose": "^5.3.26",
 		"@types/node": "^11.13.4"
 	},

@@ -48,7 +48,8 @@ export const Auth0Provider = ({
 			if (isAuthenticated) {
 				// tslint:disable-next-line:no-shadowed-variable
 				const user = await auth0FromHook.getUser();
-				token = await auth0FromHook.getTokenSilently();
+				const accessToken = await auth0FromHook.getTokenSilently();
+				token = `Bearer ${accessToken}`;
 				setUser(user);
 			}
 

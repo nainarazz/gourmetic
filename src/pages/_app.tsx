@@ -42,6 +42,7 @@ class MyApp extends App<Props> {
 				<ApolloProvider client={apollo}>
 					<Auth0Provider
 						domain={config.domain}
+						audience={config.audience}
 						client_id={config.clientId}
 						redirect_uri={`${HOME_PAGE_URL}/callback`}
 						leeway={60 * 3}
