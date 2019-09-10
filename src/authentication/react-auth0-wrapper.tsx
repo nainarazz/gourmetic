@@ -22,10 +22,12 @@ export const Auth0Provider = ({
 	const [auth0Client, setAuth0] = useState<Auth0Client>();
 	const [loading, setLoading] = useState(true);
 	const [popupOpen, setPopupOpen] = useState(false);
+	const [checkingAuthentication, setcheckingAuthentication] = useState(true);
 
 	useEffect(() => {
 		const initAuth0 = async () => {
 			if (!window.navigator.onLine) {
+				setcheckingAuthentication(false);
 				setLoading(false);
 				return;
 			}
@@ -52,7 +54,7 @@ export const Auth0Provider = ({
 				token = `Bearer ${accessToken}`;
 				setUser(user);
 			}
-
+			setcheckingAuthentication(false);
 			setLoading(false);
 		};
 		initAuth0();
@@ -96,6 +98,7 @@ export const Auth0Provider = ({
 				isAuthenticated,
 				user,
 				loading,
+				checkingAuthentication,
 				popupOpen,
 				loginWithPopup,
 				handleRedirectCallback,
