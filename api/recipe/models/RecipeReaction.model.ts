@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { Context } from './../../graphql-generated-types/context';
+import { getUsersByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { MutationLikeRecipeArgs } from './../../graphql-generated-types/resolvers-types';
 import { RecipeReaction } from '../../graphql-generated-types/resolvers-types';
 
@@ -43,9 +44,9 @@ export const getRecipeReactions = async (
 
 export const likeRecipe = async (
 	args: MutationLikeRecipeArgs,
-	ctx: Context
+	userOAuthIdentifier: string
 ) => {
-	const { reactionId, userId, recipeId, isLiked } = args.input;
+	const { reactionId, recipeId, isLiked } = args.input;
 
 	if (reactionId) {
 		return mongoose
@@ -57,9 +58,14 @@ export const likeRecipe = async (
 			);
 	}
 
+	const user = await getUsersByOAuthAccountIdentifier(userOAuthIdentifier);
+
+	if (!user) {
+		throw new Error('User not found.');
+	}
 	return mongoose.model('recipeReaction').create({
 		recipe: recipeId,
-		user: userId,
+		user: user._id,
 		isLiked: true,
 	});
 };

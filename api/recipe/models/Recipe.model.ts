@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { decode, encode } from '../../utils/base64';
+import { getUsersByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { PaginationOptions } from '../../utils/pagination';
 import {
 	Recipe,
@@ -52,7 +53,15 @@ export const getRecipeDetail = async (id: string) => {
 		.exec();
 };
 
-export const createRecipe = async (args: MutationCreateRecipeArgs) => {
+export const createRecipe = async (
+	args: MutationCreateRecipeArgs,
+	userOAuthIdentifier: string
+) => {
+	const user = await getUsersByOAuthAccountIdentifier(userOAuthIdentifier);
+	if (!user) {
+		throw new Error('User not found.');
+	}
+
 	const recipe = {
 		name: args.recipeInput.name,
 		description: args.recipeInput.description,
@@ -67,7 +76,7 @@ export const createRecipe = async (args: MutationCreateRecipeArgs) => {
 		image: args.recipeInput.image,
 		createdAt: new Date(),
 		updatedAt: new Date(),
-		createdBy: '5cec0708fb6fc01bf23cec50',
+		createdBy: user._id,
 	};
 	return mongoose.model('recipe').create(recipe);
 };
