@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 import DataLoader from 'dataloader';
 
-interface DataLoaderType {
+export interface DataLoaderType {
 	user: DataLoader<{}, {}>;
 	recipeReaction: DataLoader<{}, {}>;
 }

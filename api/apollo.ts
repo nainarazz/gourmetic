@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { buildDataLoaders } from './shared/create-loader';
 import { config } from '../src/authentication/auth-config';
-import { Context } from './graphql-generated-types/context';
+import { Context, DataLoaderType } from './graphql-generated-types/context';
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
 import { schema } from './schema';
 
@@ -68,7 +68,11 @@ export const createApolloServer = (
 				jwtTokenClaims = await getDecodedToken(token, getKey, options);
 			}
 
-			return { db, loaders: buildDataLoaders(), jwtTokenClaims };
+			return {
+				db,
+				loaders: buildDataLoaders() as DataLoaderType,
+				jwtTokenClaims,
+			};
 		},
 		validationRules: [depthLimit(10)],
 	});
