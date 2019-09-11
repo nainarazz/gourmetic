@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LIKE_RECIPE, RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeCard } from '../../components/recipe-card/recipe-card.component';
+import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import { useMutation } from 'react-apollo';
 import {
 	Recipe,
@@ -16,6 +17,8 @@ export const RecipeCardContainer: React.SFC<
 	RecipeCardContainerProps
 > = props => {
 	const [isOptimistic, setIsOptimistic] = useState(false);
+	// tslint:disable:no-any
+	const { isAuthenticated, loginWithRedirect }: any = useAuth0();
 
 	const likeRecipeInput: LikeRecipeMutationVariables = {
 		input: {
@@ -79,7 +82,7 @@ export const RecipeCardContainer: React.SFC<
 			recipe={recipe}
 			totalLikes={15}
 			username={`${firstname} ${lastname}`}
-			likeRecipe={likeRecipe}
+			likeRecipe={isAuthenticated ? likeRecipe : loginWithRedirect}
 			isOptimistic={isOptimistic}
 		/>
 	);

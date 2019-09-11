@@ -1,6 +1,7 @@
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import React, { useContext, useEffect, useState } from 'react';
+import { HOME_PAGE_URL } from 'src/shared/constants';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
 	window.history.replaceState({}, document.title, window.location.pathname);
@@ -125,7 +126,11 @@ export const Auth0Provider = ({
 						...getTokenWithPopupOptions,
 					}),
 				logout: (logoutOptions: LogoutOptions) =>
-					auth0Client && auth0Client.logout({ ...logoutOptions }),
+					auth0Client &&
+					auth0Client.logout({
+						...logoutOptions,
+						returnTo: HOME_PAGE_URL,
+					}),
 			}}
 		>
 			{children}

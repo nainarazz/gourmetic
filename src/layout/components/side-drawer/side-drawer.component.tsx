@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
+import Router from 'next/router';
 import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HOME_PAGE_URL } from 'src/shared/constants';
@@ -35,35 +36,25 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 					<FontAwesomeIcon icon={calendar} />
 					<span>Meal Planner</span>
 				</SideDrawerItem>
-				<SideDrawerItem>
-					<Link href={`/new-recipe`} as={`new-recipe`}>
-						<div onClick={props.toggleSideDrawer}>
-							<FontAwesomeIcon icon={addButton} />
-							<span>Create Recipe</span>
-						</div>
-					</Link>
+				<SideDrawerItem
+					onClick={() => {
+						isAuthenticated
+							? Router.push('/new-recipe')
+							: loginWithRedirect();
+						props.toggleSideDrawer();
+					}}
+				>
+					<FontAwesomeIcon icon={addButton} />
+					<span>Create Recipe</span>
 				</SideDrawerItem>
 				<SideDrawerItem
 					onClick={() => {
-						(isAuthenticated ? logout() : loginWithRedirect());
+						isAuthenticated ? logout() : loginWithRedirect();
 						props.toggleSideDrawer();
 					}}
 				>
 					<FontAwesomeIcon icon={signIn} />
-					{!isAuthenticated && (
-						<span onClick={loginWithRedirect}>Sign In</span>
-					)}
-					{isAuthenticated && (
-						<span
-							onClick={() =>
-								logout({
-									returnTo: HOME_PAGE_URL,
-								})
-							}
-						>
-							Sign Out
-						</span>
-					)}
+					<span>{isAuthenticated ? 'Sign Out' : 'Sign In'}</span>
 				</SideDrawerItem>
 			</Container>
 		</React.Fragment>
