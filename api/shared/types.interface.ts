@@ -1,4 +1,4 @@
-interface Auth0DecodedTokenResponse {
+interface JwtTokenClaims {
 	sub: string;
 	aud: string[];
 	iat: number;

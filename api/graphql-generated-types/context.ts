@@ -7,8 +7,8 @@ interface DataLoaderType {
 }
 
 export interface Context {
-	db: typeof mongoose;
+	db: typeof mongoose | undefined;
 	loaders: DataLoaderType;
 	// tslint:disable-next-line:no-any
-	user: any;
+	jwtTokenClaims: JwtTokenClaims | null;
 }

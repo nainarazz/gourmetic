@@ -10,14 +10,14 @@ import {
 
 const MutationResolver: MutationResolvers<Context, Recipe> = {
 	likeRecipe: async (parent, args, ctx) => {
-		const user: Auth0DecodedTokenResponse | null = await ctx.user;
+		const user: JwtTokenClaims | null = ctx.jwtTokenClaims;
 		if (!user) {
 			throw new AuthenticationError('User is not authenticated.');
 		}
 		return likeRecipe(args, user.sub) as RecipeReaction;
 	},
 	createRecipe: async (parent, args, ctx) => {
-		const user: Auth0DecodedTokenResponse | null = await ctx.user;
+		const user: JwtTokenClaims | null = ctx.jwtTokenClaims;
 		if (!user) {
 			throw new AuthenticationError('User is not authenticated.');
 		}

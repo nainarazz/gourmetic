@@ -1,23 +1,30 @@
 import * as mongoose from 'mongoose';
-import { Context } from './../../graphql-generated-types/context';
-import { getUsersByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { MutationLikeRecipeArgs } from './../../graphql-generated-types/resolvers-types';
 import { RecipeReaction } from '../../graphql-generated-types/resolvers-types';
+import {
+	getUserByOAuthAccountIdentifier,
+	getUsersByOAuthAccountIdentifier,
+} from '../../user/models/user.model';
 
 export interface RecipeReactionKey {
 	recipeId: string;
-	userId: string;
+	oAuthAccountId: string;
 }
 
 export const getRecipeReactions = async (
 	keys: RecipeReactionKey[]
 ): Promise<RecipeReaction[]> => {
 	const recipeIds = [];
-	const userIds = [];
+	const oAuthUniqueIds = [];
+
 	for (const obj of keys) {
 		recipeIds.push(obj.recipeId);
-		userIds.push(obj.userId);
+		oAuthUniqueIds.push(obj.oAuthAccountId);
 	}
+
+	const userIds = (await getUsersByOAuthAccountIdentifier(
+		oAuthUniqueIds
+	)).map(user => user._id);
 
 	const reactions: RecipeReaction[] = await mongoose
 		.model('recipeReaction')
@@ -29,15 +36,18 @@ export const getRecipeReactions = async (
 				$in: userIds,
 			},
 		})
+		.populate('user', 'OAuthUniqueAccountId')
 		.lean()
 		.exec();
 
+	// graphql data loader library requires us to return same length of data as the same length of keys
 	return keys.map(
 		k =>
 			reactions.find(
 				r =>
 					r.recipe!._id.toString() === k.recipeId.toString() &&
-					r.user!._id.toString() === k.userId.toString()
+					r.user!.OAuthUniqueAccountId.toString() ===
+						k.oAuthAccountId.toString()
 			) || {}
 	);
 };
@@ -58,7 +68,7 @@ export const likeRecipe = async (
 			);
 	}
 
-	const user = await getUsersByOAuthAccountIdentifier(userOAuthIdentifier);
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
 
 	if (!user) {
 		throw new Error('User not found.');

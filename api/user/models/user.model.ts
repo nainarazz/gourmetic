@@ -10,12 +10,20 @@ export const getUsersById = async (keys: string[]) => {
 		.exec()) as User[];
 };
 
-export const getUsersByOAuthAccountIdentifier = async (id: string) => {
+export const getUserByOAuthAccountIdentifier = async (id: string) => {
 	return (await mongoose
 		.model('user')
 		.findOne({ OAuthUniqueAccountId: id })
 		.lean()
 		.exec()) as User;
+};
+
+export const getUsersByOAuthAccountIdentifier = async (ids: string[]) => {
+	return (await mongoose
+		.model('user')
+		.find({ OAuthUniqueAccountId: { $in: ids } })
+		.lean()
+		.exec()) as User[];
 };
 
 export const createUser = async ({ userInput }: MutationCreateUserArgs) => {

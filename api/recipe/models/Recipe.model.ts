@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { decode, encode } from '../../utils/base64';
-import { getUsersByOAuthAccountIdentifier } from '../../user/models/user.model';
+import { getUserByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { PaginationOptions } from '../../utils/pagination';
 import {
 	Recipe,
@@ -57,7 +57,7 @@ export const createRecipe = async (
 	args: MutationCreateRecipeArgs,
 	userOAuthIdentifier: string
 ) => {
-	const user = await getUsersByOAuthAccountIdentifier(userOAuthIdentifier);
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
 	if (!user) {
 		throw new Error('User not found.');
 	}
