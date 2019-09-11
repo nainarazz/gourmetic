@@ -35,14 +35,12 @@ export const callback = () => {
 			window.location.href = '/';
 		}
 
-		const firstLogin = localStorage.getItem('first_login');
-
-		if (firstLogin === null && isAuthenticated && user) {
+		if (isAuthenticated && user) {
 			const userInput: UserInput = getUserInput(user);
+			// send request to backend to check user. If user doesn't exist yet, create new user.
 			createNewUser({
 				variables: { input: userInput },
 			}).then(() => {
-				localStorage.setItem('first_login', new Date().toISOString());
 				localStorage.removeItem('code');
 				window.location.href = '/';
 			});
