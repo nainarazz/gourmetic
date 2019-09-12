@@ -18,12 +18,12 @@ export const RecipeCardContainer: React.SFC<
 > = props => {
 	const [isOptimistic, setIsOptimistic] = useState(false);
 	// tslint:disable:no-any
-	const { isAuthenticated, loginWithRedirect }: any = useAuth0();
+	const { isAuthenticated, loginWithRedirect, user }: any = useAuth0();
 
 	const likeRecipeInput: LikeRecipeMutationVariables = {
 		input: {
 			recipeId: props.recipe._id,
-			userId: props.recipe.createdBy && props.recipe.createdBy._id,
+			userId: user.sub,
 			isLiked: props.recipe.reaction && props.recipe.reaction.isLiked,
 			reactionId: props.recipe.reaction && props.recipe.reaction._id,
 		},
@@ -62,11 +62,6 @@ export const RecipeCardContainer: React.SFC<
 		},
 	});
 
-	const firstname =
-		(props.recipe.createdBy && props.recipe.createdBy.firstname) || '';
-	const lastname =
-		(props.recipe.createdBy && props.recipe.createdBy.lastname) || '';
-
 	const recipe = { ...props.recipe };
 
 	if (data) {
@@ -81,7 +76,6 @@ export const RecipeCardContainer: React.SFC<
 			key={props.recipe._id}
 			recipe={recipe}
 			totalLikes={15}
-			username={`${firstname} ${lastname}`}
 			likeRecipe={isAuthenticated ? likeRecipe : loginWithRedirect}
 			isOptimistic={isOptimistic}
 		/>

@@ -16,7 +16,6 @@ import {
 interface RecipeCardProps {
 	recipe: Recipe;
 	totalLikes: number;
-	username: string;
 	isOptimistic?: boolean;
 	likeRecipe: () => void;
 }
@@ -75,7 +74,12 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 					</ImageWrapper>
 					<CardDescription>
 						<div>{props.recipe && props.recipe.name}</div>
-						<div>{props.username}</div>
+						<div>
+							{props.recipe &&
+								`${props.recipe.createdBy.firstname} ${
+									props.recipe.createdBy.lastname
+								}`}
+						</div>
 					</CardDescription>
 				</StyledCard>
 			</Link>
