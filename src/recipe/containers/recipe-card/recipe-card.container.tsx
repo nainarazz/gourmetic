@@ -23,7 +23,7 @@ export const RecipeCardContainer: React.SFC<
 	const likeRecipeInput: LikeRecipeMutationVariables = {
 		input: {
 			recipeId: props.recipe._id,
-			userId: user.sub,
+			userId: user && user.sub,
 			isLiked: props.recipe.reaction && props.recipe.reaction.isLiked,
 			reactionId: props.recipe.reaction && props.recipe.reaction._id,
 		},

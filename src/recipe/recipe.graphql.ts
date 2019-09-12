@@ -54,6 +54,7 @@ export const RECIPE_DETAIL = gql`
 			description
 			prepTime
 			cookingTime
+			difficulty
 			ingredients {
 				item
 				quantity

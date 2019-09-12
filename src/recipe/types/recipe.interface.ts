@@ -53,7 +53,7 @@ export interface Recipe {
 	_id: string;
 	name: string;
 	description: string;
-	meals: string[];
+	meal: string[];
 	prepTime: number;
 	cookingTime: number;
 	difficulty: string;

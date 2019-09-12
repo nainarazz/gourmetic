@@ -29,7 +29,7 @@ export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 		ingredients: data.ingredients,
 		instructions: formatRecipeInstructions(data.instructions),
 		yield: data.yield,
-		meals: formSelectOptions(data.meals as ReactSelectOptions[]),
+		meal: formSelectOptions(data.meals as ReactSelectOptions[]),
 		image: {
 			secureUrl: '',
 			publicId: '',

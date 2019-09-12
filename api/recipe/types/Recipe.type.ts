@@ -79,7 +79,7 @@ export const RecipeTypes = `
     input RecipeInput {
         name: String!
         description: String!
-        meals: [String]
+        meal: [String]
         prepTime: Int
         cookingTime: Int
         difficulty: String

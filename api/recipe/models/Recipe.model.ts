@@ -70,7 +70,7 @@ export const createRecipe = async (
 		ingredients: args.recipeInput.ingredients,
 		instructions: args.recipeInput.instructions,
 		isPublic: args.recipeInput.isPublic,
-		meals: args.recipeInput.meals,
+		meal: args.recipeInput.meals,
 		yield: args.recipeInput.yield,
 		difficulty: args.recipeInput.difficulty,
 		image: args.recipeInput.image,
