@@ -1,13 +1,33 @@
 import * as mongoose from 'mongoose';
-import { MutationCreateUserArgs } from './../../graphql-generated-types/resolvers-types';
 import { User } from '../../graphql-generated-types/resolvers-types';
+import {
+	MutationCreateUserArgs,
+	Recipe,
+} from './../../graphql-generated-types/resolvers-types';
 
-export const getUsersById = async (keys: string[]) => {
-	return (await mongoose
+export interface RecipeUserKey {
+	userId: string;
+	recipe: Recipe;
+}
+
+export const getUsersById = async (keys: RecipeUserKey[]) => {
+	const recipes: Recipe[] = [];
+	const userIds: string[] = [];
+
+	keys.forEach(key => {
+		userIds.push(key.userId);
+		recipes.push(key.recipe);
+	});
+
+	const users = (await mongoose
 		.model('user')
-		.find({ _id: { $in: keys } })
+		.find({ _id: { $in: userIds } })
 		.lean()
 		.exec()) as User[];
+
+	return recipes.map(recipe =>
+		users.find(user => user._id.toString() === recipe.createdBy!.toString())
+	);
 };
 
 export const getUserByOAuthAccountIdentifier = async (id: string) => {
