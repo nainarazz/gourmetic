@@ -12,7 +12,6 @@ export const RECIPE_LIST_QUERY = gql`
 					_id
 					name
 					description
-					meals
 					createdAt
 					updatedAt
 					ingredients {
@@ -34,7 +33,7 @@ export const RECIPE_LIST_QUERY = gql`
 						firstname
 						lastname
 					}
-					meals
+					meal
 					prepTime
 					cookingTime
 					isPublic

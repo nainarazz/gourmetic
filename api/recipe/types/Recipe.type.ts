@@ -30,7 +30,7 @@ export const RecipeTypes = `
         _id: ID!
         name: String!
         description: String!
-        meals: [Meal]
+        meal: [Meal]
         prepTime: Int
         cookingTime: Int
         difficulty: Difficulty
