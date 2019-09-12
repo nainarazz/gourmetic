@@ -1,7 +1,7 @@
 import { Context } from '../../../graphql-generated-types/context';
 import { createdBy } from './createdBy.query';
-import { Meal, User } from '../../../graphql-generated-types/resolvers-types';
 import { recipeReaction } from './recipeReaction.query';
+import { User } from '../../../graphql-generated-types/resolvers-types';
 import {
 	getPaginatedRecipes,
 	getRecipeDetail,
