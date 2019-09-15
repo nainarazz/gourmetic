@@ -2,7 +2,7 @@
 	"version": 2,
 	"builds": [
 		{ "src": "src/package.json", "use": "@now/next" },
-		{ "src": "build-api/index.js", "use": "@now/node-server" }
+		{ "src": "build-api/api/index.js", "use": "@now/node" }
 	],
 	"routes": [
 		{
@@ -13,7 +13,7 @@
 				"Service-Worker-Allowed": "/"
 			}
 		},
-		{ "src": "/api", "dest": "/build-api/index.js" },
+		{ "src": "/api", "dest": "/build-api/api/index.js" },
 		{ "src": "^/recipe/(?<id>[^/]+)", "dest": "/src/recipe?id=$id" },
 		{ "src": "/(.*)", "dest": "src/$1" }
 	],

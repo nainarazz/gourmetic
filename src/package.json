@@ -6,6 +6,9 @@
 		"build": "next build",
 		"start": "next start"
 	},
+	"engines": {
+		"node": "10.x"
+	},
 	"dependencies": {
 		"@apollo/react-components": "^3.0.1",
 		"@apollo/react-hooks": "^3.0.1",

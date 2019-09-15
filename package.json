@@ -13,7 +13,7 @@
 		"generate-types": "graphql-codegen",
 		"seed": "cd api && yarn seed",
 		"now-build": "next build src",
-		"deploy:prod": "now -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry -e CLOUDINARY_CLOUD_NAME=@cloudinary_cloud_name -e CLOUDINARY_UPLOAD_PRESET=@cloudinary_upload_preset"
+		"deploy:prod": "now --prod -e NODE_ENV=\"production\" -e MONGO_URL=@mongo_url -e SENTRY_DSN=@sentry -e CLOUDINARY_CLOUD_NAME=@cloudinary_cloud_name -e CLOUDINARY_UPLOAD_PRESET=@cloudinary_upload_preset"
 	},
 	"repository": "git+https://github.com/nainarazz/gourmetic.git",
 	"keywords": [],
@@ -24,8 +24,6 @@
 	},
 	"homepage": "https://github.com/nainarazz/gourmetic#readme",
 	"dependencies": {
-		"@sentry/integrations": "^5.1.0",
-		"@sentry/node": "^5.1.0",
 		"cross-env": "^5.2.0",
 		"debug": "^4.1.1",
 		"express": "^4.16.4",
