@@ -1,3 +1,4 @@
+import Avatar from 'react-avatar';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,12 @@ interface HeaderProps {
 export const Header: React.SFC<HeaderProps> = props => {
 	const [inputExpanded, setInputExpanded] = useState(false);
 	// tslint:disable:no-any
-	const { isAuthenticated, loginWithRedirect, logout }: any = useAuth0();
+	const {
+		isAuthenticated,
+		loginWithRedirect,
+		logout,
+		user,
+	}: any = useAuth0();
 
 	return (
 		<React.Fragment>
@@ -56,6 +62,14 @@ export const Header: React.SFC<HeaderProps> = props => {
 							>
 								Sign out
 							</Button>
+						)}
+						{isAuthenticated && (
+							<Avatar
+								src={user.picture}
+								name={user.name}
+								round
+								size="40"
+							/>
 						)}
 					</ButtonsContainer>
 				</HeaderItems>
