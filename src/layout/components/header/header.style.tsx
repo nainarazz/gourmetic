@@ -23,11 +23,19 @@ export const HeaderItems = styled.div`
 	margin: auto;
 `;
 
-export const ButtonsContainer = styled.div`
+export const MealPlannerButton = styled.div`
 	display: none;
 
 	@media (min-width: 1020px) {
 		display: flex;
+	}
+`;
+
+export const AvatarButton = styled.div`
+	display: none;
+
+	@media (min-width: 375px) {
+		display: block;
 	}
 `;
 

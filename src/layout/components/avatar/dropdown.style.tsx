@@ -16,7 +16,7 @@ export const DropdownContent = styled.div`
 	background: #fff;
 	top: 55px;
 	z-index: 500;
-	right: -40px;
+	right: 0;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 
 	:before {
@@ -26,8 +26,8 @@ export const DropdownContent = styled.div`
 		background: #fff;
 		position: absolute;
 		top: -7px;
-		left: 75%;
-		transform: translateX(-75%) rotate(45deg);
+		left: 91%;
+		transform: translateX(-91%) rotate(45deg);
 		border-left: 1px solid ${borderColor.lightgrey};
 		border-top: 1px solid ${borderColor.lightgrey};
 	}
