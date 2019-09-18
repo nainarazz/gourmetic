@@ -8,7 +8,7 @@ export const Main = styled.div`
 
 export const PlusButton = styled.div`
 	position: fixed;
-	right: 45px;
+	right: 5%;
 	bottom: 30px;
 	border-radius: 50%;
 	background-color: #5cb818;
@@ -20,10 +20,5 @@ export const PlusButton = styled.div`
 
 	:hover {
 		cursor: pointer;
-	}
-
-	display: none;
-	@media (min-width: 1020px) {
-		display: block;
 	}
 `;

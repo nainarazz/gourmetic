@@ -1,9 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 import Router from 'next/router';
-import { Container, SideDrawerItem, SideDrawerLogo } from './side-drawer.style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
+import {
+	Container,
+	SideDrawerItem,
+	SideDrawerLogo,
+	StyledAvatar,
+} from './side-drawer.style';
 import {
 	faCalendarAlt as calendar,
 	faPlusCircle as addButton,
@@ -17,12 +22,26 @@ interface SideDrawerProps {
 }
 
 export const SideDrawer: React.SFC<SideDrawerProps> = props => {
-	// tslint:disable-next-line:no-any
-	const { isAuthenticated, loginWithRedirect, logout }: any = useAuth0();
+	// tslint:disable:no-any
+	const {
+		isAuthenticated,
+		loginWithRedirect,
+		logout,
+		user,
+	}: any = useAuth0();
 	return (
 		<React.Fragment>
 			<Container isOpen={props.isOpen}>
-				<SideDrawerLogo />
+				<SideDrawerLogo>
+					{isAuthenticated && (
+						<StyledAvatar
+							src={user.picture}
+							name={user.name}
+							round
+							size="40"
+						/>
+					)}
+				</SideDrawerLogo>
 				<SideDrawerItem>
 					<Link href={`/`}>
 						<div onClick={props.toggleSideDrawer}>
