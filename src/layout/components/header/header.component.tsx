@@ -1,6 +1,7 @@
 import Avatar from 'react-avatar';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { AvatarWithDropdown } from '../avatar/avatar-dropdown.component';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { HOME_PAGE_URL } from 'src/shared/constants';
@@ -53,22 +54,9 @@ export const Header: React.SFC<HeaderProps> = props => {
 							<Button onClick={loginWithRedirect}>Sign In</Button>
 						)}
 						{isAuthenticated && (
-							<Button
-								onClick={() =>
-									logout({
-										returnTo: HOME_PAGE_URL,
-									})
-								}
-							>
-								Sign out
-							</Button>
-						)}
-						{isAuthenticated && (
-							<Avatar
-								src={user.picture}
-								name={user.name}
-								round
-								size="40"
+							<AvatarWithDropdown
+								pictureUrl={user.picture}
+								userName={user.name}
 							/>
 						)}
 					</ButtonsContainer>
