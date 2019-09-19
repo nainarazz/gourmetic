@@ -32,6 +32,7 @@ export const RECIPE_LIST_QUERY = gql`
 						_id
 						firstname
 						lastname
+						photo
 					}
 					meal
 					prepTime

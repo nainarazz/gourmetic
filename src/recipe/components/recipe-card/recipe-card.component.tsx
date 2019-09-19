@@ -1,3 +1,4 @@
+import Avatar from 'react-avatar';
 import Link from 'next/link';
 import React from 'react';
 import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
@@ -11,6 +12,8 @@ import {
 	StyledCard,
 	LoveIcon,
 	ImageWrapper,
+	RecipeName,
+	RecipeAuthor,
 } from './recipe-card.style';
 
 interface RecipeCardProps {
@@ -73,13 +76,18 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 						</LoveIcon>
 					</ImageWrapper>
 					<CardDescription>
-						<div>{props.recipe && props.recipe.name}</div>
-						<div>
-							{props.recipe &&
-								`${props.recipe.createdBy.firstname} ${
-									props.recipe.createdBy.lastname
-								}`}
-						</div>
+						<RecipeName>
+							{props.recipe && props.recipe.name}
+						</RecipeName>
+						<RecipeAuthor>
+							<Avatar
+								src={props.recipe.createdBy.photo}
+								round
+								size="20"
+								style={{ marginRight: '5px' }}
+							/>
+							{`by ${props.recipe.createdBy.firstname} ${props.recipe.createdBy.lastname}`}
+						</RecipeAuthor>
 					</CardDescription>
 				</StyledCard>
 			</Link>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeColor } from 'src/shared/themes/colors';
 
 export const StyledCard = styled.div`
 	width: 19rem;
@@ -40,6 +41,17 @@ export const CardDescription = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	padding-top: 1.5rem;
+`;
+
+export const RecipeName = styled.div`
+	font-weight: 500;
+	font-size: 1.2rem;
+	color: ${themeColor.lightShadeSecondary};
+`;
+
+export const RecipeAuthor = styled.div`
+	font-size: 0.9rem;
+	margin-top: 2px;
 `;
 
 export const LoveIcon = styled.div`
