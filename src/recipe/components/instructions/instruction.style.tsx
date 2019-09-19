@@ -4,19 +4,21 @@ import { themeColor } from '../../../shared/themes/colors';
 export const InstructionsWrapper = styled.div`
 	width: 90%;
 	margin: auto;
-	padding: 15px 0;
+	padding-bottom: 40px;
 `;
 
 export const Title = styled.div`
-	font-size: 1.3rem;
+	font-size: 1rem;
+	font-weight: 500;
 `;
 
 export const RowInstruction = styled.div`
 	display: flex;
-	margin: 20px 0;
+	margin: 15px 0;
 `;
 
 export const InstructionDetail = styled.div`
+	font-size: 0.9rem;
 	width: 90%;
 	line-height: 1.5rem;
 `;

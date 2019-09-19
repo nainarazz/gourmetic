@@ -1,30 +1,49 @@
 import Avatar from 'react-avatar';
 import styled from 'styled-components';
 
-export const RecipeOverview = styled.div`
-	display: flex;
-	justify-content: space-evenly;
-	padding: 15px 0;
+export const RecipeInfo = styled.div`
 	width: 90%;
 	margin: auto;
+`;
 
-	.item {
-		text-align: center;
-	}
+export const UserPhoto = styled(Avatar)`
+	margin-bottom: 10px;
+`;
+
+export const RecipeAuthorContainer = styled.div`
+	text-align: center;
+	padding-top: 20px;
+`;
+
+export const AuthorName = styled.div`
+	font-size: 0.9rem;
+`;
+
+export const RecipeTitle = styled.h2`
+	text-align: center;
+	margin-bottom: 10px;
 `;
 
 export const Description = styled.div`
-	.recipe-author,
-	.recipe-title {
-		text-align: center;
-		padding: 20px 0;
-	}
-	.description {
-		text-align: center;
-	}
-	width: 90%;
-	margin: auto;
-	padding: 15px 0;
+	text-align: center;
+	font-style: italic;
+	font-size: 0.9rem;
 `;
 
-export const UserPhoto = styled(Avatar)``;
+export const AdditionalInfo = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+	width: 90%;
+	margin: auto;
+`;
+
+export const SubHeader = styled.div`
+	.title {
+		margin-bottom: 10px;
+		font-weight: 500;
+	}
+
+	.value {
+		font-size: 0.9rem;
+	}
+`;

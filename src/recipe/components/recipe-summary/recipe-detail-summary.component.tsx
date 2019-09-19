@@ -1,9 +1,15 @@
 import React from 'react';
+import { themeColor } from 'src/shared/themes/colors';
 import { User } from 'src/user/types/user.interface';
 import {
-	Description,
-	RecipeOverview,
+	RecipeInfo,
+	AdditionalInfo,
 	UserPhoto,
+	RecipeAuthorContainer,
+	AuthorName,
+	RecipeTitle,
+	Description,
+	SubHeader,
 } from './recipe-detail-summary.style';
 
 interface RecipeDetailSummaryProps {
@@ -19,33 +25,45 @@ export const RecipeDetailSummary: React.SFC<
 	RecipeDetailSummaryProps
 > = props => (
 	<React.Fragment>
-		<Description>
-			<div className="recipe-author">
+		<RecipeInfo>
+			<RecipeAuthorContainer>
 				<UserPhoto
 					src={(props.author && props.author.photo) || undefined}
 					round
 					size="40"
 				/>
-				<div>by</div>{' '}
-				{props.author &&
-					`${props.author.firstname} ${props.author.lastname}`}
-			</div>
-			<div className="recipe-title">{props.title}</div>
-			<div className="description">{props.description}</div>
-		</Description>
-		<RecipeOverview>
-			<div className="item">
+				<AuthorName>
+					<i
+						style={{
+							color: themeColor.lightShadeSecondary,
+							fontWeight: 500,
+							marginRight: '10px',
+						}}
+					>
+						by
+					</i>
+					{props.author &&
+						` ${props.author.firstname} ${props.author.lastname}`}
+				</AuthorName>
+			</RecipeAuthorContainer>
+			<RecipeTitle>{props.title}</RecipeTitle>
+			<Description>{props.description}</Description>
+		</RecipeInfo>
+		<AdditionalInfo>
+			<SubHeader>
 				<h4 className="title">Prep time</h4>
 				<div className="value">{props.prepTime} min</div>
-			</div>
-			<div className="item">
+			</SubHeader>
+			<SubHeader>
 				<h4 className="title">Cook time</h4>
 				<div className="value">{props.cookTime} min</div>
-			</div>
-			<div className="item">
+			</SubHeader>
+			<SubHeader>
 				<h4 className="title">Difficulty</h4>
-				<div className="value">{props.difficulty}</div>
-			</div>
-		</RecipeOverview>
+				<div className="value">
+					{props.difficulty && props.difficulty.toLowerCase()}
+				</div>
+			</SubHeader>
+		</AdditionalInfo>
 	</React.Fragment>
 );

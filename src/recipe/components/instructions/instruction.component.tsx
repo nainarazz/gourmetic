@@ -15,7 +15,7 @@ interface InstructionsProps {
 export const Instruction: React.SFC<InstructionsProps> = props => (
 	<React.Fragment>
 		<InstructionsWrapper>
-			<Title>Instructions</Title>
+			<Title>INSTRUCTIONS</Title>
 			{props.instructions.map((instruction, index) => (
 				<RowInstruction key={index}>
 					<StepNumber>{instruction.stepNumber}</StepNumber>

@@ -14,7 +14,7 @@ interface IngredientProps {
 export const Ingredient: React.SFC<IngredientProps> = props => (
 	<React.Fragment>
 		<IngredientsWrapper>
-			<Title>Ingredients</Title>
+			<Title>INGREDIENTS</Title>
 			<Contents>
 				{props.ingredients.map((ingredient, index) => (
 					<Item key={index}>
