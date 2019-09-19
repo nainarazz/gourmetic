@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { themeColor } from 'src/shared/themes/colors';
 
 export const Main = styled.div`
 	padding-top: 6rem;
@@ -11,10 +12,8 @@ export const PlusButton = styled.div`
 	right: 5%;
 	bottom: 30px;
 	border-radius: 50%;
-	background-color: #5cb818;
-	width: 55px;
-	height: 55px;
-	font-size: 3rem;
+	background-color: ${themeColor.darkShadeMainBrand};
+	padding: 15px;
 	color: #fff;
 	text-align: center;
 

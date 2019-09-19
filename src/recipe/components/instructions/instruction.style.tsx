@@ -25,7 +25,7 @@ export const StepNumber = styled.div`
 	width: 27px;
 	height: 25px;
 	line-height: 2;
-	background: ${themeColor.darkAccent};
+	background: ${themeColor.secondary};
 	color: #fff;
 	border-radius: 50%;
 	text-align: center;

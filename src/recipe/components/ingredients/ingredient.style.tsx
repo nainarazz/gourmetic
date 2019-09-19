@@ -27,7 +27,7 @@ export const Item = styled.div`
 `;
 
 export const ItemIndex = styled.span`
-	color: ${themeColor.darkAccent};
+	color: ${themeColor.secondary};
 	font-weight: 900;
 	margin-left: 10px;
 	font-size: 0.9rem;

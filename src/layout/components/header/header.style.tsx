@@ -23,8 +23,12 @@ export const HeaderItems = styled.div`
 	margin: auto;
 `;
 
-export const MealPlannerButton = styled.div`
+export const HeaderButton = styled(BaseButton)`
 	display: none;
+	padding: 0.45rem 1rem;
+	border-radius: 36px;
+	font-weight: 800;
+	font-size: 0.75rem;
 
 	@media (min-width: 1020px) {
 		display: flex;
@@ -39,12 +43,14 @@ export const AvatarButton = styled.div`
 	}
 `;
 
-export const Button = styled(BaseButton)``;
+export const ActionButtons = styled.div`
+	display: flex;
+`;
 
 export const Logo = styled.div`
-	font-size: 2rem;
+	font-size: 1.5rem;
 	color: #fff;
-	flex-grow: 1;
+	margin-right: 10px;
 	display: ${(prop: HeaderStyleProps) => (prop.showLogo ? '' : 'none')};
 
 	:hover {

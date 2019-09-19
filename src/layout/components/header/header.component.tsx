@@ -6,13 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
-	Button,
 	Container,
 	Logo,
-	MealPlannerButton,
+	HeaderButton,
 	HeaderItems,
 	DrawerToggleButton,
 	AvatarButton,
+	ActionButtons,
 } from './header.style';
 
 interface HeaderProps {
@@ -42,20 +42,23 @@ export const Header: React.SFC<HeaderProps> = props => {
 							setInputExpanded(!inputExpanded)
 						}
 					/>
-					<MealPlannerButton>
-						<Button>Meal Planner</Button>
+					<ActionButtons>
+						<HeaderButton>MEAL PLANNER</HeaderButton>
 						{!isAuthenticated && (
-							<Button onClick={loginWithRedirect}>Sign In</Button>
+							<HeaderButton onClick={loginWithRedirect}>
+								SIGN IN
+							</HeaderButton>
 						)}
-					</MealPlannerButton>
-					<AvatarButton>
-						{isAuthenticated && (
-							<AvatarWithDropdown
-								pictureUrl={user.picture}
-								userName={user.name}
-							/>
-						)}
-					</AvatarButton>
+
+						<AvatarButton>
+							{isAuthenticated && (
+								<AvatarWithDropdown
+									pictureUrl={user.picture}
+									userName={user.name}
+								/>
+							)}
+						</AvatarButton>
+					</ActionButtons>
 				</HeaderItems>
 			</Container>
 		</React.Fragment>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Router, { useRouter } from 'next/router';
 import { Backdrop } from '../../../shared/components/backdrop/backdrop.component';
+import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Header } from '../../components/header/header.component';
 import { Main, PlusButton } from './app-layout.style';
 import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
@@ -36,7 +38,7 @@ export const AppLayout: React.SFC = props => {
 					: loginWithRedirect()
 			}
 		>
-			+
+			<FontAwesomeIcon icon={plusIcon} size="1x" />
 		</PlusButton>
 	);
 
