@@ -1,3 +1,4 @@
+import Avatar from 'react-avatar';
 import styled from 'styled-components';
 
 export const RecipeOverview = styled.div`
@@ -25,3 +26,5 @@ export const Description = styled.div`
 	margin: auto;
 	padding: 15px 0;
 `;
+
+export const UserPhoto = styled(Avatar)``;

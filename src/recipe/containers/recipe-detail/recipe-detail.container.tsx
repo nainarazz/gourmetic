@@ -19,9 +19,6 @@ export const RecipeDetailRoot: NextFunctionComponent<
 	const { data } = useQuery(RECIPE_DETAIL, { variables: { id: props.id } });
 
 	const recipe = data && data.recipeDetail;
-	const authorResult = recipe && recipe.createdBy;
-	const author =
-		authorResult && `${authorResult.firstname} ${authorResult.lastname}`;
 	const instructions =
 		recipe && recipe.instructions ? recipe.instructions : [];
 
@@ -49,7 +46,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 					difficulty={recipe && recipe.difficulty}
 					cookTime={recipe && recipe.prepTime}
 					description={(recipe && recipe.description) || ''}
-					author={author}
+					author={recipe && recipe.createdBy}
 					title={recipe && recipe.name}
 				/>
 				<Ingredient

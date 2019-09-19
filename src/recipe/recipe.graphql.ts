@@ -68,6 +68,7 @@ export const RECIPE_DETAIL = gql`
 			createdBy {
 				firstname
 				lastname
+				photo
 			}
 			image {
 				secureUrl
