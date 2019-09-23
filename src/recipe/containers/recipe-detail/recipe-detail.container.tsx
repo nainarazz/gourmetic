@@ -7,6 +7,7 @@ import { Instruction } from '../../components/instructions/instruction.component
 import { NextFunctionComponent } from 'next';
 import { RECIPE_DETAIL } from '../../recipe.graphql';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
 
 interface RecipeDetailProps {
@@ -16,13 +17,17 @@ interface RecipeDetailProps {
 export const RecipeDetailRoot: NextFunctionComponent<
 	RecipeDetailProps
 > = props => {
-	const { data } = useQuery(RECIPE_DETAIL, { variables: { id: props.id } });
+	const { data, loading } = useQuery(RECIPE_DETAIL, {
+		variables: { id: props.id },
+	});
 
 	const recipe = data && data.recipeDetail;
 	const instructions =
 		recipe && recipe.instructions ? recipe.instructions : [];
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<React.Fragment>
 			<RecipeDetailWrapper>
 				<ImageWrapper>

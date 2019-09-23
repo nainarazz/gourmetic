@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Header } from '../../components/header/header.component';
 import { Main, PlusButton } from './app-layout.style';
 import { SideDrawer } from '../../components/side-drawer/side-drawer.component';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { ToastContainer } from 'react-toastify';
 import { useAuth0 } from '../../../authentication/react-auth0-wrapper';
 import './toast-container.css';
@@ -47,7 +48,7 @@ export const AppLayout: React.SFC = props => {
 	}
 
 	return checkingAuthentication ? (
-		<div>loading...</div>
+		<Spinner />
 	) : (
 		<React.Fragment>
 			<Header

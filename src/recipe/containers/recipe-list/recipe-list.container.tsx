@@ -3,11 +3,12 @@ import React from 'react';
 import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeEdge } from '../../types/recipe.interface';
 import { RecipeList } from '../../components/recipe-list/recipe-list.component';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
 
 export const RecipeListRoot = () => {
 	const numberOfPagesToLoad = 15;
-	const { data, fetchMore } = useQuery(RECIPE_LIST_QUERY, {
+	const { data, fetchMore, loading } = useQuery(RECIPE_LIST_QUERY, {
 		variables: { first: numberOfPagesToLoad },
 	});
 
@@ -43,15 +44,20 @@ export const RecipeListRoot = () => {
 		});
 	};
 
-	return (
-		<InfiniteScroll
-			dataLength={edges.length}
-			hasMore={hasNextPage || false}
-			loader={<h4>loading...</h4>}
-			next={onLoadMore}
-			scrollThreshold={0.9}
-		>
-			<RecipeList recipeEdges={edges} />;
-		</InfiniteScroll>
+	return loading ? (
+		<Spinner />
+	) : (
+		<React.Fragment>
+			<div>here is some criteria stuff/filter</div>
+			<InfiniteScroll
+				dataLength={edges.length}
+				hasMore={hasNextPage || false}
+				loader={<h4>loading...</h4>}
+				next={onLoadMore}
+				scrollThreshold={0.9}
+			>
+				<RecipeList recipeEdges={edges} />
+			</InfiniteScroll>
+		</React.Fragment>
 	);
 };

@@ -4,7 +4,9 @@ import { themeColor } from 'src/shared/themes/colors';
 export const Main = styled.div`
 	padding-top: 6rem;
 	width: 95%;
+	height: calc(100vh - 6rem);
 	margin: auto;
+	position: relative;
 `;
 
 export const PlusButton = styled.div`

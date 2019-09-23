@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { CREATE_USER } from 'src/recipe/recipe.graphql';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useAuth0 } from '../authentication/react-auth0-wrapper';
 import { useMutation } from '@apollo/react-hooks';
 import { UserInput } from 'src/user/types/user.interface';
@@ -52,7 +53,7 @@ export const callback = () => {
 		}
 	}, [isAuthenticated, user]);
 
-	return <React.Fragment>{<div>loading...</div>}</React.Fragment>;
+	return <Spinner />;
 };
 
 export default callback;
