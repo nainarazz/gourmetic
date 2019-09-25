@@ -14,6 +14,7 @@ import {
 	faPlusCircle as addButton,
 	faSignInAlt as signIn,
 	faHome as home,
+	faUser as userIcon,
 } from '@fortawesome/free-solid-svg-icons';
 
 interface SideDrawerProps {
@@ -64,6 +65,17 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 				>
 					<FontAwesomeIcon icon={addButton} />
 					<span>Create Recipe</span>
+				</SideDrawerItem>
+				<SideDrawerItem
+					onClick={() => {
+						isAuthenticated
+							? Router.push('/profile')
+							: loginWithRedirect();
+						props.toggleSideDrawer();
+					}}
+				>
+					<FontAwesomeIcon icon={userIcon} />
+					<span>My Profile</span>
 				</SideDrawerItem>
 				<SideDrawerItem
 					onClick={() => {

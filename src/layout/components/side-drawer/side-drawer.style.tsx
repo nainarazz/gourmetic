@@ -34,7 +34,7 @@ export const StyledAvatar = styled(Avatar)`
 
 export const SideDrawerItem = styled.div`
 	padding: 1rem 2.5rem;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	span {
 		margin: 0 1rem;
 	}
