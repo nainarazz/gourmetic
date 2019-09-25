@@ -15,7 +15,7 @@ export const Dropdown: SFC<DropdownContentProps> = props => {
 				<UserInfo>
 					<span>{props.user.name}</span>
 				</UserInfo>
-				<Link href={`/`}>
+				<Link href={`/profile`}>
 					<DropdownItem>
 						<span>My Profile</span>
 					</DropdownItem>
