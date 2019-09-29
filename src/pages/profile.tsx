@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppLayout } from 'src/layout/containers/app-layout/app-layout.container';
 import { NextFunctionComponent } from 'next';
+import { ProtectedComponent } from 'src/shared/HOCs/protected-component';
 import { UserProfileContainer } from 'src/user/containers/user-profile.component';
 
 const ProfilePage: NextFunctionComponent = () => {
@@ -13,4 +14,4 @@ const ProfilePage: NextFunctionComponent = () => {
 	);
 };
 
-export default ProfilePage;
+export default ProtectedComponent(ProfilePage);
