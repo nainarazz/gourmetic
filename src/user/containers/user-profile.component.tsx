@@ -1,6 +1,7 @@
 import React, { SFC } from 'react';
 import { TabItem } from 'src/shared/components/tab-item/tab-item.component';
 import { Tabs } from 'src/shared/components/tabs/tabs.component';
+import { UserProfile } from '../components/user-profile.component';
 import {
 	UserProfileWrapper,
 	UserAccountSection,
@@ -11,7 +12,9 @@ export const UserProfileContainer: SFC = () => {
 	return (
 		<React.Fragment>
 			<UserProfileWrapper>
-				<UserAccountSection>user account info here</UserAccountSection>
+				<UserAccountSection>
+					<UserProfile />
+				</UserAccountSection>
 				<UserActivitySection>
 					<Tabs>
 						<TabItem label="My Recipes">

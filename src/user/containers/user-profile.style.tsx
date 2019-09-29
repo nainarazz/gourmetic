@@ -7,7 +7,7 @@ export const UserProfileWrapper = styled.div`
 `;
 
 export const UserAccountSection = styled.div`
-	width: 25%;
+	width: 30%;
 	margin-right: 3%;
 	display: none;
 
@@ -21,6 +21,6 @@ export const UserActivitySection = styled.div`
 	width: 100%;
 
 	@media (min-width: 1080px) {
-		width: 75%;
+		width: 70%;
 	}
 `;
