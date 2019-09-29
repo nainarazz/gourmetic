@@ -7,19 +7,23 @@ import {
 	MutationCreateRecipeArgs,
 } from '../../graphql-generated-types/resolvers-types';
 
-export const getPaginatedRecipes = async (options: PaginationOptions) => {
+export const getPaginatedRecipes = async (
+	options: PaginationOptions,
+	criteria = {}
+) => {
 	const { first, after } = options;
-	const criteria = after
+	const recipeCriteria = after
 		? {
 				_id: {
 					$lt: decode(options.after),
 				},
+				...criteria,
 		  }
-		: {};
+		: criteria;
 
 	let recipes: Recipe[] = await mongoose
 		.model('recipe')
-		.find(criteria)
+		.find(recipeCriteria)
 		.sort({ _id: -1 })
 		.limit(options.first + 1)
 		.lean()
@@ -43,6 +47,17 @@ export const getPaginatedRecipes = async (options: PaginationOptions) => {
 		},
 		edges,
 	};
+};
+
+export const getMyrecipes = async (
+	paginationOptions: PaginationOptions,
+	userOAuthIdentifier: string
+) => {
+	if (!userOAuthIdentifier!) {
+		throw new Error('User not logged in.');
+	}
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+	return getPaginatedRecipes(paginationOptions, { createdBy: user._id });
 };
 
 export const getRecipeDetail = async (id: string) => {

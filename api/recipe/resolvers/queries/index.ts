@@ -5,6 +5,7 @@ import { User } from '../../../graphql-generated-types/resolvers-types';
 import {
 	getPaginatedRecipes,
 	getRecipeDetail,
+	getMyrecipes,
 } from '../../models/Recipe.model';
 import {
 	QueryResolvers,
@@ -16,6 +17,11 @@ const QueryResolver: QueryResolvers<Context, Recipe> = {
 	recipeList: async (parent, { first, after }) =>
 		getPaginatedRecipes({ first: first!, after: after! }),
 	recipeDetail: async (parent, args) => getRecipeDetail(args.id as string),
+	myRecipes: async (parent, { first, after }, ctx) => {
+		const userOAuthId =
+			(ctx.jwtTokenClaims && ctx.jwtTokenClaims.sub) || '';
+		return getMyrecipes({ first: first!, after: after! }, userOAuthId);
+	},
 };
 
 const RecipeResolver: RecipeResolvers<Context> = {

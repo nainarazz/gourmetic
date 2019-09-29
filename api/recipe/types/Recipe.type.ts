@@ -93,6 +93,7 @@ export const RecipeTypes = `
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
         recipeDetail(id: ID): Recipe
+        myRecipes(first: Int, after: String): RecipeResult
     }
 
     extend type Mutation {
