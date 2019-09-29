@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppLayout } from 'src/layout/containers/app-layout/app-layout.container';
 import { NextFunctionComponent } from 'next';
+import { ProtectedComponent } from 'src/shared/HOCs/protected-component';
 import { RecipeFormContainer } from '../recipe/containers/recipe-form/recipe-form.container';
 
 const NewRecipePage: NextFunctionComponent = () => {
@@ -13,4 +14,4 @@ const NewRecipePage: NextFunctionComponent = () => {
 	);
 };
 
-export default NewRecipePage;
+export default ProtectedComponent(NewRecipePage);
