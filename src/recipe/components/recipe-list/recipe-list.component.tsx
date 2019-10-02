@@ -25,28 +25,25 @@ export const RecipeList: React.SFC<RecipeListProps> = props => {
 			'';
 		const recipe = e.node;
 		return (
-			<React.Fragment>
-				<CardWrapper>
-					<RecipeCardContainer
-						key={e.node._id}
-						recipe={e.node}
-						previousRecipeId={previousRecipeId}
-					/>
+			<CardWrapper key={e.node._id}>
+				<RecipeCardContainer
+					recipe={e.node}
+					previousRecipeId={previousRecipeId}
+				/>
 
-					<CardDescription>
-						<RecipeName>{recipe && recipe.name}</RecipeName>
-						<RecipeAuthor>
-							<Avatar
-								src={recipe.createdBy.photo}
-								round
-								size="20"
-								style={{ marginRight: '5px' }}
-							/>
-							{`by ${recipe.createdBy.firstname} ${recipe.createdBy.lastname}`}
-						</RecipeAuthor>
-					</CardDescription>
-				</CardWrapper>
-			</React.Fragment>
+				<CardDescription>
+					<RecipeName>{recipe && recipe.name}</RecipeName>
+					<RecipeAuthor>
+						<Avatar
+							src={recipe.createdBy.photo}
+							round
+							size="20"
+							style={{ marginRight: '5px' }}
+						/>
+						{`by ${recipe.createdBy.firstname} ${recipe.createdBy.lastname}`}
+					</RecipeAuthor>
+				</CardDescription>
+			</CardWrapper>
 		);
 	});
 	return <Container>{recipes}</Container>;

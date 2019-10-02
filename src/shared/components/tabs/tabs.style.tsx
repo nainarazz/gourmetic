@@ -7,6 +7,7 @@ export const TabList = styled.div`
 	text-align: center;
 	border-bottom: 1px solid ${borderColor.lightgrey};
 	position: sticky;
+	z-index: 10;
 	top: 4.5rem;
 	font-size: 0.9rem;
 	font-weight: 500;
@@ -16,4 +17,6 @@ export const TabList = styled.div`
 export const TabContent = styled.div`
 	margin: 20px;
 	font-size: 0.9rem;
+	position: relative;
+	height: 85%;
 `;
