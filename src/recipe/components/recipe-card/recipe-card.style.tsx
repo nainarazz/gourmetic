@@ -1,24 +1,7 @@
 import styled from 'styled-components';
-import { themeColor } from 'src/shared/themes/colors';
 
 export const StyledCard = styled.div`
-	width: 19rem;
-	position: relative;
-	margin: 1rem 1rem 1rem;
-	flex-grow: 1;
-
-	@media (min-width: 730px) {
-		max-width: 44%;
-	}
-
-	@media (min-width: 1020px) {
-		max-width: 44%;
-	}
-
-	@media (min-width: 1330px) {
-		max-width: 30%;
-	}
-
+	width: 100%;
 	:hover {
 		cursor: pointer;
 	}
@@ -26,7 +9,7 @@ export const StyledCard = styled.div`
 
 export const ImageWrapper = styled.div`
 	box-sizing: border-box;
-	height: 15rem;
+	height: 20rem;
 	position: relative;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	border-radius: 12px;
@@ -35,23 +18,6 @@ export const ImageWrapper = styled.div`
 		border-radius: 12px;
 		max-width: 100%;
 	}
-`;
-
-export const CardDescription = styled.div`
-	width: 100%;
-	box-sizing: border-box;
-	padding-top: 1.5rem;
-`;
-
-export const RecipeName = styled.div`
-	font-weight: 500;
-	font-size: 1.2rem;
-	color: ${themeColor.lightShadeSecondary};
-`;
-
-export const RecipeAuthor = styled.div`
-	font-size: 0.9rem;
-	margin-top: 2px;
 `;
 
 export const LoveIcon = styled.div`

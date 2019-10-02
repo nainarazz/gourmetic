@@ -1,4 +1,3 @@
-import Avatar from 'react-avatar';
 import Link from 'next/link';
 import React from 'react';
 import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
@@ -6,15 +5,8 @@ import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as heartEmpty } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image } from 'cloudinary-react';
+import { ImageWrapper, LoveIcon, StyledCard } from './recipe-card.style';
 import { Recipe } from '../../types/recipe.interface';
-import {
-	CardDescription,
-	StyledCard,
-	LoveIcon,
-	ImageWrapper,
-	RecipeName,
-	RecipeAuthor,
-} from './recipe-card.style';
 
 interface RecipeCardProps {
 	recipe: Recipe;
@@ -49,7 +41,7 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 							dpr="auto"
 							responsive
 							width="auto"
-							height="240"
+							height="320"
 							quality="auto"
 							crop="scale"
 							client_hints="true"
@@ -75,20 +67,6 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 							/>
 						</LoveIcon>
 					</ImageWrapper>
-					<CardDescription>
-						<RecipeName>
-							{props.recipe && props.recipe.name}
-						</RecipeName>
-						<RecipeAuthor>
-							<Avatar
-								src={props.recipe.createdBy.photo}
-								round
-								size="20"
-								style={{ marginRight: '5px' }}
-							/>
-							{`by ${props.recipe.createdBy.firstname} ${props.recipe.createdBy.lastname}`}
-						</RecipeAuthor>
-					</CardDescription>
 				</StyledCard>
 			</Link>
 		</React.Fragment>
