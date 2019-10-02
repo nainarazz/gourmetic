@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
-import { decode, encode } from '../../utils/base64';
+import { decode } from '../../utils/base64';
 import { getUserByOAuthAccountIdentifier } from '../../user/models/user.model';
-import { PaginationOptions } from '../../utils/pagination';
+import { paginateArray, PaginationOptions } from '../../utils/pagination';
 import {
 	Recipe,
 	MutationCreateRecipeArgs,
@@ -15,38 +15,21 @@ export const getPaginatedRecipes = async (
 	const recipeCriteria = after
 		? {
 				_id: {
-					$lt: decode(options.after),
+					$lt: decode(after),
 				},
 				...criteria,
 		  }
 		: criteria;
 
-	let recipes: Recipe[] = await mongoose
+	const recipes: Recipe[] = await mongoose
 		.model('recipe')
 		.find(recipeCriteria)
 		.sort({ _id: -1 })
-		.limit(options.first + 1)
+		.limit(first + 1)
 		.lean()
 		.exec();
 
-	const hasNextPage = recipes.length > first;
-
-	//remove extra
-	if (hasNextPage) {
-		recipes = recipes.slice(0, recipes.length - 1);
-	}
-
-	const edges = recipes.map(r => ({
-		cursor: encode(r._id.toString()),
-		node: r,
-	}));
-
-	return {
-		pageInfo: {
-			hasNextPage,
-		},
-		edges,
-	};
+	return paginateArray(options, recipes);
 };
 
 export const getMyrecipes = async (

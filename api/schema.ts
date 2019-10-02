@@ -1,4 +1,5 @@
 import customScalars from './custom-scalars/scalars';
+import { generalTypes } from './shared/graphql-types/general';
 import { IResolvers, makeExecutableSchema } from 'graphql-tools';
 import { merge } from 'lodash';
 import { RecipeReactionTypes } from './recipe/types/RecipeReaction.type';
@@ -32,6 +33,7 @@ const Root = `
 const typeDefs: string[] = [
 	Root,
 	customScalars.typeDefs,
+	generalTypes,
 	RecipeTypes,
 	RecipeReactionTypes,
 	UserType,

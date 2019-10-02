@@ -45,10 +45,6 @@ export const RecipeTypes = `
         updatedAt: Date
     }
 
-    type PageInfo {
-        hasNextPage: Boolean!
-    }
-
     type RecipeEdge {
         cursor: String!
         node: Recipe!

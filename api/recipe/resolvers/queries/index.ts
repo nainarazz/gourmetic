@@ -1,5 +1,6 @@
 import { Context } from '../../../graphql-generated-types/context';
 import { createdBy } from './createdBy.query';
+import { getPaginatedRecipeReactions } from '../../models/RecipeReaction.model';
 import { recipeReaction } from './recipeReaction.query';
 import { User } from '../../../graphql-generated-types/resolvers-types';
 import {
@@ -21,6 +22,14 @@ const QueryResolver: QueryResolvers<Context, Recipe> = {
 		const userOAuthId =
 			(ctx.jwtTokenClaims && ctx.jwtTokenClaims.sub) || '';
 		return getMyrecipes({ first: first!, after: after! }, userOAuthId);
+	},
+	likedRecipes: async (parent, { first, after }, ctx) => {
+		const userOAuthId =
+			(ctx.jwtTokenClaims && ctx.jwtTokenClaims.sub) || '';
+		return getPaginatedRecipeReactions(
+			{ first: first!, after: after! },
+			userOAuthId
+		);
 	},
 };
 

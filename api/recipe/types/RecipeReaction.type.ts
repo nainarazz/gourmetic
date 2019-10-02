@@ -13,6 +13,20 @@ export const RecipeReactionTypes = `
 		isLiked: Boolean
     }
 
+    type RecipeReactionEdge {
+        cursor: String!
+        node: RecipeReaction!
+    }
+
+    type RecipeReactionResult {
+        pageInfo: PageInfo
+        edges: [RecipeReactionEdge]!
+    }
+
+    extend type Query {
+        likedRecipes(first: Int, after: String): RecipeReactionResult
+    }
+
     extend type Mutation {
         likeRecipe(input: LikeRecipeInput!): RecipeReaction
     }

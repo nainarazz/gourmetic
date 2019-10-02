@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose';
+import { decode } from '../../utils/base64';
 import { MutationLikeRecipeArgs } from './../../graphql-generated-types/resolvers-types';
+import { paginateArray, PaginationOptions } from '../../utils/pagination';
 import { RecipeReaction } from '../../graphql-generated-types/resolvers-types';
 import {
 	getUserByOAuthAccountIdentifier,
@@ -50,6 +52,39 @@ export const getRecipeReactions = async (
 						k.oAuthAccountId.toString()
 			) || {}
 	);
+};
+
+export const getPaginatedRecipeReactions = async (
+	options: PaginationOptions,
+	userOAuthIdentifier: string
+) => {
+	if (!userOAuthIdentifier!) {
+		throw new Error('User not logged in.');
+	}
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+
+	const { first, after } = options;
+	const criteria = after
+		? {
+				_id: {
+					$lt: decode(after),
+				},
+				user: user._id,
+				isLiked: true,
+		  }
+		: { user: user._id, isLiked: true };
+
+	const reactions: RecipeReaction[] = await mongoose
+		.model('recipeReaction')
+		.find(criteria)
+		.select('recipe')
+		.populate('recipe')
+		.sort({ _id: -1 })
+		.limit(first + 1)
+		.lean()
+		.exec();
+
+	return paginateArray(options, reactions);
 };
 
 export const likeRecipe = async (
