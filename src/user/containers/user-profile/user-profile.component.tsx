@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import { MyRecipesContainer } from 'src/recipe/containers/my-recipes/my-recipes.component';
+import { MyRecipesContainer } from 'src/recipe/containers/my-recipes/my-recipes.container';
 import { TabItem } from 'src/shared/components/tab-item/tab-item.component';
 import { Tabs } from 'src/shared/components/tabs/tabs.component';
 import { UserProfile } from '../../components/user-profile/user-profile.component';

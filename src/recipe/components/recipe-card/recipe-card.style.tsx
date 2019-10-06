@@ -9,7 +9,7 @@ export const StyledCard = styled.div`
 
 export const ImageWrapper = styled.div`
 	box-sizing: border-box;
-	height: 20rem;
+	height: 16.25rem;
 	position: relative;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 	border-radius: 12px;

@@ -1,8 +1,8 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
 import { MY_RECIPES_QUERY } from 'src/user/user.graphql';
+import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { RecipeEdge } from 'src/recipe/types/recipe.interface';
-import { RecipeList } from 'src/recipe/components/recipe-list/recipe-list.component';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
 
@@ -55,7 +55,7 @@ export const MyRecipesContainer: FunctionComponent = () => {
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>
-				<RecipeList recipeEdges={edges} />
+				<MyRecipes recipeEdges={edges} />
 			</InfiniteScroll>
 		</React.Fragment>
 	);

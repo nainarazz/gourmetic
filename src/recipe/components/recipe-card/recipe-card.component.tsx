@@ -41,7 +41,7 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 							dpr="auto"
 							responsive
 							width="auto"
-							height="320"
+							height="260"
 							quality="auto"
 							crop="scale"
 							client_hints="true"
