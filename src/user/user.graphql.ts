@@ -22,6 +22,7 @@ export const MY_RECIPES_QUERY = gql`
 						firstname
 						lastname
 						photo
+						OAuthUniqueAccountId
 					}
 					isPublic
 					reaction {

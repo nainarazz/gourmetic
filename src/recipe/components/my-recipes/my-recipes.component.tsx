@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RecipeCardContainer } from 'src/recipe/containers/recipe-card/recipe-card.container';
@@ -39,13 +40,18 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 				<CardDescription>
 					<RecipeName>{recipe && recipe.name}</RecipeName>
 					<IconsContainer>
-						<Icon>
-							<FontAwesomeIcon
-								icon={editIcon}
-								color={'gray'}
-								size="1x"
-							/>
-						</Icon>
+						<Link
+							href={`/recipe-form?id=${e.node._id}&user=${e.node.createdBy.OAuthUniqueAccountId}`}
+							as={`/recipe-form/edit`}
+						>
+							<Icon>
+								<FontAwesomeIcon
+									icon={editIcon}
+									color={'gray'}
+									size="1x"
+								/>
+							</Icon>
+						</Link>
 						<Icon>
 							<FontAwesomeIcon
 								icon={deleteIcon}

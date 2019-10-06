@@ -1,11 +1,15 @@
 import * as Yup from 'yup';
 import React from 'react';
-import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import { PhotoInput } from '../../../shared/components/photo-input/photo-input.component';
 import { SubmitButton } from '../../../shared/styles/buttons';
 import { toast } from 'react-toastify';
+import {
+	FormValues,
+	ReactSelectOptions,
+	Recipe,
+} from '../../types/recipe.interface';
 import {
 	FieldArray,
 	FieldProps,
@@ -36,6 +40,7 @@ import {
 } from '../../../shared/styles/forms';
 
 interface RecipeFormProps {
+	recipe?: Recipe;
 	handleSubmit: (recipe: FormValues) => Promise<void>;
 }
 

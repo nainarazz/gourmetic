@@ -35,7 +35,7 @@ export const AppLayout: React.SFC = props => {
 		<PlusButton
 			onClick={() =>
 				isAuthenticated
-					? Router.push('/new-recipe')
+					? Router.push('/recipe-form')
 					: loginWithRedirect()
 			}
 		>
