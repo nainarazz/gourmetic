@@ -41,11 +41,12 @@ export const EditRecipeFormContainer: FunctionComponent<
 		return updateRecipeFn();
 	};
 
+	const recipeData = data && data.recipeDetail;
 	return (
 		<React.Fragment>
 			<RecipeDetailWrapper>
 				<RecipeFormComponent
-					recipe={data}
+					recipe={recipeData}
 					handleSubmit={(value: FormValues) =>
 						handleSubmit(
 							value,

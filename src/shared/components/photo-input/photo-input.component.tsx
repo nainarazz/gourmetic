@@ -58,6 +58,8 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 					src={
 						selectedFile && props.value
 							? selectedFile
+							: props.value
+							? props.value
 							: '/static/images/img-default-placeholder.jpg'
 					}
 				/>

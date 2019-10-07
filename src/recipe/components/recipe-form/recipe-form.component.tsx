@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import React from 'react';
+import { getRecipeFormValues } from './recipe-form.helper';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import { PhotoInput } from '../../../shared/components/photo-input/photo-input.component';
@@ -246,19 +247,8 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 };
 
 export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
-	mapPropsToValues: () => ({
-		name: '',
-		recipeDescription: '',
-		instructions: [],
-		ingredients: [],
-		prepTime: 0,
-		cookingTime: 0,
-		difficulty: { value: '', label: '' },
-		yield: 0,
-		image: '',
-		meals: [],
-		isPublic: false,
-	}),
+	mapPropsToValues: props => getRecipeFormValues(props.recipe),
+	enableReinitialize: true,
 	validationSchema: Yup.object().shape({
 		image: Yup.mixed().test(
 			'fileSize',

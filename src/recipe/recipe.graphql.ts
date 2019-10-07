@@ -71,10 +71,13 @@ export const RECIPE_DETAIL = gql`
 				lastname
 				photo
 			}
+			meal
 			image {
 				secureUrl
 				publicId
 			}
+			yield
+			isPublic
 		}
 	}
 `;
