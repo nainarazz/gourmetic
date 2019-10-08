@@ -42,6 +42,7 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 		e.preventDefault();
 	};
 
+	const showClearIcon = (selectedFile && props.value) || props.value;
 	return (
 		<React.Fragment>
 			<Input
@@ -63,7 +64,7 @@ export const PhotoInput: SFC<PhotoInputProps> = props => {
 							: '/static/images/img-default-placeholder.jpg'
 					}
 				/>
-				{selectedFile && props.value && (
+				{showClearIcon && (
 					<InputClearButton
 						type="button"
 						style={{

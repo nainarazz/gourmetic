@@ -1,11 +1,12 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormValues, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
-import { RECIPE_DETAIL } from '../../recipe.graphql';
+import { MY_RECIPES_QUERY } from 'src/user/user.graphql';
+import { RECIPE_DETAIL, UPDATE_RECIPE } from '../../recipe.graphql';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 import { uploadImage } from '../../../shared/utils/upload-image';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 
 interface EditRecipeProps {
 	recipeId: string;
@@ -20,7 +21,12 @@ export const EditRecipeFormContainer: FunctionComponent<
 		variables: { id: props.recipeId },
 	});
 
-	// TODO: Mutation for updating recipe here
+	const [updateRecipeMutation] = useMutation(UPDATE_RECIPE, {
+		variables: { id: props.recipeId, recipe: recipe as Recipe },
+		refetchQueries: () => [
+			{ query: RECIPE_DETAIL, variables: { id: props.recipeId } },
+		],
+	});
 
 	const handleSubmit = async (
 		formValues: FormValues,
@@ -48,10 +54,7 @@ export const EditRecipeFormContainer: FunctionComponent<
 				<RecipeFormComponent
 					recipe={recipeData}
 					handleSubmit={(value: FormValues) =>
-						handleSubmit(
-							value,
-							() => new Promise(res => res('updated success'))
-						)
+						handleSubmit(value, updateRecipeMutation)
 					}
 				/>
 			</RecipeDetailWrapper>

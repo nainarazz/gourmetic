@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import { decode } from '../../utils/base64';
 import { getUserByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { paginateArray, PaginationOptions } from '../../utils/pagination';
+import { RecipeInput } from './../../graphql-generated-types/resolvers-types';
 import {
 	Recipe,
 	MutationCreateRecipeArgs,
@@ -77,4 +78,17 @@ export const createRecipe = async (
 		createdBy: user._id,
 	};
 	return mongoose.model('recipe').create(recipe);
+};
+
+export const updateRecipe = async (id: string, data: RecipeInput) => {
+	const recipe = {
+		_id: id,
+		...data,
+		updatedAt: new Date(),
+	};
+
+	return mongoose
+		.model('recipe')
+		.findByIdAndUpdate(id, recipe)
+		.exec();
 };

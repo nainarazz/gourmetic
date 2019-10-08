@@ -100,6 +100,40 @@ export const CREATE_RECIPE = gql`
 	}
 `;
 
+export const UPDATE_RECIPE = gql`
+	mutation UpdateRecipe($id: String!, $recipe: RecipeInput!) {
+		updateRecipe(id: $id, updatedRecipe: $recipe) {
+			name
+			description
+			prepTime
+			cookingTime
+			difficulty
+			ingredients {
+				item
+				quantity
+				measurement
+			}
+			instructions {
+				imageUrl
+				stepNumber
+				description
+			}
+			createdBy {
+				firstname
+				lastname
+				photo
+			}
+			meal
+			image {
+				secureUrl
+				publicId
+			}
+			yield
+			isPublic
+		}
+	}
+`;
+
 export const CREATE_USER = gql`
 	mutation CreateUser($input: UserInput) {
 		createUser(userInput: $input) {

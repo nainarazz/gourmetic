@@ -3,6 +3,7 @@ import {
 	Instruction,
 	Recipe,
 	ReactSelectOptions,
+	Ingredient,
 } from './types/recipe.interface';
 
 const formatRecipeInstructions = (
@@ -10,11 +11,21 @@ const formatRecipeInstructions = (
 ): Instruction[] => {
 	return instructions.map(
 		(instruction, index): Instruction => ({
-			...instruction,
+			imageUrl: instruction.imageUrl,
+			description: instruction.description,
 			stepNumber: index + 1,
 		})
 	);
 };
+
+const formatIngredients = (ingredients: Ingredient[]) =>
+	ingredients.map(
+		(i): Ingredient => ({
+			measurement: i.measurement,
+			quantity: i.quantity,
+			item: i.item,
+		})
+	);
 
 const formSelectOptions = (options: ReactSelectOptions[]): string[] =>
 	options.map(o => o.value);
@@ -26,7 +37,7 @@ export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
 		prepTime: data.prepTime || 0,
 		cookingTime: data.cookingTime || 0,
 		difficulty: (data.difficulty as ReactSelectOptions).value,
-		ingredients: data.ingredients,
+		ingredients: formatIngredients(data.ingredients),
 		instructions: formatRecipeInstructions(data.instructions),
 		yield: data.yield,
 		meal: formSelectOptions(data.meals as ReactSelectOptions[]),
