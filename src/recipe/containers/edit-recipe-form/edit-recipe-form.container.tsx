@@ -10,6 +10,7 @@ import { useMutation, useQuery } from '@apollo/react-hooks';
 
 interface EditRecipeProps {
 	recipeId: string;
+	previousRecipeId?: string;
 }
 
 export const EditRecipeFormContainer: FunctionComponent<
@@ -25,6 +26,15 @@ export const EditRecipeFormContainer: FunctionComponent<
 		variables: { id: props.recipeId, recipe: recipe as Recipe },
 		refetchQueries: () => [
 			{ query: RECIPE_DETAIL, variables: { id: props.recipeId } },
+			{
+				query: MY_RECIPES_QUERY,
+				variables: {
+					first: 1,
+					after: Buffer.from(
+						(props && props.previousRecipeId) || ''
+					).toString('base64'),
+				},
+			},
 		],
 	});
 

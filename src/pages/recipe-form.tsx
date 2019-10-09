@@ -13,12 +13,17 @@ const RecipeFormPage: NextFunctionComponent<RecipeFormProps> = props => {
 	const queryParams = props.query;
 	const id = (queryParams && (queryParams.id as string)) || '';
 	const user = (queryParams && queryParams.user) || '';
+	const previousRecipeId =
+		(queryParams && queryParams.previousRecipeId) || '';
 
 	return (
 		<React.Fragment>
 			<AppLayout>
 				{id && user ? (
-					<EditRecipeFormContainer recipeId={id} />
+					<EditRecipeFormContainer
+						recipeId={id}
+						previousRecipeId={previousRecipeId as string}
+					/>
 				) : (
 					<RecipeFormContainer />
 				)}

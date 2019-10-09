@@ -24,9 +24,8 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 	if (!props.recipeEdges) {
 		return null;
 	}
-	let previousRecipeId: string;
 	const recipes = props.recipeEdges.map((e, i) => {
-		previousRecipeId =
+		const previousRecipeId =
 			(props.recipeEdges[i - 1] && props.recipeEdges[i - 1].node._id) ||
 			'';
 		const recipe = e.node;
@@ -41,7 +40,14 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 					<RecipeName>{recipe && recipe.name}</RecipeName>
 					<IconsContainer>
 						<Link
-							href={`/recipe-form?id=${e.node._id}&user=${e.node.createdBy.OAuthUniqueAccountId}`}
+							href={{
+								pathname: '/recipe-form',
+								query: {
+									id: e.node._id,
+									user: e.node.createdBy.OAuthUniqueAccountId,
+									previousRecipeId,
+								},
+							}}
 							as={`/recipe-form/edit`}
 						>
 							<Icon>

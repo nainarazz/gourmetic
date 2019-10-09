@@ -10,7 +10,7 @@ import {
 
 interface RecipeCardContainerProps {
 	recipe: Recipe;
-	previousRecipeId: string;
+	previousRecipeId?: string;
 }
 
 export const RecipeCardContainer: React.SFC<
@@ -46,7 +46,7 @@ export const RecipeCardContainer: React.SFC<
 				// we need to encode id bcoz pagination for cursor in backend is encoded
 				variables: {
 					first: 1,
-					after: Buffer.from(props.previousRecipeId).toString(
+					after: Buffer.from(props.previousRecipeId || '').toString(
 						'base64'
 					),
 				},
