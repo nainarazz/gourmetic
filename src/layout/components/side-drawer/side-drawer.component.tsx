@@ -58,7 +58,7 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 				<SideDrawerItem
 					onClick={() => {
 						isAuthenticated
-							? Router.push('/new-recipe')
+							? Router.push('/recipe-form')
 							: loginWithRedirect();
 						props.toggleSideDrawer();
 					}}
