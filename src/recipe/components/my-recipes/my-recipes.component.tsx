@@ -18,7 +18,7 @@ import {
 
 interface RecipeListProps {
 	recipeEdges: RecipeEdge[];
-	deleteHandler: (id: string, previousRecipeId: string) => void;
+	deleteHandler: (id: string) => void;
 }
 
 export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
@@ -59,14 +59,7 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 								/>
 							</Icon>
 						</Link>
-						<Icon
-							onClick={() =>
-								props.deleteHandler(
-									recipe._id,
-									previousRecipeId
-								)
-							}
-						>
+						<Icon onClick={() => props.deleteHandler(recipe._id)}>
 							<FontAwesomeIcon
 								icon={deleteIcon}
 								color={'red'}
