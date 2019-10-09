@@ -1,7 +1,11 @@
 import { AuthenticationError } from 'apollo-server-core';
 import { Context } from '../../../graphql-generated-types/context';
-import { createRecipe, updateRecipe } from '../../models/Recipe.model';
 import { likeRecipe } from '../../models/RecipeReaction.model';
+import {
+	createRecipe,
+	updateRecipe,
+	deleteRecipe,
+} from '../../models/Recipe.model';
 import {
 	MutationResolvers,
 	RecipeReaction,
@@ -29,6 +33,13 @@ const MutationResolver: MutationResolvers<Context, Recipe> = {
 			throw new AuthenticationError('User is not authenticated.');
 		}
 		return (updateRecipe(args.id, args.updatedRecipe) as unknown) as Recipe;
+	},
+	deleteRecipe: async (parent, args, ctx) => {
+		const user: JwtTokenClaims | null = ctx.jwtTokenClaims;
+		if (!user) {
+			throw new AuthenticationError('User is not authenticated.');
+		}
+		return (deleteRecipe(args.id) as unknown) as Recipe;
 	},
 };
 

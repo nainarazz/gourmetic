@@ -95,5 +95,6 @@ export const RecipeTypes = `
     extend type Mutation {
         createRecipe(recipeInput: RecipeInput!): Recipe
         updateRecipe(id: String!, updatedRecipe: RecipeInput!): Recipe
+        deleteRecipe(id: String!): Recipe
     }
 `;

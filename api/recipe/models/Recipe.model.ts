@@ -92,3 +92,7 @@ export const updateRecipe = async (id: string, data: RecipeInput) => {
 		.findByIdAndUpdate(id, recipe)
 		.exec();
 };
+
+export const deleteRecipe = async (id: string) => {
+	return mongoose.model('recipe').findByIdAndDelete(id);
+};

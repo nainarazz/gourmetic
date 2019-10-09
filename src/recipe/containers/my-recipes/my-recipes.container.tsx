@@ -1,16 +1,25 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
+import { DELETE_RECIPE } from '../../recipe.graphql';
 import { MY_RECIPES_QUERY } from 'src/user/user.graphql';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
-import { useQuery } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 
 export const MyRecipesContainer: FunctionComponent = () => {
 	const numberOfItemsToLoad = 15;
 	const { data, fetchMore, loading } = useQuery(MY_RECIPES_QUERY, {
 		variables: { first: numberOfItemsToLoad },
 	});
+
+	const [deleteRecipeMutation] = useMutation(DELETE_RECIPE);
+
+	const deleteHandler = (id: string, previousRecipeId: string) => {
+		deleteRecipeMutation({
+			variables: { id },
+		});
+	};
 
 	const result = data && data.myRecipes;
 	const edges: RecipeEdge[] =
@@ -55,7 +64,7 @@ export const MyRecipesContainer: FunctionComponent = () => {
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>
-				<MyRecipes recipeEdges={edges} />
+				<MyRecipes recipeEdges={edges} deleteHandler={deleteHandler} />
 			</InfiniteScroll>
 		</React.Fragment>
 	);

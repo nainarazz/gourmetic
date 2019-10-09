@@ -134,6 +134,15 @@ export const UPDATE_RECIPE = gql`
 	}
 `;
 
+export const DELETE_RECIPE = gql`
+	mutation DeleteRecipe($id: String!) {
+		deleteRecipe(id: $id) {
+			_id
+			name
+		}
+	}
+`;
+
 export const CREATE_USER = gql`
 	mutation CreateUser($input: UserInput) {
 		createUser(userInput: $input) {
