@@ -49,7 +49,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}
 					difficulty={recipe && recipe.difficulty}
-					cookTime={recipe && recipe.prepTime}
+					cookTime={recipe && recipe.cookingTime}
 					description={(recipe && recipe.description) || ''}
 					author={recipe && recipe.createdBy}
 					title={recipe && recipe.name}

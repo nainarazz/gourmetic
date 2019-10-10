@@ -53,13 +53,13 @@ export const RecipeDetailSummary: React.SFC<
 			<SubHeader>
 				<h4 className="title">Prep time</h4>
 				<div className="value">
-					{props.prepTime} {props.prepTime && 'min'}
+					{props.prepTime ? `${props.prepTime} min` : ''}
 				</div>
 			</SubHeader>
 			<SubHeader>
 				<h4 className="title">Cook time</h4>
 				<div className="value">
-					{props.cookTime} {props.cookTime && 'min'}
+					{props.cookTime ? `${props.cookTime} min` : ''}
 				</div>
 			</SubHeader>
 			<SubHeader>
