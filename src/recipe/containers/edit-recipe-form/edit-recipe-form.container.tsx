@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from 'react';
+import { deleteImage, uploadImage } from '../../../shared/utils/upload-image';
 import { FormValues, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
-import { uploadImage } from '../../../shared/utils/upload-image';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import {
 	RECIPE_DETAIL,
@@ -24,6 +24,8 @@ export const EditRecipeFormContainer: FunctionComponent<
 	const { data, loading } = useQuery(RECIPE_DETAIL, {
 		variables: { id: props.recipeId },
 	});
+
+	const recipeData = data && data.recipeDetail;
 
 	const [updateRecipeMutation] = useMutation(UPDATE_RECIPE, {
 		variables: { id: props.recipeId, recipe: recipe as Recipe },
@@ -48,19 +50,31 @@ export const EditRecipeFormContainer: FunctionComponent<
 	) => {
 		const formattedRecipe = getFormattedRecipeData(formValues);
 
+		const previousImagePublicId = recipeData.image.publicId;
 		if (formValues.image) {
-			const imageUrl = await uploadImage(formValues.image as File);
+			const isNewImage =
+				typeof (formValues.image === 'object') &&
+				formValues.image.hasOwnProperty('name');
+
+			const imageUrl = await uploadImage(
+				formValues.image,
+				isNewImage,
+				previousImagePublicId
+			);
 			formattedRecipe.image = {
 				secureUrl: imageUrl.secure_url || '',
 				publicId: imageUrl.public_id || '',
 			};
+		} else if (previousImagePublicId && !formValues.image) {
+			// TODO
+			// user removed existing image
+			// await deleteImage(previousImagePublicId);
 		}
 
 		setRecipe(formattedRecipe);
 		return updateRecipeFn();
 	};
 
-	const recipeData = data && data.recipeDetail;
 	return (
 		<React.Fragment>
 			<RecipeDetailWrapper>

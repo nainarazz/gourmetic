@@ -281,7 +281,7 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			});
 			resetForm();
 		} catch (error) {
-			toast.error('Failed to create recipe.', {
+			toast.error('Failed to save recipe.', {
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 			setSubmitting(false);
