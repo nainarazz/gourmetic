@@ -83,7 +83,7 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 			<ButtonText
 				type="button"
 				onClick={() => addInstruction()}
-				disabled={!instruction.description}
+				disabled={!instruction.description.trim()}
 			>
 				Add
 			</ButtonText>

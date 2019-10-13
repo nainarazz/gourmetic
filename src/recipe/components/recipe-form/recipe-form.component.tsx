@@ -255,10 +255,12 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			'File too large',
 			value => (value && value.size <= FILE_IMAGE_SIZE_LIMIT) || true
 		),
-		name: Yup.string().required('Recipe name is required.'),
-		recipeDescription: Yup.string().required(
-			'Please enter a short description about recipe.'
-		),
+		name: Yup.string()
+			.trim()
+			.required('Recipe name is required.'),
+		recipeDescription: Yup.string()
+			.trim()
+			.required('Please enter a short description about recipe.'),
 		instructions: Yup.array().required('Instruction is required.'),
 		ingredients: Yup.array().required('Ingredient is required.'),
 		difficulty: Yup.string().required('Please select difficulty.'),
