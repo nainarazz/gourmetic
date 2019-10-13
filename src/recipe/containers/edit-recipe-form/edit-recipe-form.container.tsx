@@ -4,6 +4,7 @@ import { FormValues, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import {
 	RECIPE_DETAIL,
@@ -75,7 +76,9 @@ export const EditRecipeFormContainer: FunctionComponent<
 		return updateRecipeFn();
 	};
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<React.Fragment>
 			<RecipeDetailWrapper>
 				<RecipeFormComponent

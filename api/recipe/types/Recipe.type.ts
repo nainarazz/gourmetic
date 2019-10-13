@@ -33,7 +33,7 @@ export const RecipeTypes = `
         meal: [Meal]
         prepTime: Int
         cookingTime: Int
-        difficulty: Difficulty
+        difficulty: String
         ingredients: [Ingredient!]!
         instructions: [Instruction]!
         yield: Int
