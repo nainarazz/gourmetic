@@ -114,3 +114,6 @@ export const likeRecipe = async (
 		isLiked: true,
 	});
 };
+
+export const deleteRecipeReaction = async (id: string) =>
+	mongoose.model('recipeReaction').findByIdAndDelete(id);

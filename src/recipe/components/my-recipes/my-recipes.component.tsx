@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { RecipeCardContainer } from 'src/recipe/containers/recipe-card/recipe-card.container';
-import { RecipeEdge } from 'src/recipe/types/recipe.interface';
 import {
 	faEdit as editIcon,
 	faTrashAlt as deleteIcon,
@@ -18,7 +18,7 @@ import {
 
 interface RecipeListProps {
 	recipeEdges: RecipeEdge[];
-	deleteHandler: (id: string) => void;
+	deleteHandler: (recipe: Recipe) => void;
 }
 
 export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
@@ -59,7 +59,7 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 								/>
 							</Icon>
 						</Link>
-						<Icon onClick={() => props.deleteHandler(recipe._id)}>
+						<Icon onClick={() => props.deleteHandler(recipe)}>
 							<FontAwesomeIcon
 								icon={deleteIcon}
 								color={'red'}

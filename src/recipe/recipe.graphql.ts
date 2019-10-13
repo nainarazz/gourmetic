@@ -135,8 +135,8 @@ export const UPDATE_RECIPE = gql`
 `;
 
 export const DELETE_RECIPE = gql`
-	mutation DeleteRecipe($id: String!) {
-		deleteRecipe(id: $id) {
+	mutation DeleteRecipe($input: DeleteRecipeInput!) {
+		deleteRecipe(input: $input) {
 			_id
 			name
 		}

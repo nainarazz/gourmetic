@@ -39,7 +39,7 @@ const MutationResolver: MutationResolvers<Context, Recipe> = {
 		if (!user) {
 			throw new AuthenticationError('User is not authenticated.');
 		}
-		return (deleteRecipe(args.id) as unknown) as Recipe;
+		return (deleteRecipe(args.input) as unknown) as Recipe;
 	},
 };
 

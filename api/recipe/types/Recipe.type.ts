@@ -86,6 +86,11 @@ export const RecipeTypes = `
         isPublic: Boolean
     }
 
+    input DeleteRecipeInput {
+        recipeId: String!
+        reactionId: String!
+    }
+
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
         recipeDetail(id: ID): Recipe
@@ -95,6 +100,6 @@ export const RecipeTypes = `
     extend type Mutation {
         createRecipe(recipeInput: RecipeInput!): Recipe
         updateRecipe(id: String!, updatedRecipe: RecipeInput!): Recipe
-        deleteRecipe(id: String!): Recipe
+        deleteRecipe(input: DeleteRecipeInput!): Recipe
     }
 `;

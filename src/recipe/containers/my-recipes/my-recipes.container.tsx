@@ -1,7 +1,7 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
-import { RecipeEdge } from 'src/recipe/types/recipe.interface';
+import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useMutation, useQuery } from 'react-apollo';
 import {
@@ -18,9 +18,14 @@ export const MyRecipesContainer: FunctionComponent = () => {
 
 	const [deleteRecipeMutation] = useMutation(DELETE_RECIPE);
 
-	const deleteHandler = (id: string) => {
+	const deleteHandler = (recipe: Recipe) => {
 		deleteRecipeMutation({
-			variables: { id },
+			variables: {
+				input: {
+					recipeId: recipe._id,
+					reactionId: recipe.reaction._id,
+				},
+			},
 			refetchQueries: () => [
 				{
 					query: MY_RECIPES_QUERY,

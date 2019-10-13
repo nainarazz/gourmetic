@@ -1,8 +1,12 @@
 import * as mongoose from 'mongoose';
 import { decode } from '../../utils/base64';
+import { deleteRecipeReaction } from './RecipeReaction.model';
 import { getUserByOAuthAccountIdentifier } from '../../user/models/user.model';
 import { paginateArray, PaginationOptions } from '../../utils/pagination';
-import { RecipeInput } from './../../graphql-generated-types/resolvers-types';
+import {
+	RecipeInput,
+	DeleteRecipeInput,
+} from './../../graphql-generated-types/resolvers-types';
 import {
 	Recipe,
 	MutationCreateRecipeArgs,
@@ -93,6 +97,7 @@ export const updateRecipe = async (id: string, data: RecipeInput) => {
 		.exec();
 };
 
-export const deleteRecipe = async (id: string) => {
-	return mongoose.model('recipe').findByIdAndDelete(id);
+export const deleteRecipe = async (input: DeleteRecipeInput) => {
+	await deleteRecipeReaction(input.reactionId);
+	return mongoose.model('recipe').findByIdAndDelete(input.recipeId);
 };
