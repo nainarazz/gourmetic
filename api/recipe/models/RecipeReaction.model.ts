@@ -91,7 +91,7 @@ export const likeRecipe = async (
 	args: MutationLikeRecipeArgs,
 	userOAuthIdentifier: string
 ) => {
-	const { reactionId, recipeId, isLiked } = args.input;
+	const { reactionId, isLiked, recipeId } = args.input;
 
 	if (reactionId) {
 		return mongoose
@@ -104,10 +104,27 @@ export const likeRecipe = async (
 	}
 
 	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
-
 	if (!user) {
 		throw new Error('User not found.');
 	}
+
+	// when user clicks the like button so fast and there is no reaction for the recipe yet, a duplicate reaction is
+	// created. To avoid that, first check if reaction is already there. If there is, then update, otherwise create
+	const recipeReaction = (await mongoose
+		.model('recipeReaction')
+		.findOne({ user: user._id, recipe: recipeId })
+		.exec()) as RecipeReaction;
+
+	if (recipeReaction) {
+		return mongoose
+			.model('recipeReaction')
+			.findByIdAndUpdate(
+				recipeReaction._id,
+				{ $set: { isLiked: !recipeReaction.isLiked } },
+				{ new: true }
+			);
+	}
+
 	return mongoose.model('recipeReaction').create({
 		recipe: recipeId,
 		user: user._id,
