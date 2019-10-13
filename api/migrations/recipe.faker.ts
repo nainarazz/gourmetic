@@ -1,4 +1,6 @@
 import * as faker from 'faker';
+import { pickRandom } from './utils';
+import { userIds } from './constants';
 
 const meals = ['BREAKFAST', 'LUNCH', 'SUPPER', 'SNACK', 'DESSERT', 'ENTREE'];
 const measurements = ['kg', 'grams', 'pieces', 'teaspoon', 'tablespoon'];
@@ -12,9 +14,12 @@ export const generateRecipe = () => ({
 	ingredients: createIngredients(faker.random.number({ min: 3, max: 10 })),
 	instructions: createInstructions(faker.random.number({ min: 3, max: 10 })),
 	yield: faker.random.number({ min: 1, max: 5 }),
-	image: '',
+	image: {
+		publicId: '',
+		secureUrl: '',
+	},
 	isPublic: faker.random.boolean(),
-	createdBy: '5cec0708fb6fc01bf23cec50',
+	createdBy: pickRandom(userIds),
 	createdAt: new Date(),
 	updatedAt: new Date(),
 });
