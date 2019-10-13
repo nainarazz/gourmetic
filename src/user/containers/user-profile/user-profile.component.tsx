@@ -1,4 +1,5 @@
 import React, { SFC } from 'react';
+import { MyLikedRecipesContainer } from 'src/recipe/containers/my-liked-recipes/my-liked-recipes.container';
 import { MyRecipesContainer } from 'src/recipe/containers/my-recipes/my-recipes.container';
 import { TabItem } from 'src/shared/components/tab-item/tab-item.component';
 import { Tabs } from 'src/shared/components/tabs/tabs.component';
@@ -22,7 +23,7 @@ export const UserProfileContainer: SFC = () => {
 							<MyRecipesContainer />
 						</TabItem>
 						<TabItem label="Liked Recipes">
-							my liked recipes
+							<MyLikedRecipesContainer />
 						</TabItem>
 					</Tabs>
 				</UserActivitySection>

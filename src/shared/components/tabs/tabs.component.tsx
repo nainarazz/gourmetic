@@ -3,7 +3,7 @@ import { Tab } from '../tab/tab.component';
 import { TabContent, TabList } from './tabs.style';
 
 export const Tabs: SFC = props => {
-	const { children } = props;
+	const children = React.Children.toArray(props.children);
 	// tslint:disable-next-line:no-any
 	const childLabel = children && (children as any[])[0].props.label;
 	const [activeTab, setActiveTab] = useState(childLabel);

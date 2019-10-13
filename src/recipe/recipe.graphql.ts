@@ -154,3 +154,84 @@ export const CREATE_USER = gql`
 		}
 	}
 `;
+
+export const MY_RECIPES_QUERY = gql`
+	query MyRecipes($first: Int, $after: String) {
+		myRecipes(first: $first, after: $after) {
+			pageInfo {
+				hasNextPage
+			}
+			edges {
+				cursor
+				node {
+					_id
+					name
+					description
+					updatedAt
+					image {
+						secureUrl
+						publicId
+					}
+					createdBy {
+						_id
+						firstname
+						lastname
+						photo
+						OAuthUniqueAccountId
+					}
+					isPublic
+					reaction {
+						_id
+						isLiked
+					}
+				}
+			}
+		}
+	}
+`;
+
+export const MY_LIKED_RECIPES = gql`
+	query MyLikedRecipes($first: Int, $after: String) {
+		likedRecipes(first: $first, after: $after) {
+			pageInfo {
+				hasNextPage
+			}
+			edges {
+				node {
+					_id
+					recipe {
+						name
+						description
+						instructions {
+							stepNumber
+							description
+						}
+						image {
+							publicId
+							secureUrl
+						}
+						meal
+						difficulty
+						createdBy {
+							firstname
+							lastname
+						}
+						ingredients {
+							quantity
+							item
+							measurement
+						}
+						reaction {
+							_id
+							isLiked
+						}
+						isPublic
+						prepTime
+						cookingTime
+					}
+				}
+				cursor
+			}
+		}
+	}
+`;

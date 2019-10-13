@@ -49,6 +49,11 @@ export interface RecipeEdge {
 	node: Recipe;
 }
 
+export interface RecipeReactionEdge {
+	cursor: string;
+	node: RecipeReaction;
+}
+
 export interface Recipe {
 	_id: string;
 	name: string;

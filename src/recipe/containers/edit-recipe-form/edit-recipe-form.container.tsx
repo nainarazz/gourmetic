@@ -1,12 +1,15 @@
 import React, { FunctionComponent, useState } from 'react';
 import { FormValues, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
-import { MY_RECIPES_QUERY } from 'src/user/user.graphql';
-import { RECIPE_DETAIL, UPDATE_RECIPE } from '../../recipe.graphql';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
 import { uploadImage } from '../../../shared/utils/upload-image';
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import {
+	RECIPE_DETAIL,
+	UPDATE_RECIPE,
+	MY_RECIPES_QUERY,
+} from '../../recipe.graphql';
 
 interface EditRecipeProps {
 	recipeId: string;

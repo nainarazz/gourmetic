@@ -1,11 +1,14 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
-import { DELETE_RECIPE, RECIPE_LIST_QUERY } from '../../recipe.graphql';
-import { MY_RECIPES_QUERY } from 'src/user/user.graphql';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useMutation, useQuery } from 'react-apollo';
+import {
+	DELETE_RECIPE,
+	RECIPE_LIST_QUERY,
+	MY_RECIPES_QUERY,
+} from '../../recipe.graphql';
 
 export const MyRecipesContainer: FunctionComponent = () => {
 	const numberOfItemsToLoad = 15;

@@ -6,7 +6,7 @@ interface StyledTabProps {
 }
 
 export const StyledTab = styled.div`
-	width: 50%;
+	width: 100%;
 	padding: 15px 0;
 	color: ${(props: StyledTabProps) =>
 		props.activeTab ? themeColor.purple : 'lightgrey'};
