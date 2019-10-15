@@ -8,6 +8,7 @@ import {
 	DELETE_RECIPE,
 	RECIPE_LIST_QUERY,
 	MY_RECIPES_QUERY,
+	DELETE_IMAGE,
 } from '../../recipe.graphql';
 
 export const MyRecipesContainer: FunctionComponent = () => {
@@ -17,13 +18,14 @@ export const MyRecipesContainer: FunctionComponent = () => {
 	});
 
 	const [deleteRecipeMutation] = useMutation(DELETE_RECIPE);
+	const [deleteImageMutation] = useMutation(DELETE_IMAGE);
 
 	const deleteHandler = (recipe: Recipe) => {
 		deleteRecipeMutation({
 			variables: {
 				input: {
 					recipeId: recipe._id,
-					reactionId: recipe.reaction._id,
+					reactionId: recipe.reaction._id || '',
 				},
 			},
 			refetchQueries: () => [
@@ -41,6 +43,12 @@ export const MyRecipesContainer: FunctionComponent = () => {
 				},
 			],
 		});
+
+		if (recipe.image.publicId) {
+			deleteImageMutation({
+				variables: { publicId: recipe.image.publicId },
+			});
+		}
 	};
 
 	const result = data && data.myRecipes;

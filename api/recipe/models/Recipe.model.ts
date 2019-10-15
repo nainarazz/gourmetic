@@ -98,6 +98,8 @@ export const updateRecipe = async (id: string, data: RecipeInput) => {
 };
 
 export const deleteRecipe = async (input: DeleteRecipeInput) => {
-	await deleteRecipeReaction(input.reactionId);
+	if (input.reactionId) {
+		await deleteRecipeReaction(input.reactionId);
+	}
 	return mongoose.model('recipe').findByIdAndDelete(input.recipeId);
 };
