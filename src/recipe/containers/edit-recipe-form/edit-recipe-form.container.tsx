@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import { deleteImage, uploadImage } from '../../../shared/utils/upload-image';
 import { FormValues, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
@@ -10,6 +9,8 @@ import {
 	RECIPE_DETAIL,
 	UPDATE_RECIPE,
 	MY_RECIPES_QUERY,
+	UPLOAD_IMAGE,
+	DELETE_IMAGE,
 } from '../../recipe.graphql';
 
 interface EditRecipeProps {
@@ -20,7 +21,7 @@ interface EditRecipeProps {
 export const EditRecipeFormContainer: FunctionComponent<
 	EditRecipeProps
 > = props => {
-	const [recipe, setRecipe] = useState<Partial<Recipe>>();
+	const [recipe, setRecipe] = useState<Recipe>();
 
 	const { data, loading } = useQuery(RECIPE_DETAIL, {
 		variables: { id: props.recipeId },
@@ -44,32 +45,58 @@ export const EditRecipeFormContainer: FunctionComponent<
 		],
 	});
 
+	const [uploadImageMutation] = useMutation(UPLOAD_IMAGE);
+	const [deleteImageMutation] = useMutation(DELETE_IMAGE);
+
+	const uploadImage = async (
+		formValues: FormValues,
+		isOfTypeFile: boolean,
+		previousImagePublicId: string
+	) => {
+		// new image
+		if (isOfTypeFile && !previousImagePublicId) {
+			return uploadImageMutation({
+				variables: { file: formValues.image },
+			});
+		} else {
+			// user modified image
+			deleteImageMutation({
+				variables: { publicId: previousImagePublicId },
+			});
+			return uploadImageMutation({
+				variables: { file: formValues.image },
+			});
+		}
+	};
+
 	const handleSubmit = async (
 		formValues: FormValues,
-		// tslint:disable-next-line:no-any
+		// tslint:disable:no-any
 		updateRecipeFn: () => Promise<any>
 	) => {
 		const formattedRecipe = getFormattedRecipeData(formValues);
 
 		const previousImagePublicId = recipeData.image.publicId;
 		if (formValues.image) {
-			const isNewImage =
-				typeof (formValues.image === 'object') &&
-				formValues.image.hasOwnProperty('name');
+			const isOfTypeFile =
+				typeof formValues.image === 'object' &&
+				typeof formValues.image.name === 'string';
 
 			const imageUrl = await uploadImage(
-				formValues.image,
-				isNewImage,
+				formValues,
+				isOfTypeFile,
 				previousImagePublicId
 			);
+
 			formattedRecipe.image = {
-				secureUrl: imageUrl.secure_url || '',
-				publicId: imageUrl.public_id || '',
+				secureUrl: imageUrl.data.uploadImage.secureUrl || '',
+				publicId: imageUrl.data.uploadImage.publicId || '',
 			};
 		} else if (previousImagePublicId && !formValues.image) {
-			// TODO
 			// user removed existing image
-			// await deleteImage(previousImagePublicId);
+			deleteImageMutation({
+				variables: { publicId: previousImagePublicId },
+			});
 		}
 
 		setRecipe(formattedRecipe);

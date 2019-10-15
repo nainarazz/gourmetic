@@ -82,7 +82,7 @@ export const RecipeTypes = `
         ingredients: [IngredientInput!]!
         instructions: [InstructionInput!]!
         yield: Int
-        image: ImageInput
+        image: Upload
         isPublic: Boolean
     }
 
@@ -101,5 +101,7 @@ export const RecipeTypes = `
         createRecipe(recipeInput: RecipeInput!): Recipe
         updateRecipe(id: String!, updatedRecipe: RecipeInput!): Recipe
         deleteRecipe(input: DeleteRecipeInput!): Recipe
+        uploadImage(file: Upload!): Image
+        deleteImage(publicId: String!): String
     }
 `;

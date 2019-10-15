@@ -143,6 +143,21 @@ export const DELETE_RECIPE = gql`
 	}
 `;
 
+export const UPLOAD_IMAGE = gql`
+	mutation UploadImage($file: Upload!) {
+		uploadImage(file: $file) {
+			secureUrl
+			publicId
+		}
+	}
+`;
+
+export const DELETE_IMAGE = gql`
+	mutation DeleteImage($publicId: String!) {
+		deleteImage(publicId: $publicId)
+	}
+`;
+
 export const CREATE_USER = gql`
 	mutation CreateUser($input: UserInput) {
 		createUser(userInput: $input) {

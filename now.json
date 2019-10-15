@@ -22,7 +22,8 @@
 			"MONGO_URL": "@mongo_url",
 			"SENTRY_DSN": "@sentry",
 			"CLOUDINARY_CLOUD_NAME": "@cloudinary_cloud_name",
-			"CLOUDINARY_UPLOAD_PRESET": "@cloudinary_upload_preset"
+			"CLOUDINARY_UPLOAD_PRESET": "@cloudinary_upload_preset",
+			"CLOUDINARY_URL": "@cloudinary_url"
 		}
 	}
 }

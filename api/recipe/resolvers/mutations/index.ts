@@ -1,5 +1,6 @@
 import { AuthenticationError } from 'apollo-server-core';
 import { Context } from '../../../graphql-generated-types/context';
+import { deleteImage, uploadImage } from './image-functions';
 import { likeRecipe } from '../../models/RecipeReaction.model';
 import {
 	createRecipe,
@@ -40,6 +41,21 @@ const MutationResolver: MutationResolvers<Context, Recipe> = {
 			throw new AuthenticationError('User is not authenticated.');
 		}
 		return (deleteRecipe(args.input) as unknown) as Recipe;
+	},
+	uploadImage: async (parent, { file }, ctx) => {
+		const user: JwtTokenClaims | null = ctx.jwtTokenClaims;
+		if (!user) {
+			throw new AuthenticationError('User is not authenticated.');
+		}
+		const f = await file;
+		return uploadImage(f);
+	},
+	deleteImage: async (parent, { publicId }, ctx) => {
+		const user: JwtTokenClaims | null = ctx.jwtTokenClaims;
+		if (!user) {
+			throw new AuthenticationError('User is not authenticated.');
+		}
+		return deleteImage(publicId);
 	},
 };
 
