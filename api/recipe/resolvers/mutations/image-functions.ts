@@ -1,9 +1,10 @@
+import { Image } from 'api/graphql-generated-types/resolvers-types';
 import { Stream } from 'stream';
 // tslint:disable-next-line:no-var-requires
 const cloudinary = require('cloudinary').v2;
 
 // tslint:disable-next-line:no-any
-export const uploadImage = async (fileUpload: any) => {
+export const uploadImage = async (fileUpload: any): Promise<Image> => {
 	if (process.env.NODE_ENV !== 'production') {
 		return new Promise(res => res({ secureUrl: '', publicId: '' }));
 	}

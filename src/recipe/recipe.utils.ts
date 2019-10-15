@@ -30,7 +30,8 @@ const formatIngredients = (ingredients: Ingredient[]) =>
 const formSelectOptions = (options: ReactSelectOptions[]): string[] =>
 	options.map(o => o.value);
 
-export const getFormattedRecipeData = (data: FormValues): Partial<Recipe> => {
+// tslint:disable-next-line:no-any
+export const getFormattedRecipeData = (data: FormValues): any => {
 	return {
 		name: data.name,
 		description: data.recipeDescription,
