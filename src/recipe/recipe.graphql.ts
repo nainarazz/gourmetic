@@ -215,6 +215,7 @@ export const MY_LIKED_RECIPES = gql`
 				node {
 					_id
 					recipe {
+						_id
 						name
 						description
 						instructions {
@@ -227,10 +228,6 @@ export const MY_LIKED_RECIPES = gql`
 						}
 						meal
 						difficulty
-						createdBy {
-							firstname
-							lastname
-						}
 						ingredients {
 							quantity
 							item
