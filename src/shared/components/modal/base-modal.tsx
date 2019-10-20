@@ -12,9 +12,10 @@ import {
 	HeaderText,
 } from './base-modal.style';
 
-interface ModalProps {
+export interface ModalProps {
 	isShown: boolean;
 	hide: () => void;
+	Wrapper: React.ComponentType;
 	modalContent: JSX.Element;
 	headerColor?: string;
 	headerTextColor?: string;
@@ -25,8 +26,12 @@ interface ModalProps {
 export const BaseModal: FunctionComponent<ModalProps> = ({
 	isShown,
 	hide,
+	Wrapper,
 	modalContent,
 	headerText,
+	headerTextColor,
+	headerColor,
+	closeButtonColor,
 }) => {
 	// tslint:disable-next-line:no-any
 	const onKeyDown = (event: any) => {
@@ -48,27 +53,39 @@ export const BaseModal: FunctionComponent<ModalProps> = ({
 	const modal = (
 		<React.Fragment>
 			<Backdrop click={hide} />
-			<ModalWrapper aria-modal aria-hidden tabIndex={-1} role="dialog">
-				<StyledModal>
-					<ModalHeader>
-						<div></div>
-						<HeaderText>{headerText}</HeaderText>
-						<ModalCloseButton
-							type="button"
-							data-dismiss="modal"
-							aria-label="Close"
-							onClick={hide}
-						>
-							<FontAwesomeIcon
-								icon={closeButtonIcon}
-								size={'2x'}
-								color={'#fff'}
-							/>
-						</ModalCloseButton>
-					</ModalHeader>
-					<ModalContentWrapper>{modalContent}</ModalContentWrapper>
-				</StyledModal>
-			</ModalWrapper>
+			{/* this wrapper component is needed to allow user to create a modal of different sizes */}
+			<Wrapper>
+				<ModalWrapper
+					aria-modal
+					aria-hidden
+					tabIndex={-1}
+					role="dialog"
+				>
+					<StyledModal>
+						<ModalHeader headerColor={headerColor}>
+							<div></div>
+							<HeaderText headerTextColor={headerTextColor}>
+								{headerText}
+							</HeaderText>
+							<ModalCloseButton
+								type="button"
+								data-dismiss="modal"
+								aria-label="Close"
+								onClick={hide}
+							>
+								<FontAwesomeIcon
+									icon={closeButtonIcon}
+									size={'2x'}
+									color={closeButtonColor || '#fff'}
+								/>
+							</ModalCloseButton>
+						</ModalHeader>
+						<ModalContentWrapper>
+							{modalContent}
+						</ModalContentWrapper>
+					</StyledModal>
+				</ModalWrapper>
+			</Wrapper>
 		</React.Fragment>
 	);
 

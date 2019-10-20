@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { themeColor } from 'src/shared/themes/colors';
 
-interface ModalHeaderProps {
+interface ModalProps {
 	headerText?: string;
 	headerColor?: string;
+	width?: string;
+	headerTextColor?: string;
+	closeButtonColor?: string;
 }
 
 export const ModalWrapper = styled.div`
@@ -12,7 +15,7 @@ export const ModalWrapper = styled.div`
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 700;
-	width: auto;
+	width: inherit;
 	outline: 0;
 `;
 
@@ -29,13 +32,15 @@ export const ModalHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 0.3rem;
-	background: ${(prop: ModalHeaderProps) =>
+	background: ${(prop: ModalProps) =>
 		prop.headerColor ? prop.headerColor : themeColor.mainBrand};
 `;
 
 export const HeaderText = styled.div`
 	color: #fff;
 	align-self: center;
+	color: ${({ headerTextColor }: ModalProps) =>
+		headerTextColor ? headerTextColor : '#fff'};
 `;
 
 export const ModalCloseButton = styled.button`
