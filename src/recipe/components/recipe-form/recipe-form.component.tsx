@@ -1,11 +1,16 @@
 import * as Yup from 'yup';
 import React from 'react';
-import { FormValues, ReactSelectOptions } from '../../types/recipe.interface';
+import { getRecipeFormValues } from './recipe-form.helper';
 import { IngredientListForm } from '../ingredients/ingredient-list-form.component';
 import { InstructionListForm } from '../instructions/instruction-list-form.component';
 import { PhotoInput } from '../../../shared/components/photo-input/photo-input.component';
 import { SubmitButton } from '../../../shared/styles/buttons';
 import { toast } from 'react-toastify';
+import {
+	FormValues,
+	ReactSelectOptions,
+	Recipe,
+} from '../../types/recipe.interface';
 import {
 	FieldArray,
 	FieldProps,
@@ -36,6 +41,7 @@ import {
 } from '../../../shared/styles/forms';
 
 interface RecipeFormProps {
+	recipe?: Recipe;
 	handleSubmit: (recipe: FormValues) => Promise<void>;
 }
 
@@ -241,29 +247,20 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 };
 
 export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
-	mapPropsToValues: () => ({
-		name: '',
-		recipeDescription: '',
-		instructions: [],
-		ingredients: [],
-		prepTime: 0,
-		cookingTime: 0,
-		difficulty: { value: '', label: '' },
-		yield: 0,
-		image: '',
-		meals: [],
-		isPublic: false,
-	}),
+	mapPropsToValues: props => getRecipeFormValues(props.recipe),
+	enableReinitialize: true,
 	validationSchema: Yup.object().shape({
 		image: Yup.mixed().test(
 			'fileSize',
 			'File too large',
 			value => (value && value.size <= FILE_IMAGE_SIZE_LIMIT) || true
 		),
-		name: Yup.string().required('Recipe name is required.'),
-		recipeDescription: Yup.string().required(
-			'Please enter a short description about recipe.'
-		),
+		name: Yup.string()
+			.trim()
+			.required('Recipe name is required.'),
+		recipeDescription: Yup.string()
+			.trim()
+			.required('Please enter a short description about recipe.'),
 		instructions: Yup.array().required('Instruction is required.'),
 		ingredients: Yup.array().required('Ingredient is required.'),
 		difficulty: Yup.string().required('Please select difficulty.'),
@@ -286,7 +283,7 @@ export const RecipeFormComponent = withFormik<RecipeFormProps, FormValues>({
 			});
 			resetForm();
 		} catch (error) {
-			toast.error('Failed to create recipe.', {
+			toast.error('Failed to save recipe.', {
 				position: toast.POSITION.BOTTOM_RIGHT,
 			});
 			setSubmitting(false);

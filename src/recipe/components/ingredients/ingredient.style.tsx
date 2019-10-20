@@ -6,11 +6,12 @@ import { themeColor } from '../../../shared/themes/colors';
 export const IngredientsWrapper = styled.div`
 	width: 90%;
 	margin: auto;
-	padding: 15px 0;
+	padding: 40px 0;
 `;
 
 export const Title = styled.div`
-	font-size: 1.3rem;
+	font-size: 1rem;
+	font-weight: 500;
 `;
 
 export const Contents = styled.div`
@@ -23,11 +24,12 @@ export const Item = styled.div`
 	padding: 15px 5px;
 	text-align: center;
 	border-bottom: 1px solid lightgrey;
-	margin: 1rem;
+	margin: 0 1rem;
+	font-size: 0.9rem;
 `;
 
 export const ItemIndex = styled.span`
-	color: ${themeColor.darkAccent};
+	color: ${themeColor.secondary};
 	font-weight: 900;
 	margin-left: 10px;
 	font-size: 0.9rem;

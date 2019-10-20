@@ -1,15 +1,18 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { AvatarWithDropdown } from '../avatar/avatar-dropdown.component';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
-	Button,
 	Container,
 	Logo,
-	ButtonsContainer,
+	HeaderButton,
 	HeaderItems,
 	DrawerToggleButton,
+	AvatarButton,
+	ActionButtons,
 } from './header.style';
 
 interface HeaderProps {
@@ -18,6 +21,8 @@ interface HeaderProps {
 
 export const Header: React.SFC<HeaderProps> = props => {
 	const [inputExpanded, setInputExpanded] = useState(false);
+	// tslint:disable:no-any
+	const { isAuthenticated, loginWithRedirect, user }: any = useAuth0();
 
 	return (
 		<React.Fragment>
@@ -37,10 +42,23 @@ export const Header: React.SFC<HeaderProps> = props => {
 							setInputExpanded(!inputExpanded)
 						}
 					/>
-					<ButtonsContainer>
-						<Button>Meal Planner</Button>
-						<Button>Sign In</Button>
-					</ButtonsContainer>
+					<ActionButtons>
+						<HeaderButton>MEAL PLANNER</HeaderButton>
+						{!isAuthenticated && (
+							<HeaderButton onClick={loginWithRedirect}>
+								SIGN IN
+							</HeaderButton>
+						)}
+
+						<AvatarButton>
+							{isAuthenticated && (
+								<AvatarWithDropdown
+									pictureUrl={user.picture}
+									userName={user.name}
+								/>
+							)}
+						</AvatarButton>
+					</ActionButtons>
 				</HeaderItems>
 			</Container>
 		</React.Fragment>

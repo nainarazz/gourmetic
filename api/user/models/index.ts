@@ -1,9 +1,13 @@
 import * as mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
+	OAuthUniqueAccountId: {
+		type: String,
+		required: true,
+	},
 	firstname: {
 		type: String,
-		require: true,
+		required: true,
 	},
 	lastname: {
 		type: String,
@@ -12,6 +16,9 @@ const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
+	},
+	photo: {
+		type: String,
 	},
 });
 

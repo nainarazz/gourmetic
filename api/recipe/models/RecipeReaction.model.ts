@@ -1,22 +1,32 @@
 import * as mongoose from 'mongoose';
-import { Context } from './../../graphql-generated-types/context';
+import { decode } from '../../utils/base64';
 import { MutationLikeRecipeArgs } from './../../graphql-generated-types/resolvers-types';
+import { paginateArray, PaginationOptions } from '../../utils/pagination';
 import { RecipeReaction } from '../../graphql-generated-types/resolvers-types';
+import {
+	getUserByOAuthAccountIdentifier,
+	getUsersByOAuthAccountIdentifier,
+} from '../../user/models/user.model';
 
 export interface RecipeReactionKey {
 	recipeId: string;
-	userId: string;
+	oAuthAccountId: string;
 }
 
 export const getRecipeReactions = async (
 	keys: RecipeReactionKey[]
 ): Promise<RecipeReaction[]> => {
 	const recipeIds = [];
-	const userIds = [];
+	const oAuthUniqueIds = [];
+
 	for (const obj of keys) {
 		recipeIds.push(obj.recipeId);
-		userIds.push(obj.userId);
+		oAuthUniqueIds.push(obj.oAuthAccountId);
 	}
+
+	const userIds = (await getUsersByOAuthAccountIdentifier(
+		oAuthUniqueIds
+	)).map(user => user._id);
 
 	const reactions: RecipeReaction[] = await mongoose
 		.model('recipeReaction')
@@ -28,24 +38,60 @@ export const getRecipeReactions = async (
 				$in: userIds,
 			},
 		})
+		.populate('user', 'OAuthUniqueAccountId')
 		.lean()
 		.exec();
 
+	// graphql data loader library requires us to return same length of data as the same length of keys
 	return keys.map(
 		k =>
 			reactions.find(
 				r =>
 					r.recipe!._id.toString() === k.recipeId.toString() &&
-					r.user!._id.toString() === k.userId.toString()
+					r.user!.OAuthUniqueAccountId.toString() ===
+						k.oAuthAccountId.toString()
 			) || {}
 	);
 };
 
+export const getPaginatedRecipeReactions = async (
+	options: PaginationOptions,
+	userOAuthIdentifier: string
+) => {
+	if (!userOAuthIdentifier!) {
+		throw new Error('User not logged in.');
+	}
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+
+	const { first, after } = options;
+	const criteria = after
+		? {
+				_id: {
+					$lt: decode(after),
+				},
+				user: user._id,
+				isLiked: true,
+		  }
+		: { user: user._id, isLiked: true };
+
+	const reactions: RecipeReaction[] = await mongoose
+		.model('recipeReaction')
+		.find(criteria)
+		.select('recipe')
+		.populate('recipe')
+		.sort({ _id: -1 })
+		.limit(first + 1)
+		.lean()
+		.exec();
+
+	return paginateArray(options, reactions);
+};
+
 export const likeRecipe = async (
 	args: MutationLikeRecipeArgs,
-	ctx: Context
+	userOAuthIdentifier: string
 ) => {
-	const { reactionId, userId, recipeId, isLiked } = args.input;
+	const { reactionId, isLiked, recipeId } = args.input;
 
 	if (reactionId) {
 		return mongoose
@@ -57,9 +103,34 @@ export const likeRecipe = async (
 			);
 	}
 
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+	if (!user) {
+		throw new Error('User not found.');
+	}
+
+	// when user clicks the like button so fast and there is no reaction for the recipe yet, a duplicate reaction is
+	// created. To avoid that, first check if reaction is already there. If there is, then update, otherwise create
+	const recipeReaction = (await mongoose
+		.model('recipeReaction')
+		.findOne({ user: user._id, recipe: recipeId })
+		.exec()) as RecipeReaction;
+
+	if (recipeReaction) {
+		return mongoose
+			.model('recipeReaction')
+			.findByIdAndUpdate(
+				recipeReaction._id,
+				{ $set: { isLiked: !recipeReaction.isLiked } },
+				{ new: true }
+			);
+	}
+
 	return mongoose.model('recipeReaction').create({
 		recipe: recipeId,
-		user: userId,
+		user: user._id,
 		isLiked: true,
 	});
 };
+
+export const deleteRecipeReaction = async (id: string) =>
+	mongoose.model('recipeReaction').findByIdAndDelete(id);

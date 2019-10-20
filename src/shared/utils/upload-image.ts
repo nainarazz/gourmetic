@@ -1,17 +1,21 @@
-export const uploadImage = async (file: File) => {
+export const uploadImage = async (file: File | string) => {
 	// don't upload images to cloudinary when in development mode
 	if (process.env.NODE_ENV !== 'production') {
 		return new Promise(res => res(''));
 	}
 
-	const cloudinaryBaseUrl = `https://api.cloudinary.com/v1_1/${
-		process.env.CLOUDINARY_CLOUD_NAME
-	}/image/upload`;
+	const cloudinaryBaseUrl = `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`;
+
 	const preset = process.env.CLOUDINARY_UPLOAD_PRESET || '';
+	let response: Response;
+
 	const formData = new FormData();
-	formData.append('file', file);
 	formData.append('upload_preset', preset);
-	const response = await fetch(cloudinaryBaseUrl, {
+	formData.append('file', file);
+	formData.append('folder', 'recipes');
+
+	// uploading new image
+	response = await fetch(cloudinaryBaseUrl, {
 		method: 'POST',
 		body: formData,
 	});

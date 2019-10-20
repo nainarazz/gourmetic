@@ -8,6 +8,8 @@ export const Label = styled.label`
 	height: 300px;
 	display: inline-block;
 	position: relative;
+	text-align: center;
+	background: lightgrey;
 
 	:hover {
 		cursor: pointer;
@@ -29,7 +31,7 @@ export const Input = styled.input`
 export const Image = styled.img`
 	background: url(${props => props.src || ''}) no-repeat center center;
 	background-size: cover;
-	width: 100%;
+	// width: 100%;
 	height: 100%;
 	max-width: 100%;
 `;

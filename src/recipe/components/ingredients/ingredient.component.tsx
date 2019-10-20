@@ -5,7 +5,7 @@ import {
 	Item,
 	Title
 	} from './ingredient.style';
-import { Ingredient as IngredientType } from '../../../graphql-generated-types/query-types';
+import { Ingredient as IngredientType } from '../../types/recipe.interface';
 
 interface IngredientProps {
 	ingredients: IngredientType[];
@@ -14,7 +14,7 @@ interface IngredientProps {
 export const Ingredient: React.SFC<IngredientProps> = props => (
 	<React.Fragment>
 		<IngredientsWrapper>
-			<Title>Ingredients</Title>
+			<Title>INGREDIENTS</Title>
 			<Contents>
 				{props.ingredients.map((ingredient, index) => (
 					<Item key={index}>

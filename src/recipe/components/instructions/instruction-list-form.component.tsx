@@ -45,29 +45,32 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 
 	return (
 		<React.Fragment>
-			{instructions.map((ins, i) => {
-				return (
-					<div key={i}>
-						<ItemIndex>{i + 1}</ItemIndex> -{' '}
-						<span style={{ fontSize: '0.8rem' }}>
-							{ins.description}
-						</span>
-						<InputClearButton
-							type="button"
-							onClick={() => {
-								arrayHelpers.remove(i);
-							}}
-						>
-							<FontAwesomeIcon icon={clearButton} color="red" />
-						</InputClearButton>
-					</div>
-				);
-			})}
 			<StyledInstruction>
 				<GenericInputContainer style={{ width: '100%' }}>
 					<Label htmlFor="instruction">
 						Instructions<span className="required">*</span>
 					</Label>
+					{instructions.map((ins, i) => {
+						return (
+							<div key={i}>
+								<ItemIndex>{i + 1}</ItemIndex> -{' '}
+								<span style={{ fontSize: '0.8rem' }}>
+									{ins.description}
+								</span>
+								<InputClearButton
+									type="button"
+									onClick={() => {
+										arrayHelpers.remove(i);
+									}}
+								>
+									<FontAwesomeIcon
+										icon={clearButton}
+										color="red"
+									/>
+								</InputClearButton>
+							</div>
+						);
+					})}
 					<StyledFormikTextArea
 						id="instruction"
 						name="description"
@@ -80,7 +83,7 @@ export const InstructionListForm: SFC<IngredientListProps> = ({
 			<ButtonText
 				type="button"
 				onClick={() => addInstruction()}
-				disabled={!instruction.description}
+				disabled={!instruction.description.trim()}
 			>
 				Add
 			</ButtonText>

@@ -1,46 +1,23 @@
 import styled from 'styled-components';
 
-interface RecipeCardProps {
-	imageUrl?: string;
-}
-
-export const ImageWrapper = styled.div`
-	width: 19rem;
-	position: relative;
-	margin: 1rem 1rem 1rem;
-	flex-grow: 1;
-
-	@media (min-width: 730px) {
-		max-width: 44%;
-	}
-
-	@media (min-width: 1020px) {
-		max-width: 44%;
-	}
-
-	@media (min-width: 1330px) {
-		max-width: 30%;
-	}
-
+export const StyledCard = styled.div`
+	width: 100%;
 	:hover {
 		cursor: pointer;
 	}
 `;
 
-export const Photo = styled.div`
+export const ImageWrapper = styled.div`
 	box-sizing: border-box;
-	height: 15rem;
+	height: 16.25rem;
 	position: relative;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-	border-radius: 2px;
-	background-image: url(${(props: RecipeCardProps) => props.imageUrl ? props.imageUrl : ''});
-	background-size: cover;
-`;
+	border-radius: 12px;
 
-export const CardDescription = styled.div`
-	width: 100%;
-	box-sizing: border-box;
-	padding-top: 1.5rem;
+	img {
+		border-radius: 12px;
+		max-width: 100%;
+	}
 `;
 
 export const LoveIcon = styled.div`

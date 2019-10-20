@@ -18,6 +18,9 @@ const recipeSchema = new mongoose.Schema({
 	meal: {
 		type: [String],
 	},
+	difficulty: {
+		type: String,
+	},
 	prepTime: Number,
 	cookingTime: Number,
 	ingredients: [
@@ -41,7 +44,10 @@ const recipeSchema = new mongoose.Schema({
 		},
 	],
 	yield: Number,
-	image: String,
+	image: {
+		secureUrl: String,
+		publicId: String,
+	},
 	isPublic: Boolean,
 	createdBy: {
 		type: mongoose.Schema.Types.ObjectId,

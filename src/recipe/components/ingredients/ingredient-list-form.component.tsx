@@ -35,8 +35,14 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 
 	// a user should be able to enter just the item, or the item, quantity and measurement together
 	const allFieldsFilled =
-		(ingredient.item && ingredient.measurement && ingredient.quantity) ||
-		(ingredient.item && !ingredient.measurement && !ingredient.quantity);
+		(
+			ingredient.item.trim() &&
+			ingredient.measurement.trim() &&
+			ingredient.quantity
+		).trim() ||
+		(ingredient.item.trim() &&
+			!ingredient.measurement.trim() &&
+			!ingredient.quantity.trim());
 
 	const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const name = event.target.name;
@@ -62,9 +68,9 @@ export const IngredientListForm: SFC<IngredientListProps> = ({
 				return (
 					<div key={index}>
 						<ItemIndex>{index + 1} </ItemIndex>-{' '}
-						<span style={{ fontSize: '0.8rem' }}>{`${
-							ing.quantity
-						} ${ing.measurement} ${ing.item}`}</span>
+						<span
+							style={{ fontSize: '0.8rem' }}
+						>{`${ing.quantity} ${ing.measurement} ${ing.item}`}</span>
 						<InputClearButton
 							type="button"
 							onClick={() => arrayHelpers.remove(index)}

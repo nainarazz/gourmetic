@@ -1,3 +1,4 @@
+import Avatar from 'react-avatar';
 import styled from 'styled-components';
 
 interface StyleProps {
@@ -22,11 +23,18 @@ export const Container = styled.div`
 export const SideDrawerLogo = styled.div`
 	background: #5cb818;
 	height: 30%;
+	position: relative;
+`;
+
+export const StyledAvatar = styled(Avatar)`
+	position: absolute;
+	bottom: -5px;
+	left: 5px;
 `;
 
 export const SideDrawerItem = styled.div`
 	padding: 1rem 2.5rem;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	span {
 		margin: 0 1rem;
 	}

@@ -1,8 +1,10 @@
 // the enums will help with autocompletion and avoid misspelled strings
 enum ThemeColor {
 	mainBrand = 'mainBrand',
-	darkAccent = 'darkAccent',
-	lightShade = 'lightShade',
+	lightShadeMainBrand = 'lightShadeMainBrand',
+	darkShadeMainBrand = 'darkShadeMainBrand',
+	secondary = 'secondary',
+	lightShadeSecondary = 'lightShadeSecondary',
 	purple = 'purple',
 }
 
@@ -16,10 +18,16 @@ enum Border {
 	lightgrey = 'lightgrey',
 }
 
+enum Modal {
+	warning = 'warning',
+}
+
 export const themeColor: Record<ThemeColor, string> = {
-	mainBrand: '#5CB818',
-	darkAccent: '#008000',
-	lightShade: '#F2F0F2',
+	mainBrand: '#3B9011',
+	lightShadeMainBrand: '#97D139',
+	darkShadeMainBrand: '#008000',
+	secondary: '#F86934',
+	lightShadeSecondary: '#FA9621',
 	purple: '#8C238C',
 };
 
@@ -31,4 +39,8 @@ export const errorColor: Record<Error, string> = {
 
 export const borderColor: Record<Border, string> = {
 	lightgrey: 'lightgrey',
+};
+
+export const modalColor: Record<Modal, string> = {
+	warning: '#FF6B6B',
 };

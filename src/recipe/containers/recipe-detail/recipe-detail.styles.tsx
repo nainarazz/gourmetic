@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-interface RecipeDetailProps {
-	imageUrl?: string;
-}
-
 export const RecipeDetailWrapper = styled.div`
 	width: 100%;
 	margin: auto;
@@ -18,13 +14,14 @@ export const RecipeDetailWrapper = styled.div`
 	}
 `;
 
-export const Image = styled.div`
-	height: 200px;
+export const ImageWrapper = styled.div`
+	height: auto;
 	margin: auto;
-	background-image: url(${(props: RecipeDetailProps) => props.imageUrl ? props.imageUrl : ''});
-	background-size: cover;
+	text-align: center;
+	background: lightgrey;
 
-	@media (min-width: 768px) {
-		height: 395px;
+	img {
+		max-height: 395px;
+		max-width: 100%;
 	}
 `;

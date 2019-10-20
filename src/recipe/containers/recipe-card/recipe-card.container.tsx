@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
 import { LIKE_RECIPE, RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeCard } from '../../components/recipe-card/recipe-card.component';
+import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import { useMutation } from 'react-apollo';
 import {
 	Recipe,
-	RecipeReaction,
 	LikeRecipeMutationVariables,
-} from '../../../graphql-generated-types/query-types';
+} from '../../types/recipe.interface';
 
 interface RecipeCardContainerProps {
 	recipe: Recipe;
-	previousRecipeId: string;
+	previousRecipeId?: string;
 }
 
 export const RecipeCardContainer: React.SFC<
 	RecipeCardContainerProps
 > = props => {
 	const [isOptimistic, setIsOptimistic] = useState(false);
+	// tslint:disable:no-any
+	const { isAuthenticated, loginWithRedirect, user }: any = useAuth0();
 
 	const likeRecipeInput: LikeRecipeMutationVariables = {
 		input: {
 			recipeId: props.recipe._id,
-			userId: props.recipe.createdBy && props.recipe.createdBy._id,
+			userId: user && user.sub,
 			isLiked: props.recipe.reaction && props.recipe.reaction.isLiked,
 			reactionId: props.recipe.reaction && props.recipe.reaction._id,
 		},
@@ -44,7 +46,7 @@ export const RecipeCardContainer: React.SFC<
 				// we need to encode id bcoz pagination for cursor in backend is encoded
 				variables: {
 					first: 1,
-					after: Buffer.from(props.previousRecipeId).toString(
+					after: Buffer.from(props.previousRecipeId || '').toString(
 						'base64'
 					),
 				},
@@ -60,16 +62,12 @@ export const RecipeCardContainer: React.SFC<
 		},
 	});
 
-	const firstname =
-		(props.recipe.createdBy && props.recipe.createdBy.firstname) || '';
-	const lastname =
-		(props.recipe.createdBy && props.recipe.createdBy.lastname) || '';
-
 	const recipe = { ...props.recipe };
 
 	if (data) {
 		recipe.reaction = {
-			...(data.likeRecipe as RecipeReaction),
+			// tslint:disable-next-line:no-any
+			...(data.likeRecipe as any),
 		};
 	}
 
@@ -78,8 +76,7 @@ export const RecipeCardContainer: React.SFC<
 			key={props.recipe._id}
 			recipe={recipe}
 			totalLikes={15}
-			username={`${firstname} ${lastname}`}
-			likeRecipe={likeRecipe}
+			likeRecipe={isAuthenticated ? likeRecipe : loginWithRedirect}
 			isOptimistic={isOptimistic}
 		/>
 	);

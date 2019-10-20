@@ -49,3 +49,6 @@ export const recipeDifficulties: ReactSelectOptions[] = [
 	{ value: RecipeDifficulty.Medium, label: 'Medium' },
 	{ value: RecipeDifficulty.Hard, label: 'Hard' },
 ];
+
+export const DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID =
+	'recipes/image-placeholder.png';

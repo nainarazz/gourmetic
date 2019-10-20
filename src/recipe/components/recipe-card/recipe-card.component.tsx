@@ -1,20 +1,16 @@
 import Link from 'next/link';
 import React from 'react';
+import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as heartEmpty } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Recipe } from '../../../graphql-generated-types/query-types';
-import {
-	CardDescription,
-	ImageWrapper,
-	LoveIcon,
-	Photo,
-} from './recipe-card.style';
+import { Image } from 'cloudinary-react';
+import { ImageWrapper, LoveIcon, StyledCard } from './recipe-card.style';
+import { Recipe } from '../../types/recipe.interface';
 
 interface RecipeCardProps {
 	recipe: Recipe;
 	totalLikes: number;
-	username: string;
 	isOptimistic?: boolean;
 	likeRecipe: () => void;
 }
@@ -38,8 +34,22 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 				href={`/recipe?id=${props.recipe._id}`}
 				as={`/recipe/${props.recipe._id}`}
 			>
-				<ImageWrapper>
-					<Photo imageUrl={props.recipe.image || ''}>
+				<StyledCard>
+					<ImageWrapper>
+						<Image
+							cloudName="gourmetic"
+							dpr="auto"
+							responsive
+							width="auto"
+							height="260"
+							quality="auto"
+							crop="scale"
+							client_hints="true"
+							publicId={
+								props.recipe.image.publicId ||
+								DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID
+							}
+						/>
 						<LoveIcon onClick={likeRecipe}>
 							<FontAwesomeIcon
 								icon={
@@ -56,12 +66,8 @@ export const RecipeCard: React.SFC<RecipeCardProps> = props => {
 								size="2x"
 							/>
 						</LoveIcon>
-					</Photo>
-					<CardDescription>
-						<div>{props.recipe && props.recipe.name}</div>
-						<div>{props.username}</div>
-					</CardDescription>
-				</ImageWrapper>
+					</ImageWrapper>
+				</StyledCard>
 			</Link>
 		</React.Fragment>
 	);

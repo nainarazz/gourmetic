@@ -1,47 +1,51 @@
 import * as mongoose from 'mongoose';
-import { decode, encode } from '../../utils/base64';
-import { PaginationOptions } from '../../utils/pagination';
+import { decode } from '../../utils/base64';
+import { deleteRecipeReaction } from './RecipeReaction.model';
+import { getUserByOAuthAccountIdentifier } from '../../user/models/user.model';
+import { paginateArray, PaginationOptions } from '../../utils/pagination';
+import {
+	RecipeInput,
+	DeleteRecipeInput,
+} from './../../graphql-generated-types/resolvers-types';
 import {
 	Recipe,
 	MutationCreateRecipeArgs,
 } from '../../graphql-generated-types/resolvers-types';
 
-export const getPaginatedRecipes = async (options: PaginationOptions) => {
+export const getPaginatedRecipes = async (
+	options: PaginationOptions,
+	criteria = {}
+) => {
 	const { first, after } = options;
-	const criteria = after
+	const recipeCriteria = after
 		? {
 				_id: {
-					$lt: decode(options.after),
+					$lt: decode(after),
 				},
+				...criteria,
 		  }
-		: {};
+		: criteria;
 
-	let recipes: Recipe[] = await mongoose
+	const recipes: Recipe[] = await mongoose
 		.model('recipe')
-		.find(criteria)
+		.find(recipeCriteria)
 		.sort({ _id: -1 })
-		.limit(options.first + 1)
+		.limit(first + 1)
 		.lean()
 		.exec();
 
-	const hasNextPage = recipes.length > first;
+	return paginateArray(options, recipes);
+};
 
-	//remove extra
-	if (hasNextPage) {
-		recipes = recipes.slice(0, recipes.length - 1);
+export const getMyrecipes = async (
+	paginationOptions: PaginationOptions,
+	userOAuthIdentifier: string
+) => {
+	if (!userOAuthIdentifier!) {
+		throw new Error('User not logged in.');
 	}
-
-	const edges = recipes.map(r => ({
-		cursor: encode(r._id.toString()),
-		node: r,
-	}));
-
-	return {
-		pageInfo: {
-			hasNextPage,
-		},
-		edges,
-	};
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+	return getPaginatedRecipes(paginationOptions, { createdBy: user._id });
 };
 
 export const getRecipeDetail = async (id: string) => {
@@ -52,7 +56,15 @@ export const getRecipeDetail = async (id: string) => {
 		.exec();
 };
 
-export const createRecipe = async (args: MutationCreateRecipeArgs) => {
+export const createRecipe = async (
+	args: MutationCreateRecipeArgs,
+	userOAuthIdentifier: string
+) => {
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+	if (!user) {
+		throw new Error('User not found.');
+	}
+
 	const recipe = {
 		name: args.recipeInput.name,
 		description: args.recipeInput.description,
@@ -61,13 +73,33 @@ export const createRecipe = async (args: MutationCreateRecipeArgs) => {
 		ingredients: args.recipeInput.ingredients,
 		instructions: args.recipeInput.instructions,
 		isPublic: args.recipeInput.isPublic,
-		meals: args.recipeInput.meals,
+		meal: args.recipeInput.meal,
 		yield: args.recipeInput.yield,
 		difficulty: args.recipeInput.difficulty,
 		image: args.recipeInput.image,
 		createdAt: new Date(),
 		updatedAt: new Date(),
-		createdBy: '5cec0708fb6fc01bf23cec50',
+		createdBy: user._id,
 	};
 	return mongoose.model('recipe').create(recipe);
+};
+
+export const updateRecipe = async (id: string, data: RecipeInput) => {
+	const recipe = {
+		_id: id,
+		...data,
+		updatedAt: new Date(),
+	};
+
+	return mongoose
+		.model('recipe')
+		.findByIdAndUpdate(id, recipe)
+		.exec();
+};
+
+export const deleteRecipe = async (input: DeleteRecipeInput) => {
+	if (input.reactionId) {
+		await deleteRecipeReaction(input.reactionId);
+	}
+	return mongoose.model('recipe').findByIdAndDelete(input.recipeId);
 };

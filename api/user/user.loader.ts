@@ -1,5 +1,5 @@
 import { createLoader } from '../shared/create-loader';
-import { getUsersById } from './models/user.model';
+import { getUsersById, RecipeUserKey } from './models/user.model';
 
 export const createUserLoader = () =>
-	createLoader((keys: string[]) => getUsersById(keys));
+	createLoader((keys: RecipeUserKey[]) => getUsersById(keys));

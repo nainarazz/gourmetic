@@ -1,3 +1,5 @@
+import { User } from '../../user/types/user.interface';
+
 export enum Meal {
 	Breakfast = 'BREAKFAST',
 	Lunch = 'LUNCH',
@@ -30,18 +32,43 @@ export interface Ingredient {
 	quantity: string;
 }
 
+export interface Image {
+	secureUrl: string;
+	publicId: string;
+}
+
+export interface RecipeReaction {
+	_id: string;
+	recipe: Recipe;
+	user: User;
+	isLiked: boolean;
+}
+
+export interface RecipeEdge {
+	cursor: string;
+	node: Recipe;
+}
+
+export interface RecipeReactionEdge {
+	cursor: string;
+	node: RecipeReaction;
+}
+
 export interface Recipe {
+	_id: string;
 	name: string;
 	description: string;
-	meals: string[];
+	meal: string[];
 	prepTime: number;
 	cookingTime: number;
 	difficulty: string;
 	ingredients: Ingredient[];
 	instructions: Instruction[];
 	yield: number;
-	image: string;
+	image: Image;
 	isPublic: boolean;
+	createdBy: User;
+	reaction: RecipeReaction;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -58,4 +85,13 @@ export interface FormValues {
 	image: string | File;
 	meals: ReactSelectOptions[];
 	isPublic: boolean;
+}
+
+export interface LikeRecipeMutationVariables {
+	input: {
+		recipeId: string;
+		userId: string;
+		isLiked: boolean;
+		reactionId: string;
+	};
 }

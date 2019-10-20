@@ -26,7 +26,10 @@ export const RecipeFormContainer = () => {
 
 		if (formValues.image) {
 			const imageUrl = await uploadImage(formValues.image as File);
-			formattedRecipe.image = imageUrl.secure_url || '';
+			formattedRecipe.image = {
+				secureUrl: imageUrl.secure_url || '',
+				publicId: imageUrl.public_id || '',
+			};
 		}
 
 		setRecipe(formattedRecipe);

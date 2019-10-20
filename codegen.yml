@@ -12,9 +12,9 @@ generates:
             - add: // tslint:disable
             - typescript
             - typescript-resolvers
-    ./src/graphql-generated-types/query-types.tsx:
-        plugins:
-            - add: // tslint:disable
-            - typescript
-            - typescript-operations
-            - typescript-react-apollo
+    # ./src/graphql-generated-types/query-types.tsx:
+    #     plugins:
+    #        - add: // tslint:disable
+    #        - typescript
+    #        - typescript-operations
+    #        - typescript-react-apollo

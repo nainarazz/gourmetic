@@ -3,6 +3,7 @@ const GraphQLDate = require('graphql-date');
 
 const typeDefs = /* GraphQL */ `
 	scalar Date
+	scalar Upload
 `;
 
 const resolvers = {

@@ -50,6 +50,7 @@ export const StyledFormikInput = styled(Field)`
 export const StyledFormikTextArea = styled(StyledFormikInput)`
 	resize: none;
 	height: 3rem;
+	margin-top: 0.9rem;
 `;
 
 export const FormikErrorWrapper = styled.div`

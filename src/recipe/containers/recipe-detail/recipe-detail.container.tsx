@@ -1,11 +1,13 @@
 import React from 'react';
-import { Image, RecipeDetailWrapper } from './recipe-detail.styles';
+import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
+import { Image as CloudinaryImage } from 'cloudinary-react';
+import { ImageWrapper, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
 import { Instruction } from '../../components/instructions/instruction.component';
-import { Instruction as IInstruction } from '../../../graphql-generated-types/query-types';
 import { NextFunctionComponent } from 'next';
 import { RECIPE_DETAIL } from '../../recipe.graphql';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
+import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
 
 interface RecipeDetailProps {
@@ -15,31 +17,47 @@ interface RecipeDetailProps {
 export const RecipeDetailRoot: NextFunctionComponent<
 	RecipeDetailProps
 > = props => {
-	const { data } = useQuery(RECIPE_DETAIL, { variables: { id: props.id } });
+	const { data, loading } = useQuery(RECIPE_DETAIL, {
+		variables: { id: props.id },
+	});
 
 	const recipe = data && data.recipeDetail;
-	const authorResult = recipe && recipe.createdBy;
-	const author =
-		authorResult && `${authorResult.firstname} ${authorResult.lastname}`;
 	const instructions =
 		recipe && recipe.instructions ? recipe.instructions : [];
 
-	return (
+	return loading ? (
+		<Spinner />
+	) : (
 		<React.Fragment>
 			<RecipeDetailWrapper>
-				<Image imageUrl={(recipe && recipe.image) || ''} />
+				<ImageWrapper>
+					{recipe && (
+						<CloudinaryImage
+							cloudName="gourmetic"
+							dpr="auto"
+							width="auto"
+							responsive
+							quality="auto"
+							client_hints="true"
+							publicId={
+								(recipe && recipe.image.publicId) ||
+								DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID
+							}
+						/>
+					)}
+				</ImageWrapper>
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}
-					difficulty={'easy'}
-					cookTime={recipe && recipe.prepTime}
+					difficulty={recipe && recipe.difficulty}
+					cookTime={recipe && recipe.cookingTime}
 					description={(recipe && recipe.description) || ''}
-					author={author}
+					author={recipe && recipe.createdBy}
 					title={recipe && recipe.name}
 				/>
 				<Ingredient
 					ingredients={(recipe && recipe.ingredients) || []}
 				/>
-				<Instruction instructions={instructions as IInstruction[]} />
+				<Instruction instructions={instructions} />
 			</RecipeDetailWrapper>
 		</React.Fragment>
 	);

@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { themeColor } from 'src/shared/themes/colors';
 
 interface SearchBarProps {
 	searchInputExpanded: boolean;
 }
 
 export const SearchBar = styled.div`
-	width: 60%;
+	width: 55%;
 	position: relative;
 	display: flex;
 	flex-grow: 1;
@@ -23,15 +24,15 @@ export const SearchBar = styled.div`
 		padding: 0.6rem;
 		border-radius: 2.18rem;
 		outline: none;
-		color: #5cb818;
+		color: ${themeColor.mainBrand};
 		text-overflow: ellipsis;
-		font-size: 1rem;
+		font-size: 0.8rem;
 		margin: 0 0.5rem;
 		transition: all 0.3s;
 	}
 
 	input:focus {
-		color: #5cb818;
+		color: ${themeColor.mainBrand};
 	}
 
 	button {
@@ -43,12 +44,13 @@ export const SearchBar = styled.div`
 		color: #fff;
 		cursor: pointer;
 		font-size: 1.25rem;
-		background: #008000;
+		background: ${themeColor.darkShadeMainBrand};
 		outline: none;
 		margin: 0.3rem 0.3rem 0 0;
 	}
 
 	@media (min-width: 769px) {
+		flex-grow: 1;
 		input {
 			display: flex;
 			transform: translateX(0);
@@ -58,5 +60,9 @@ export const SearchBar = styled.div`
 			display: ${(prop: SearchBarProps) =>
 				prop.searchInputExpanded ? 'none' : ''};
 		}
+	}
+
+	@media (min-width: 1020px) {
+		flex-grow: initial;
 	}
 `;

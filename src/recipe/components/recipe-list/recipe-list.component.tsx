@@ -1,7 +1,14 @@
+import Avatar from 'react-avatar';
 import React from 'react';
-import { Container } from './recipe-list.style';
 import { RecipeCardContainer } from '../../containers/recipe-card/recipe-card.container';
-import { RecipeEdge } from '../../../../api/graphql-generated-types/resolvers-types';
+import { RecipeEdge } from '../../types/recipe.interface';
+import {
+	Container,
+	CardWrapper,
+	CardDescription,
+	RecipeName,
+	RecipeAuthor,
+} from './recipe-list.style';
 
 interface RecipeListProps {
 	recipeEdges: RecipeEdge[];
@@ -16,12 +23,27 @@ export const RecipeList: React.SFC<RecipeListProps> = props => {
 		previousRecipeId =
 			(props.recipeEdges[i - 1] && props.recipeEdges[i - 1].node._id) ||
 			'';
+		const recipe = e.node;
 		return (
-			<RecipeCardContainer
-				key={e.node._id}
-				recipe={e.node}
-				previousRecipeId={previousRecipeId}
-			/>
+			<CardWrapper key={e.node._id}>
+				<RecipeCardContainer
+					recipe={e.node}
+					previousRecipeId={previousRecipeId}
+				/>
+
+				<CardDescription>
+					<RecipeName>{recipe && recipe.name}</RecipeName>
+					<RecipeAuthor>
+						<Avatar
+							src={recipe.createdBy.photo}
+							round
+							size="20"
+							style={{ marginRight: '5px' }}
+						/>
+						{`by ${recipe.createdBy.firstname} ${recipe.createdBy.lastname}`}
+					</RecipeAuthor>
+				</CardDescription>
+			</CardWrapper>
 		);
 	});
 	return <Container>{recipes}</Container>;

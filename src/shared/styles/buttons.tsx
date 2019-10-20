@@ -3,7 +3,7 @@ import { themeColor } from '../themes/colors';
 
 export const BaseButton = styled.button`
 	padding: 0.25rem 0.5rem;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	color: #fff;
 	margin: 0 10px;
 	border-radius: 8px;
@@ -11,7 +11,7 @@ export const BaseButton = styled.button`
 	line-height: 1.5;
 	outline: none;
 	border: none;
-	background-color: ${themeColor.darkAccent};
+	background-color: ${themeColor.secondary};
 
 	:hover {
 		cursor: pointer;

@@ -21,27 +21,28 @@ export const RecipeTypes = `
         quantity: String
     }
 
+    type Image {
+        secureUrl: String
+        publicId: String
+    }
+
     type Recipe {
         _id: ID!
         name: String!
         description: String!
-        meals: [Meal]
+        meal: [Meal]
         prepTime: Int
         cookingTime: Int
-        difficulty: Difficulty
+        difficulty: String
         ingredients: [Ingredient!]!
         instructions: [Instruction]!
         yield: Int
-        image: String
+        image: Image
         isPublic: Boolean
         reaction: RecipeReaction
         createdBy: User
         createdAt: Date
         updatedAt: Date
-    }
-
-    type PageInfo {
-        hasNextPage: Boolean!
     }
 
     type RecipeEdge {
@@ -66,26 +67,41 @@ export const RecipeTypes = `
         description: String!
     }
 
+    input ImageInput {
+        secureUrl: String
+        publicId: String
+    }
+
     input RecipeInput {
         name: String!
         description: String!
-        meals: [String]
+        meal: [String]
         prepTime: Int
         cookingTime: Int
         difficulty: String
         ingredients: [IngredientInput!]!
         instructions: [InstructionInput!]!
         yield: Int
-        image: String
+        image: Upload
         isPublic: Boolean
+    }
+
+    input DeleteRecipeInput {
+        recipeId: String!
+        reactionId: String!
     }
 
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
         recipeDetail(id: ID): Recipe
+        myRecipes(first: Int, after: String): RecipeResult
     }
 
     extend type Mutation {
         createRecipe(recipeInput: RecipeInput!): Recipe
+        updateRecipe(id: String!, updatedRecipe: RecipeInput!): Recipe
+        deleteRecipe(input: DeleteRecipeInput!): Recipe
+        uploadImage(file: Upload!): Image
+        deleteImage(publicId: String!): String
     }
 `;
