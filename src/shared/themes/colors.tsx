@@ -18,6 +18,10 @@ enum Border {
 	lightgrey = 'lightgrey',
 }
 
+enum Modal {
+	warning = 'warning',
+}
+
 export const themeColor: Record<ThemeColor, string> = {
 	mainBrand: '#3B9011',
 	lightShadeMainBrand: '#97D139',
@@ -35,4 +39,8 @@ export const errorColor: Record<Error, string> = {
 
 export const borderColor: Record<Border, string> = {
 	lightgrey: 'lightgrey',
+};
+
+export const modalColor: Record<Modal, string> = {
+	warning: '#FF6B6B',
 };
