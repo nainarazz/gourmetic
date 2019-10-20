@@ -20,6 +20,11 @@ export const Dropdown: SFC<DropdownContentProps> = props => {
 						<span>My Profile</span>
 					</DropdownItem>
 				</Link>
+				<Link href={`/recipe-form`}>
+					<DropdownItem>
+						<span>Create New Recipe</span>
+					</DropdownItem>
+				</Link>
 				<DropdownItem onClick={props.logout}>
 					<span>Logout</span>
 				</DropdownItem>

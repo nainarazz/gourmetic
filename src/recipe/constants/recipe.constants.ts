@@ -51,4 +51,4 @@ export const recipeDifficulties: ReactSelectOptions[] = [
 ];
 
 export const DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID =
-	'recipes/el9bxzxzsxo4hgecazdc.jpg';
+	'recipes/image-placeholder.png';
