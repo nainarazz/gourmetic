@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
+import { toast } from 'react-toastify';
 import { useMutation, useQuery } from 'react-apollo';
 import {
 	DELETE_RECIPE,
@@ -13,41 +14,54 @@ import {
 
 export const MyRecipesContainer: FunctionComponent = () => {
 	const numberOfItemsToLoad = 15;
-	const { data, fetchMore, loading } = useQuery(MY_RECIPES_QUERY, {
-		variables: { first: numberOfItemsToLoad },
-	});
+	const { data, fetchMore, loading: loadingRecipes } = useQuery(
+		MY_RECIPES_QUERY,
+		{
+			variables: { first: numberOfItemsToLoad },
+		}
+	);
 
-	const [deleteRecipeMutation] = useMutation(DELETE_RECIPE);
+	const [deleteRecipeMutation, { loading: deletingRecipe }] = useMutation(
+		DELETE_RECIPE
+	);
 	const [deleteImageMutation] = useMutation(DELETE_IMAGE);
 
-	const deleteHandler = (recipe: Recipe) => {
-		deleteRecipeMutation({
-			variables: {
-				input: {
-					recipeId: recipe._id,
-					reactionId: recipe.reaction._id || '',
-				},
-			},
-			refetchQueries: () => [
-				{
-					query: MY_RECIPES_QUERY,
-					variables: {
-						first: numberOfItemsToLoad,
+	const deleteHandler = async (recipe: Recipe) => {
+		try {
+			await deleteRecipeMutation({
+				variables: {
+					input: {
+						recipeId: recipe._id,
+						reactionId: recipe.reaction._id || '',
 					},
 				},
-				{
-					query: RECIPE_LIST_QUERY,
-					variables: {
-						first: numberOfItemsToLoad,
+				refetchQueries: () => [
+					{
+						query: MY_RECIPES_QUERY,
+						variables: {
+							first: numberOfItemsToLoad,
+						},
 					},
-				},
-			],
-		});
-
-		if (recipe.image.publicId) {
-			deleteImageMutation({
-				variables: { publicId: recipe.image.publicId },
+					{
+						query: RECIPE_LIST_QUERY,
+						variables: {
+							first: numberOfItemsToLoad,
+						},
+					},
+				],
 			});
+
+			if (recipe.image.publicId) {
+				deleteImageMutation({
+					variables: { publicId: recipe.image.publicId },
+				});
+			}
+
+			toast.success('🚀 Successfully deleted recipe!', {
+				position: toast.POSITION.BOTTOM_RIGHT,
+			});
+		} catch (error) {
+			toast.error('A problem occured when deleting recipe.');
 		}
 	};
 
@@ -83,7 +97,7 @@ export const MyRecipesContainer: FunctionComponent = () => {
 		});
 	};
 
-	return loading ? (
+	return loadingRecipes || deletingRecipe ? (
 		<Spinner />
 	) : (
 		<React.Fragment>

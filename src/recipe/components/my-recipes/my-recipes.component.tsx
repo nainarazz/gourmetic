@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
+import { ConfirmationModal } from 'src/shared/components/modal/confirmation-modal/confirmation-modal.component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { RecipeCardContainer } from 'src/recipe/containers/recipe-card/recipe-card.container';
+import { useModal } from 'src/shared/components/modal/use-modal';
 import {
 	faEdit as editIcon,
 	faTrashAlt as deleteIcon,
@@ -25,11 +27,15 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 	if (!props.recipeEdges) {
 		return null;
 	}
+	const { isShown, toggle } = useModal();
+	const [recipeToDelete, setRecipeToDelete] = useState();
+
 	const recipes = props.recipeEdges.map((e, i) => {
 		const previousRecipeId =
 			(props.recipeEdges[i - 1] && props.recipeEdges[i - 1].node._id) ||
 			'';
 		const recipe = e.node;
+
 		return (
 			<CardWrapper key={e.node._id}>
 				<RecipeCardContainer
@@ -59,7 +65,12 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 								/>
 							</Icon>
 						</Link>
-						<Icon onClick={() => props.deleteHandler(recipe)}>
+						<Icon
+							onClick={() => {
+								setRecipeToDelete(recipe);
+								toggle();
+							}}
+						>
 							<FontAwesomeIcon
 								icon={deleteIcon}
 								color={'red'}
@@ -71,5 +82,19 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 			</CardWrapper>
 		);
 	});
-	return <Container>{recipes}</Container>;
+
+	return (
+		<Container>
+			{recipes}
+			<ConfirmationModal
+				isShown={isShown}
+				hide={toggle}
+				onConfirm={() => {
+					props.deleteHandler(recipeToDelete);
+					toggle();
+				}}
+				onCancel={toggle}
+			/>
+		</Container>
+	);
 };
