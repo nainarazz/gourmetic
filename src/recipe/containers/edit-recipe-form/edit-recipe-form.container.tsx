@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { FormValues, Recipe } from '../../types/recipe.interface';
+import { FormValues, Image, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
 import { RecipeFormComponent } from '../../components/recipe-form/recipe-form.component';
@@ -69,15 +69,14 @@ export const EditRecipeFormContainer: FunctionComponent<
 		}
 	};
 
-	const handleSubmit = async (
-		formValues: FormValues,
-		// tslint:disable:no-any
-		updateRecipeFn: () => Promise<any>
-	) => {
-		const formattedRecipe = getFormattedRecipeData(formValues);
-
+	const getImageData = async (formValues: FormValues): Promise<Image> => {
 		const previousImagePublicId = recipeData.image.publicId;
-		if (formValues.image) {
+		const imageUnchanged = recipeData.image.secureUrl === formValues.image;
+
+		if (imageUnchanged) {
+			return recipeData.image;
+		} else if (formValues.image) {
+			// user is uploading a new photo or modifying photo
 			const isOfTypeFile =
 				typeof formValues.image === 'object' &&
 				typeof formValues.image.name === 'string';
@@ -88,7 +87,7 @@ export const EditRecipeFormContainer: FunctionComponent<
 				previousImagePublicId
 			);
 
-			formattedRecipe.image = {
+			return {
 				secureUrl: imageUrl.data.uploadImage.secureUrl || '',
 				publicId: imageUrl.data.uploadImage.publicId || '',
 			};
@@ -98,6 +97,22 @@ export const EditRecipeFormContainer: FunctionComponent<
 				variables: { publicId: previousImagePublicId },
 			});
 		}
+		return {
+			publicId: '',
+			secureUrl: '',
+		};
+	};
+
+	const handleSubmit = async (
+		formValues: FormValues,
+		// tslint:disable:no-any
+		updateRecipeFn: () => Promise<any>
+	) => {
+		const formattedRecipe = getFormattedRecipeData(formValues);
+		const imageData = await getImageData(formValues);
+		formattedRecipe.image = {
+			...imageData,
+		};
 
 		setRecipe(formattedRecipe);
 		return updateRecipeFn();
