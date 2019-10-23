@@ -91,10 +91,16 @@ export const RecipeTypes = `
         reactionId: String!
     }
 
+    input SearchRecipeInput {
+        name: String
+        meal: [String]
+    }
+
     extend type Query {
         recipeList(first: Int, after: String): RecipeResult
         recipeDetail(id: ID): Recipe
         myRecipes(first: Int, after: String): RecipeResult
+        searchRecipes(searchInput: SearchRecipeInput!, first: Int, after: String): RecipeResult
     }
 
     extend type Mutation {
