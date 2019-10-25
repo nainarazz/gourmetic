@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { AvatarWithDropdown } from '../avatar/avatar-dropdown.component';
 import { faBars as bars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { SearchBarComponent } from 'src/search/components/search-bar/search-bar.component';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import {
 	Container,
@@ -38,7 +38,7 @@ export const Header: React.SFC<HeaderProps> = props => {
 					</Link>
 					<SearchBarComponent
 						searchInputExpanded={!inputExpanded}
-						searchClickHandler={() =>
+						toggleSearchInput={() =>
 							setInputExpanded(!inputExpanded)
 						}
 					/>
