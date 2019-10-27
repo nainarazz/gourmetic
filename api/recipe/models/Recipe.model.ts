@@ -120,7 +120,7 @@ export const searchRecipe = async (
 
 	const conditions = {
 		...(input.name && searchCondition),
-		...(input.meal && filterCondition),
+		...(input.meal && input.meal.length > 0 && filterCondition),
 	};
 
 	const criteria = after

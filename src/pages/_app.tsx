@@ -8,6 +8,7 @@ import { Auth0Provider } from '../authentication/react-auth0-wrapper';
 import { config } from '../authentication/auth-config';
 import { createGlobalStyle } from 'styled-components';
 import { HOME_PAGE_URL } from 'src/shared/constants';
+import { StateProvider } from 'src/context/state-context';
 
 interface Props {
 	// tslint:disable-next-line:no-any
@@ -51,7 +52,9 @@ class MyApp extends App<Props> {
 							<title>Gourmetic</title>
 						</Head>
 						<GlobalStyle />
-						<Component {...pageProps} />
+						<StateProvider>
+							<Component {...pageProps} />
+						</StateProvider>
 					</Auth0Provider>
 				</ApolloProvider>
 			</Container>
