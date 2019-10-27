@@ -6,12 +6,22 @@ interface StyledChipProps {
 }
 
 export const StyledChip = styled.div`
-	border-radius: 10px;
-	width: 12%;
+	border-radius: 36px;
+	min-width: 140px;
+	max-width: 140px;
+	width: 140px;
 	border: 1px solid;
 	text-align: center;
-	padding: 5px;
+	padding: 10px;
 	font-size: 0.8rem;
+	color: #fff;
+	font-weight: ${props => (props.isSelected ? 600 : 'unset')};
 	background-color: ${(props: StyledChipProps) =>
-		props.isSelected ? themeColor.purple : ''};
+		props.isSelected ? themeColor.purple : '#D3D3D3'};
+	:hover {
+		cursor: pointer;
+		background-color: ${props =>
+			!props.isSelected ? themeColor.purple : ''};
+		opacity: ${props => (!props.isSelected ? 0.5 : 1)};
+	}
 `;
