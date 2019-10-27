@@ -95,3 +95,9 @@ export interface LikeRecipeMutationVariables {
 		reactionId: string;
 	};
 }
+
+export interface RecipeFilterType {
+	value: Meal;
+	label: string;
+	isSelected: boolean;
+}

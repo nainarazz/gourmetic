@@ -1,6 +1,7 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { RecipeEdge } from 'src/recipe/types/recipe.interface';
+import { RecipeFilters } from 'src/recipe/components/recipe-filter/recipe-filter.component';
 import { RecipeList } from 'src/recipe/components/recipe-list/recipe-list.component';
 import { RecipeSearchCriteria } from 'src/search/types/recipe-search.interface';
 import { SEARCH_RECIPE } from 'src/recipe/recipe.graphql';
@@ -10,7 +11,7 @@ import { useStateValue } from 'src/context/state-context';
 
 export const SearchResultContainer: FunctionComponent = () => {
 	const numberOfPagesToLoad = 15;
-	const { searchValue } = useStateValue();
+	const { searchValue, recipeFilters, updateRecipeFilters } = useStateValue();
 	const [searchCriteria, setSearchCriteria] = useState<RecipeSearchCriteria>({
 		name: '',
 		meal: [],
@@ -20,8 +21,9 @@ export const SearchResultContainer: FunctionComponent = () => {
 		setSearchCriteria({
 			...searchCriteria,
 			name: searchValue,
+			meal: recipeFilters,
 		});
-	}, [searchValue]);
+	}, [searchValue, recipeFilters]);
 
 	const { data, fetchMore, loading } = useQuery(SEARCH_RECIPE, {
 		variables: { first: numberOfPagesToLoad, searchInput: searchCriteria },
@@ -60,11 +62,18 @@ export const SearchResultContainer: FunctionComponent = () => {
 		});
 	};
 
+	const onSelectFilter = (selectedFilters: string[]) => {
+		updateRecipeFilters(selectedFilters);
+	};
+
 	return loading ? (
 		<Spinner />
 	) : (
 		<React.Fragment>
-			<div>here is some criteria stuff/filter</div>
+			<RecipeFilters
+				initialFilters={recipeFilters}
+				onSelectFilter={onSelectFilter}
+			/>
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}

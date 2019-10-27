@@ -1,13 +1,18 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
+import Router, { useRouter } from 'next/router';
 import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeEdge } from '../../types/recipe.interface';
+import { RecipeFilters } from 'src/recipe/components/recipe-filter/recipe-filter.component';
 import { RecipeList } from '../../components/recipe-list/recipe-list.component';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
+import { useStateValue } from 'src/context/state-context';
 
 export const RecipeListRoot = () => {
 	const numberOfPagesToLoad = 15;
+	const { updateRecipeFilters } = useStateValue();
+	const userRouter = useRouter();
 	const { data, fetchMore, loading } = useQuery(RECIPE_LIST_QUERY, {
 		variables: { first: numberOfPagesToLoad },
 	});
@@ -44,11 +49,21 @@ export const RecipeListRoot = () => {
 		});
 	};
 
+	const onSelectFilter = (selectedFilters: string[]) => {
+		updateRecipeFilters(selectedFilters);
+		if (userRouter.pathname !== '/search-result') {
+			Router.push('/search-result');
+		}
+	};
+
 	return loading ? (
 		<Spinner />
 	) : (
 		<React.Fragment>
-			<div>here is some criteria stuff/filter</div>
+			<RecipeFilters
+				initialFilters={[]}
+				onSelectFilter={onSelectFilter}
+			/>
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}
