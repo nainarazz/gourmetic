@@ -7,13 +7,14 @@ interface StyledChipProps {
 
 export const StyledChip = styled.div`
 	border-radius: 36px;
-	min-width: 140px;
-	max-width: 140px;
+	min-width: 130px;
+	max-width: 130px;
 	width: 140px;
 	border: 1px solid;
 	text-align: center;
+	margin: 0 10px;
 	padding: 10px;
-	font-size: 0.8rem;
+	font-size: 0.9rem;
 	color: #fff;
 	font-weight: ${props => (props.isSelected ? 600 : 'unset')};
 	background-color: ${(props: StyledChipProps) =>
