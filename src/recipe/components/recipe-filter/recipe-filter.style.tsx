@@ -15,9 +15,8 @@ export const ArrowIcon = styled.div`
 
 export const ChipsContainer = styled.div`
 	display: flex;
-	width: 90%;
-	overflow-x: hidden;
 	justify-content: space-between;
-	margin: 0 3%;
+	margin: 0 25px;
 	padding: 5px;
+	padding-bottom: 8px;
 `;

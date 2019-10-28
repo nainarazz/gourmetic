@@ -8,8 +8,8 @@ interface StyledChipProps {
 export const StyledChip = styled.div`
 	border-radius: 36px;
 	min-width: 130px;
-	max-width: 130px;
-	width: 140px;
+	width: 15%;
+	max-width: 15%;
 	border: 1px solid;
 	text-align: center;
 	margin: 0 10px;
