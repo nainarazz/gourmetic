@@ -3,11 +3,11 @@ import { Chip } from 'src/shared/components/chips/chip.component';
 import { defaultRecipeFilters } from 'src/recipe/constants/recipe.constants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { RecipeFilterType } from 'src/recipe/types/recipe.interface';
-import { Scrollbars } from 'react-custom-scrollbars';
 import {
 	FilterWrapper,
 	ArrowIcon,
 	ChipsContainer,
+	ChipContent,
 } from './recipe-filter.style';
 import {
 	faArrowLeft as leftArrow,
@@ -64,18 +64,25 @@ export const RecipeFilters: FunctionComponent<RecipeFiltersProps> = props => {
 						/>
 					</ArrowIcon>
 				}
-				<Scrollbars
+				<ChipsContainer
 					// tslint:disable-next-line:no-any
 					ref={scrollBars as any}
-					style={{ width: '95%' }}
-					autoHeight
-					hideTracksWhenNotNeeded
-					universal
-					renderView={p => (
-						<ChipsContainer {...p} style={{ overflow: 'hidden' }} />
-					)}
-					autoHide
-					autoHideTimeout={500}
+					noScrollY
+					removeTrackXWhenNotUsed
+					mobileNative
+					contentProps={{
+						// tslint:disable-next-line:no-shadowed-variable
+						renderer: props => {
+							const { elementRef, ...restProps } = props;
+							return (
+								<ChipContent
+									// tslint:disable-next-line:no-any
+									ref={elementRef as any}
+									{...restProps}
+								/>
+							);
+						},
+					}}
 				>
 					{selectedFilters.map((f, i) => (
 						<Chip
@@ -85,7 +92,7 @@ export const RecipeFilters: FunctionComponent<RecipeFiltersProps> = props => {
 							onSelectChip={() => selectFilter(i, f.isSelected)}
 						/>
 					))}
-				</Scrollbars>
+				</ChipsContainer>
 				{
 					<ArrowIcon onClick={() => onScroll('right')}>
 						<FontAwesomeIcon

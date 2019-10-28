@@ -10,6 +10,8 @@ export const StyledChip = styled.div`
 	min-width: 130px;
 	width: 15%;
 	max-width: 15%;
+	max-height: 1rem;
+	align-self: center;
 	border: 1px solid;
 	text-align: center;
 	margin: 0 10px;

@@ -1,3 +1,4 @@
+import Scrollbar from 'react-scrollbars-custom';
 import styled from 'styled-components';
 
 export const FilterWrapper = styled.div`
@@ -13,10 +14,15 @@ export const ArrowIcon = styled.div`
 	}
 `;
 
-export const ChipsContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
+export const ChipsContainer = styled(Scrollbar)`
 	margin: 0 25px;
+	height: 30px !important;
 	padding: 5px;
-	padding-bottom: 8px;
+	padding-bottom: 20px;
+`;
+
+export const ChipContent = styled.div`
+	display: flex;
+	width: 90%;
+	justify-content: space-between;
 `;
