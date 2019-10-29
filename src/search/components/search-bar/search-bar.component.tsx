@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Router, { useRouter } from 'next/router';
-import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBar } from './search-bar.style';
 import { StateContextValue } from 'src/context/state-context.types';
@@ -18,6 +17,7 @@ interface SearchBarProps {
 
 export const SearchBarComponent: React.SFC<SearchBarProps> = props => {
 	const { searchValue, updateSearch }: StateContextValue = useStateValue();
+	const [searchKeyword, setSearchKeyword] = useState('');
 	const userRouter = useRouter();
 
 	const icon = props.searchInputExpanded ? (
@@ -26,22 +26,31 @@ export const SearchBarComponent: React.SFC<SearchBarProps> = props => {
 		<FontAwesomeIcon icon={closeButton} />
 	);
 
-	const onChangeHandler = debounce(searchTerm => {
-		updateSearch(searchTerm);
+	const onChangeHandler = (searchText: string) => {
+		setSearchKeyword(searchText);
+	};
+
+	const onSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		updateSearch(searchKeyword);
 		if (userRouter.pathname !== '/search-result') {
 			Router.push('/search-result');
 		}
-	}, 300);
+	};
 
 	return (
 		<SearchBar searchInputExpanded={props.searchInputExpanded}>
-			<input
-				type="text"
-				placeholder="What food are you looking for?"
-				onChange={e => onChangeHandler(e.target.value)}
-				defaultValue={searchValue}
-			/>
-			<button onClick={props.toggleSearchInput}>{icon}</button>
+			<form onSubmit={onSubmit}>
+				<input
+					type="text"
+					placeholder="What food are you looking for?"
+					onChange={e => onChangeHandler(e.target.value)}
+					defaultValue={searchValue}
+				/>
+				<button type="button" onClick={props.toggleSearchInput}>
+					{icon}
+				</button>
+			</form>
 		</SearchBar>
 	);
 };
