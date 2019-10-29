@@ -7,14 +7,9 @@ interface StyledChipProps {
 
 export const StyledChip = styled.div`
 	border-radius: 36px;
-	min-width: 130px;
-	width: 15%;
-	max-width: 15%;
-	max-height: 1rem;
-	align-self: center;
 	border: 1px solid;
 	text-align: center;
-	margin: 0 10px;
+	margin: 5px;
 	padding: 10px;
 	font-size: 0.9rem;
 	color: #fff;
@@ -26,5 +21,14 @@ export const StyledChip = styled.div`
 		background-color: ${props =>
 			!props.isSelected ? themeColor.purple : ''};
 		opacity: ${props => (!props.isSelected ? 0.5 : 1)};
+	}
+
+	@media (min-width: 360px) {
+		min-width: 80px;
+	}
+
+	@media (min-width: 1024px) {
+		min-width: 130px;
+		width: 10%;
 	}
 `;

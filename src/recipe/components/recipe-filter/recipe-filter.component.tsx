@@ -55,35 +55,7 @@ export const RecipeFilters: FunctionComponent<RecipeFiltersProps> = props => {
 	return (
 		<React.Fragment>
 			<FilterWrapper>
-				{
-					<ArrowIcon onClick={() => onScroll('left')}>
-						<FontAwesomeIcon
-							icon={leftArrow}
-							size={'2x'}
-							color={'grey'}
-						/>
-					</ArrowIcon>
-				}
-				<ChipsContainer
-					// tslint:disable-next-line:no-any
-					ref={scrollBars as any}
-					noScrollY
-					removeTrackXWhenNotUsed
-					mobileNative
-					contentProps={{
-						// tslint:disable-next-line:no-shadowed-variable
-						renderer: props => {
-							const { elementRef, ...restProps } = props;
-							return (
-								<ChipContent
-									// tslint:disable-next-line:no-any
-									ref={elementRef as any}
-									{...restProps}
-								/>
-							);
-						},
-					}}
-				>
+				<ChipsContainer>
 					{selectedFilters.map((f, i) => (
 						<Chip
 							key={f.label + i.toString()}
@@ -93,15 +65,6 @@ export const RecipeFilters: FunctionComponent<RecipeFiltersProps> = props => {
 						/>
 					))}
 				</ChipsContainer>
-				{
-					<ArrowIcon onClick={() => onScroll('right')}>
-						<FontAwesomeIcon
-							icon={rightArrow}
-							size={'2x'}
-							color={'grey'}
-						/>
-					</ArrowIcon>
-				}
 			</FilterWrapper>
 		</React.Fragment>
 	);

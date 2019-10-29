@@ -42,7 +42,6 @@
 		"react-apollo": "^3.0.1",
 		"react-avatar": "^3.7.0",
 		"react-dom": "^16.8.6",
-		"react-infinite-scroll-component": "^4.5.2",
 		"react-scrollbars-custom": "^4.0.21",
 		"react-select": "^3.0.4",
 		"react-toastify": "^5.3.2",
@@ -54,7 +53,6 @@
 		"@types/next": "^8.0.3",
 		"@types/react": "^16.8.13",
 		"@types/react-dom": "^16.8.3",
-		"@types/react-infinite-scroll-component": "^4.2.3",
 		"@types/styled-components": "^4.1.14",
 		"@types/yup": "^0.26.22",
 		"babel-plugin-styled-components": "^1.10.0"

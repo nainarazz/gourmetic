@@ -1615,13 +1615,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-infinite-scroll-component@^4.2.3":
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/@types/react-infinite-scroll-component/-/react-infinite-scroll-component-4.2.4.tgz#97b1404197cb08a139c4f6c02469fa03268bce11"
-  integrity sha512-pMEFqnRBZ5cSwIFR2beQyABRg8jXgsXV/uq2equf5Q4xwYxQIJTjAusINh7w9Xkq7GkjCmJL3+WByVsXhzY5mA==
-  dependencies:
-    "@types/react" "*"
-
 "@types/react-loadable@*":
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/@types/react-loadable/-/react-loadable-5.5.1.tgz#f04a262f16e9f088098ddad1aa50682ad0984aa7"
@@ -7827,11 +7820,6 @@ react-fast-compare@^2.0.1:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
-
-react-infinite-scroll-component@^4.5.2:
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-4.5.3.tgz#008c2ec358628b490117ffc4aa6ce6982b26f8be"
-  integrity sha512-8O0PIeYZx0xFVS1ChLlLl/1obn64vylzXeheLsm+t0qUibmet7U6kDaKFg6jVRQJwDikWBTcyqEFFsxrbFCO5w==
 
 react-input-autosize@^2.2.1:
   version "2.2.1"
