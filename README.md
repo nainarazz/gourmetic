@@ -1,7 +1,8 @@
 # gourmetic
 Make cooking fun, easy , and sociable
 
-Url: gourmetic.nainarazz.now.sh
+<p>Url: gourmetic.nainarazz.now.sh</p>
+
 Tech Stack used:
 Next.js
 Graphql 
