@@ -1,23 +1,35 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
-import React from 'react';
-import Router, { useRouter } from 'next/router';
-import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
-import { RecipeEdge } from '../../types/recipe.interface';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { RecipeFilters } from 'src/recipe/components/recipe-filter/recipe-filter.component';
-import { RecipeList } from '../../components/recipe-list/recipe-list.component';
+import { RecipeList } from 'src/recipe/components/recipe-list/recipe-list.component';
+import { RecipeSearchCriteria } from 'src/search/types/recipe-search.interface';
+import { SEARCH_RECIPE } from 'src/recipe/recipe.graphql';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useQuery } from 'react-apollo';
 import { useStateValue } from 'src/context/state-context';
 
-export const RecipeListRoot = () => {
+export const SearchResultContainer: FunctionComponent = () => {
 	const numberOfPagesToLoad = 15;
-	const { updateRecipeFilters } = useStateValue();
-	const userRouter = useRouter();
-	const { data, fetchMore, loading } = useQuery(RECIPE_LIST_QUERY, {
-		variables: { first: numberOfPagesToLoad },
+	const { searchValue, recipeFilters, updateRecipeFilters } = useStateValue();
+	const [searchCriteria, setSearchCriteria] = useState<RecipeSearchCriteria>({
+		name: '',
+		meal: [],
 	});
 
-	const result = data && data.recipeList;
+	useEffect(() => {
+		setSearchCriteria({
+			...searchCriteria,
+			name: searchValue,
+			meal: recipeFilters,
+		});
+	}, [searchValue, recipeFilters]);
+
+	const { data, fetchMore, loading } = useQuery(SEARCH_RECIPE, {
+		variables: { first: numberOfPagesToLoad, searchInput: searchCriteria },
+	});
+
+	const result = data && data.searchRecipes;
 	const edges: RecipeEdge[] =
 		((result && result.edges) as RecipeEdge[]) || [];
 	const hasNextPage = result && result.pageInfo!.hasNextPage;
@@ -25,10 +37,11 @@ export const RecipeListRoot = () => {
 
 	const onLoadMore = () => {
 		return fetchMore({
-			query: RECIPE_LIST_QUERY,
+			query: SEARCH_RECIPE,
 			variables: {
 				first: numberOfPagesToLoad,
 				after: cursor,
+				searchInput: searchCriteria,
 			},
 			updateQuery: (prev, { fetchMoreResult }) => {
 				if (!fetchMoreResult) {
@@ -37,11 +50,11 @@ export const RecipeListRoot = () => {
 
 				return {
 					...fetchMoreResult,
-					recipeList: {
-						...fetchMoreResult.recipeList!,
+					searchRecipes: {
+						...fetchMoreResult.searchRecipes!,
 						edges: [
-							...prev.recipeList!.edges,
-							...fetchMoreResult.recipeList!.edges,
+							...prev.searchRecipes!.edges,
+							...fetchMoreResult.searchRecipes!.edges,
 						],
 					},
 				};
@@ -51,9 +64,6 @@ export const RecipeListRoot = () => {
 
 	const onSelectFilter = (selectedFilters: string[]) => {
 		updateRecipeFilters(selectedFilters);
-		if (userRouter.pathname !== '/search-result') {
-			Router.push('/search-result');
-		}
 	};
 
 	return loading ? (
@@ -61,7 +71,7 @@ export const RecipeListRoot = () => {
 	) : (
 		<React.Fragment>
 			<RecipeFilters
-				initialFilters={[]}
+				initialFilters={recipeFilters}
 				onSelectFilter={onSelectFilter}
 			/>
 			<InfiniteScroll

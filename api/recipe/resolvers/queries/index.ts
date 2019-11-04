@@ -7,6 +7,7 @@ import {
 	getPaginatedRecipes,
 	getRecipeDetail,
 	getMyrecipes,
+	searchRecipe,
 } from '../../models/Recipe.model';
 import {
 	QueryResolvers,
@@ -31,6 +32,8 @@ const QueryResolver: QueryResolvers<Context, Recipe> = {
 			userOAuthId
 		);
 	},
+	searchRecipes: async (parent, { searchInput, first, after }) =>
+		searchRecipe(searchInput, { first: first!, after: after! }),
 };
 
 const RecipeResolver: RecipeResolvers<Context> = {

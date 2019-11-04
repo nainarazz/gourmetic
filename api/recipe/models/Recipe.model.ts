@@ -6,6 +6,7 @@ import { paginateArray, PaginationOptions } from '../../utils/pagination';
 import {
 	RecipeInput,
 	DeleteRecipeInput,
+	SearchRecipeInput,
 } from './../../graphql-generated-types/resolvers-types';
 import {
 	Recipe,
@@ -102,4 +103,41 @@ export const deleteRecipe = async (input: DeleteRecipeInput) => {
 		await deleteRecipeReaction(input.reactionId);
 	}
 	return mongoose.model('recipe').findByIdAndDelete(input.recipeId);
+};
+
+export const searchRecipe = async (
+	input: SearchRecipeInput,
+	{ first, after }: PaginationOptions
+) => {
+	const searchCondition = {
+		$or: [
+			{ name: { $regex: input.name, $options: 'i' } },
+			{ 'ingredients.item': { $regex: input.name, $options: 'i' } },
+		],
+	};
+
+	const filterCondition = { meal: { $in: input.meal } };
+
+	const conditions = {
+		...(input.name && searchCondition),
+		...(input.meal && input.meal.length > 0 && filterCondition),
+	};
+
+	const criteria = after
+		? {
+				_id: {
+					$lt: decode(after),
+				},
+				...conditions,
+		  }
+		: conditions;
+	const recipes: Recipe[] = await mongoose
+		.model('recipe')
+		.find(criteria)
+		.sort({ _id: -1 })
+		.limit(first + 1)
+		.lean()
+		.exec();
+
+	return paginateArray({ first, after }, recipes);
 };

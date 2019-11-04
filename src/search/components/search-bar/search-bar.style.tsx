@@ -12,7 +12,12 @@ export const SearchBar = styled.div`
 	flex-grow: 1;
 	justify-content: flex-end;
 
-	input {
+	form {
+		width: 100%;
+		display: flex;
+	}
+
+	form input {
 		display: flex;
 		transform: ${(prop: SearchBarProps) =>
 			prop.searchInputExpanded
@@ -31,11 +36,11 @@ export const SearchBar = styled.div`
 		transition: all 0.3s;
 	}
 
-	input:focus {
+	form input:focus {
 		color: ${themeColor.mainBrand};
 	}
 
-	button {
+	form button {
 		width: 2.5rem;
 		height: 2.3rem;
 		border: 1px solid transparent;
@@ -51,12 +56,12 @@ export const SearchBar = styled.div`
 
 	@media (min-width: 769px) {
 		flex-grow: 1;
-		input {
+		form input {
 			display: flex;
 			transform: translateX(0);
 		}
 
-		button {
+		form button {
 			display: ${(prop: SearchBarProps) =>
 				prop.searchInputExpanded ? 'none' : ''};
 		}

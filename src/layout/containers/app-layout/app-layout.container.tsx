@@ -61,7 +61,9 @@ export const AppLayout: React.SFC = props => {
 				isOpen={sideDrawerIsOpen}
 				toggleSideDrawer={toggleSideDrawer}
 			/>
+
 			<Main>{props.children}</Main>
+
 			{newRecipeButton}
 			<ToastContainer hideProgressBar toastClassName="toast-container" />
 		</React.Fragment>

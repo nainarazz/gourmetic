@@ -143,6 +143,58 @@ export const DELETE_RECIPE = gql`
 	}
 `;
 
+export const SEARCH_RECIPE = gql`
+	query SearchRecipe(
+		$searchInput: SearchRecipeInput!
+		$first: Int
+		$after: String
+	) {
+		searchRecipes(searchInput: $searchInput, first: $first, after: $after) {
+			pageInfo {
+				hasNextPage
+			}
+			edges {
+				node {
+					_id
+					name
+					description
+					createdAt
+					updatedAt
+					ingredients {
+						item
+						measurement
+						quantity
+					}
+					instructions {
+						stepNumber
+						description
+						imageUrl
+					}
+					image {
+						secureUrl
+						publicId
+					}
+					createdBy {
+						_id
+						firstname
+						lastname
+						photo
+					}
+					meal
+					prepTime
+					cookingTime
+					isPublic
+					reaction {
+						_id
+						isLiked
+					}
+				}
+				cursor
+			}
+		}
+	}
+`;
+
 export const UPLOAD_IMAGE = gql`
 	mutation UploadImage($file: Upload!) {
 		uploadImage(file: $file) {

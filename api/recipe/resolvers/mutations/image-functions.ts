@@ -8,7 +8,6 @@ export const uploadImage = async (fileUpload: any): Promise<Image> => {
 	if (process.env.NODE_ENV !== 'production') {
 		return new Promise(res => res({ secureUrl: '', publicId: '' }));
 	}
-
 	return new Promise((resolve, reject) => {
 		const stream = fileUpload.createReadStream() as Stream;
 
@@ -31,6 +30,9 @@ export const uploadImage = async (fileUpload: any): Promise<Image> => {
 };
 
 export const deleteImage = async (publicId: string): Promise<string> => {
+	if (process.env.NODE_ENV !== 'production') {
+		return new Promise(res => res('ok'));
+	}
 	return new Promise((resolve, reject) => {
 		// tslint:disable:no-any
 		cloudinary.uploader.destroy(publicId, (err: any, deleteResult: any) => {
