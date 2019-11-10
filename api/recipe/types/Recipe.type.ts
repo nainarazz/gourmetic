@@ -39,6 +39,7 @@ export const RecipeTypes = `
         yield: Int
         image: Image
         isPublic: Boolean
+        isApproved: Boolean
         reaction: RecipeReaction
         createdBy: User
         createdAt: Date

@@ -78,6 +78,7 @@ export const createRecipe = async (
 		yield: args.recipeInput.yield,
 		difficulty: args.recipeInput.difficulty,
 		image: args.recipeInput.image,
+		isApproved: false,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		createdBy: user._id,
@@ -89,6 +90,7 @@ export const updateRecipe = async (id: string, data: RecipeInput) => {
 	const recipe = {
 		_id: id,
 		...data,
+		isApproved: false,
 		updatedAt: new Date(),
 	};
 
