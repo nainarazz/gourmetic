@@ -27,3 +27,8 @@ export const RecipeName = styled.div`
 	font-size: 1.2rem;
 	color: ${themeColor.lightShadeSecondary};
 `;
+
+export const EmptyRecipeList = styled.div`
+	font-size: 0.9rem;
+	padding: 2rem;
+`;

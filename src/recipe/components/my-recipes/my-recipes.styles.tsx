@@ -40,3 +40,8 @@ export const Icon = styled.div`
 		cursor: pointer;
 	}
 `;
+
+export const EmptyRecipeList = styled.div`
+	font-size: 0.9rem;
+	padding: 2rem;
+`;

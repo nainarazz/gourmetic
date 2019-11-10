@@ -30,3 +30,8 @@ export const RecipeAuthor = styled.div`
 	font-size: 0.9rem;
 	margin-top: 2px;
 `;
+
+export const EmptyRecipeList = styled.div`
+	font-size: 0.9rem;
+	padding: 2rem;
+`;

@@ -16,6 +16,7 @@ import {
 	IconsContainer,
 	RecipeName,
 	Icon,
+	EmptyRecipeList,
 } from './my-recipes.styles';
 
 interface RecipeListProps {
@@ -30,58 +31,66 @@ export const MyRecipes: FunctionComponent<RecipeListProps> = props => {
 	const { isShown, toggle } = useModal();
 	const [recipeToDelete, setRecipeToDelete] = useState();
 
-	const recipes = props.recipeEdges.map((e, i) => {
-		const previousRecipeId =
-			(props.recipeEdges[i - 1] && props.recipeEdges[i - 1].node._id) ||
-			'';
-		const recipe = e.node;
+	const recipes =
+		props.recipeEdges.length < 1 ? (
+			<EmptyRecipeList>No recipes found.</EmptyRecipeList>
+		) : (
+			props.recipeEdges.map((e, i) => {
+				const previousRecipeId =
+					(props.recipeEdges[i - 1] &&
+						props.recipeEdges[i - 1].node._id) ||
+					'';
+				const recipe = e.node;
 
-		return (
-			<CardWrapper key={e.node._id}>
-				<RecipeCardContainer
-					recipe={e.node}
-					previousRecipeId={previousRecipeId}
-				/>
+				return (
+					<CardWrapper key={e.node._id}>
+						<RecipeCardContainer
+							recipe={e.node}
+							previousRecipeId={previousRecipeId}
+						/>
 
-				<CardDescription>
-					<RecipeName>{recipe && recipe.name}</RecipeName>
-					<IconsContainer>
-						<Link
-							href={{
-								pathname: '/recipe-form',
-								query: {
-									id: e.node._id,
-									user: e.node.createdBy.OAuthUniqueAccountId,
-									previousRecipeId,
-								},
-							}}
-							as={`/recipe-form/edit`}
-						>
-							<Icon>
-								<FontAwesomeIcon
-									icon={editIcon}
-									color={'gray'}
-									size="1x"
-								/>
-							</Icon>
-						</Link>
-						<Icon
-							onClick={() => {
-								setRecipeToDelete(recipe);
-								toggle();
-							}}
-						>
-							<FontAwesomeIcon
-								icon={deleteIcon}
-								color={'red'}
-								size="1x"
-							/>
-						</Icon>
-					</IconsContainer>
-				</CardDescription>
-			</CardWrapper>
+						<CardDescription>
+							<RecipeName>{recipe && recipe.name}</RecipeName>
+							<IconsContainer>
+								<Link
+									href={{
+										pathname: '/recipe-form',
+										query: {
+											id: e.node._id,
+											user:
+												e.node.createdBy
+													.OAuthUniqueAccountId,
+											previousRecipeId,
+										},
+									}}
+									as={`/recipe-form/edit`}
+								>
+									<Icon>
+										<FontAwesomeIcon
+											icon={editIcon}
+											color={'gray'}
+											size="1x"
+										/>
+									</Icon>
+								</Link>
+								<Icon
+									onClick={() => {
+										setRecipeToDelete(recipe);
+										toggle();
+									}}
+								>
+									<FontAwesomeIcon
+										icon={deleteIcon}
+										color={'red'}
+										size="1x"
+									/>
+								</Icon>
+							</IconsContainer>
+						</CardDescription>
+					</CardWrapper>
+				);
+			})
 		);
-	});
 
 	return (
 		<Container>
