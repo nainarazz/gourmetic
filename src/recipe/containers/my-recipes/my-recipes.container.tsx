@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
+import { SpinnerInfiniteScroll } from 'src/shared/components/spinner-infinite-scroll/spinner-infinite-scroll.component';
 import { toast } from 'react-toastify';
 import { useMutation, useQuery } from 'react-apollo';
 import {
@@ -104,7 +105,7 @@ export const MyRecipesContainer: FunctionComponent = () => {
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}
-				loader={<h4>loading...</h4>}
+				loader={<SpinnerInfiniteScroll />}
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>

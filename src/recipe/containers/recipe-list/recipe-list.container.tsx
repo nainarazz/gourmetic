@@ -6,6 +6,7 @@ import { RecipeEdge } from '../../types/recipe.interface';
 import { RecipeFilters } from 'src/recipe/components/recipe-filter/recipe-filter.component';
 import { RecipeList } from '../../components/recipe-list/recipe-list.component';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
+import { SpinnerInfiniteScroll } from 'src/shared/components/spinner-infinite-scroll/spinner-infinite-scroll.component';
 import { useQuery } from 'react-apollo';
 import { useStateValue } from 'src/context/state-context';
 
@@ -67,7 +68,7 @@ export const RecipeListRoot = () => {
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}
-				loader={<h4>loading...</h4>}
+				loader={<SpinnerInfiniteScroll />}
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>

@@ -6,6 +6,7 @@ import { RecipeList } from 'src/recipe/components/recipe-list/recipe-list.compon
 import { RecipeSearchCriteria } from 'src/search/types/recipe-search.interface';
 import { SEARCH_RECIPE } from 'src/recipe/recipe.graphql';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
+import { SpinnerInfiniteScroll } from 'src/shared/components/spinner-infinite-scroll/spinner-infinite-scroll.component';
 import { useQuery } from 'react-apollo';
 import { useStateValue } from 'src/context/state-context';
 
@@ -77,7 +78,7 @@ export const SearchResultContainer: FunctionComponent = () => {
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}
-				loader={<h4>loading...</h4>}
+				loader={<SpinnerInfiniteScroll />}
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>

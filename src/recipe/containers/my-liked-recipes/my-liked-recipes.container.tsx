@@ -4,6 +4,7 @@ import { MY_LIKED_RECIPES } from '../../recipe.graphql';
 import { MyLikedRecipes } from 'src/recipe/components/my-liked-recipes/my-liked-recipes.component';
 import { RecipeReactionEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
+import { SpinnerInfiniteScroll } from 'src/shared/components/spinner-infinite-scroll/spinner-infinite-scroll.component';
 import { useQuery } from 'react-apollo';
 
 export const MyLikedRecipesContainer: FunctionComponent = () => {
@@ -53,7 +54,7 @@ export const MyLikedRecipesContainer: FunctionComponent = () => {
 			<InfiniteScroll
 				dataLength={edges.length}
 				hasMore={hasNextPage || false}
-				loader={<h4>loading...</h4>}
+				loader={<SpinnerInfiniteScroll />}
 				next={onLoadMore}
 				scrollThreshold={0.9}
 			>
