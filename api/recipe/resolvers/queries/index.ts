@@ -16,8 +16,10 @@ import {
 } from './../../../graphql-generated-types/resolvers-types';
 
 const QueryResolver: QueryResolvers<Context, Recipe> = {
-	recipeList: async (parent, { first, after }) =>
-		getPaginatedRecipes({ first: first!, after: after! }),
+	recipeList: async (parent, { first, after }) => {
+		const criteria = { isApproved: true, isPublic: true }; // only get recipes that have been verified by admin
+		return getPaginatedRecipes({ first: first!, after: after! }, criteria);
+	},
 	recipeDetail: async (parent, args) => getRecipeDetail(args.id as string),
 	myRecipes: async (parent, { first, after }, ctx) => {
 		const userOAuthId =

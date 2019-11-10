@@ -21,6 +21,7 @@ export const generateRecipe = () => ({
 	isPublic: faker.random.boolean(),
 	createdBy: pickRandom(userIds),
 	createdAt: new Date(),
+	isApproved: false,
 	updatedAt: new Date(),
 });
 

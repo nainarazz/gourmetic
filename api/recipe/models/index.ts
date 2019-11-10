@@ -49,6 +49,7 @@ const recipeSchema = new mongoose.Schema({
 		publicId: String,
 	},
 	isPublic: Boolean,
+	isApproved: Boolean,
 	createdBy: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'user',
