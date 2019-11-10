@@ -234,7 +234,8 @@ const RecipeForm = (props: FormikProps<FormValues>) => {
 				<i>
 					By default your recipe can only be viewed by you. If you
 					want to make it public, please send an email to
-					gourmetic@gmail.com.
+					grecipeapp@gmail.com for review and approval. If updated, it
+					needs to be reviewed again.
 				</i>
 			</Privacy>
 			<div style={{ display: 'flex', justifyContent: 'flex-end' }}>
