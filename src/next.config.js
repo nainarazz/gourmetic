@@ -1,6 +1,7 @@
 const withTypescript = require('@zeit/next-typescript');
 const nextOffline = require('next-offline');
 const withCSS = require('@zeit/next-css');
+const withSourceMaps = require('@zeit/next-source-maps')();
 
 const nextConfig = {
 	target: 'serverless',
@@ -36,6 +37,17 @@ const nextConfig = {
 			},
 		],
 	},
+	webpack: (config, options) => {
+		// config from next js examples
+		// https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
+		if (!options.isServer) {
+			config.resolve.alias['@sentry/node'] = '@sentry/browser';
+		}
+
+		return config;
+	},
 };
 
-module.exports = nextOffline(withTypescript(withCSS(nextConfig)));
+module.exports = nextOffline(
+	withSourceMaps(withTypescript(withCSS(nextConfig)))
+);

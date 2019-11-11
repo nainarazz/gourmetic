@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import App, { AppComponentContext, Container } from 'next/app';
 import Head from 'next/head';
 import React from 'react';
@@ -14,6 +15,11 @@ interface Props {
 	// tslint:disable-next-line:no-any
 	apollo: ApolloClient<any>;
 }
+
+Sentry.init({
+	dsn: process.env.SENTRY_DSN,
+	enabled: process.env.NODE_ENV === 'production',
+});
 
 const GlobalStyle = createGlobalStyle`
     body {

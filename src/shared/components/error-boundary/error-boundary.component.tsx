@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/node';
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 
@@ -19,6 +20,7 @@ export class ErrorBoundary extends Component<{}, ErrorBoundaryState> {
 
 	// tslint:disable:no-any
 	componentDidCatch(error: any, info: any) {
+		Sentry.captureException(error);
 		this.setState({
 			error,
 			info,
