@@ -20,8 +20,23 @@ export const ImageWrapper = styled.div`
 	text-align: center;
 	background: lightgrey;
 
+	position: relative;
 	img {
 		max-height: 395px;
 		max-width: 100%;
+	}
+`;
+
+export const LoveIcon = styled.div`
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+	.optimistic {
+		color: green;
+	}
+
+	:hover {
+		cursor: pointer;
 	}
 `;

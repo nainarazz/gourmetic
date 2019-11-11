@@ -76,6 +76,10 @@ export const RECIPE_DETAIL = gql`
 				secureUrl
 				publicId
 			}
+			reaction {
+				_id
+				isLiked
+			}
 			yield
 			isPublic
 		}
