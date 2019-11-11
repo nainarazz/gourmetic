@@ -27,16 +27,17 @@ export const ImageWrapper = styled.div`
 	}
 `;
 
-export const LoveIcon = styled.div`
+export const ActionsIconContainer = styled.div`
 	position: absolute;
 	right: 0;
 	top: 0;
 	margin: 1rem;
-	.optimistic {
-		color: green;
-	}
 
 	:hover {
 		cursor: pointer;
 	}
+`;
+
+export const RecipeDetailIcons = styled.div`
+	margin: 10px 0;
 `;

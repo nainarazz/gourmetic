@@ -70,6 +70,7 @@ export const RECIPE_DETAIL = gql`
 				firstname
 				lastname
 				photo
+				OAuthUniqueAccountId
 			}
 			meal
 			image {

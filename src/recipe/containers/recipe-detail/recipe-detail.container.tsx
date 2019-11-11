@@ -2,16 +2,21 @@ import React, { useState } from 'react';
 import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
 import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { Image as CloudinaryImage } from 'cloudinary-react';
-import { ImageWrapper, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
 import { Instruction } from '../../components/instructions/instruction.component';
 import { LIKE_RECIPE, RECIPE_DETAIL } from '../../recipe.graphql';
 import { NextFunctionComponent } from 'next';
+import { RecipeDetailEditAction } from './recipe-detail-edit-action.component';
 import { RecipeDetailLikeAction } from './recipe-detail-like-action.component';
 import { RecipeDetailSummary } from '../../components/recipe-summary/recipe-detail-summary.component';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 import { useMutation, useQuery } from 'react-apollo';
+import {
+	ImageWrapper,
+	RecipeDetailWrapper,
+	ActionsIconContainer,
+} from './recipe-detail.styles';
 
 interface RecipeDetailProps {
 	id: string;
@@ -71,26 +76,33 @@ export const RecipeDetailRoot: NextFunctionComponent<
 							}
 						/>
 					)}
-					<RecipeDetailLikeAction
-						likeRecipe={() =>
-							likeRecipe({
-								variables: {
-									input: {
-										recipeId: recipe._id,
-										userId: user && user.sub,
-										isLiked:
-											recipe.reaction &&
-											recipe.reaction.isLiked,
-										reactionId:
-											recipe.reaction &&
-											recipe.reaction._id,
+					<ActionsIconContainer>
+						<RecipeDetailLikeAction
+							likeRecipe={() =>
+								likeRecipe({
+									variables: {
+										input: {
+											recipeId: props.id,
+											userId: user && user.sub,
+											isLiked:
+												recipe.reaction &&
+												recipe.reaction.isLiked,
+											reactionId:
+												recipe.reaction &&
+												recipe.reaction._id,
+										},
 									},
-								},
-							})
-						}
-						isOptimistic={isOptimistic}
-						recipe={recipe}
-					/>
+								})
+							}
+							isOptimistic={isOptimistic}
+							recipe={recipe}
+						/>
+						<RecipeDetailEditAction
+							recipeId={props.id}
+							userId={user && user.sub}
+							createdBy={recipe.createdBy.OAuthUniqueAccountId}
+						/>
+					</ActionsIconContainer>
 				</ImageWrapper>
 				<RecipeDetailSummary
 					prepTime={recipe && recipe.prepTime}

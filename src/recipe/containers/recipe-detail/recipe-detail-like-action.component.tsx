@@ -2,8 +2,8 @@ import React, { FunctionComponent } from 'react';
 import { faHeart as heartFilled } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as heartEmpty } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoveIcon } from './recipe-detail.styles';
 import { Recipe } from 'src/recipe/types/recipe.interface';
+import { RecipeDetailIcons } from './recipe-detail.styles';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
 
 interface RecipeDetailActionsProps {
@@ -23,7 +23,7 @@ export const RecipeDetailLikeAction: FunctionComponent<
 
 	return (
 		<React.Fragment>
-			<LoveIcon
+			<RecipeDetailIcons
 				onClick={() =>
 					isAuthenticated ? props.likeRecipe() : loginWithRedirect()
 				}
@@ -40,7 +40,7 @@ export const RecipeDetailLikeAction: FunctionComponent<
 					color={checkIsOptimistic(props.isOptimistic)}
 					size="2x"
 				/>
-			</LoveIcon>
+			</RecipeDetailIcons>
 		</React.Fragment>
 	);
 };
