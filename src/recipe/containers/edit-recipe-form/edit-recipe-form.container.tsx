@@ -1,4 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { FormValues, Image, Recipe } from '../../types/recipe.interface';
 import { getFormattedRecipeData } from '../../recipe.utils';
 import { RecipeDetailWrapper } from '../recipe-detail/recipe-detail.styles';
@@ -23,7 +24,7 @@ export const EditRecipeFormContainer: FunctionComponent<
 > = props => {
 	const [recipe, setRecipe] = useState<Recipe>();
 
-	const { data, loading } = useQuery(RECIPE_DETAIL, {
+	const { data, loading, error } = useQuery(RECIPE_DETAIL, {
 		variables: { id: props.recipeId },
 	});
 
@@ -130,6 +131,7 @@ export const EditRecipeFormContainer: FunctionComponent<
 					}
 				/>
 			</RecipeDetailWrapper>
+			{error && <ErrorToast message="Problem loading recipe." />}
 		</React.Fragment>
 	);
 };

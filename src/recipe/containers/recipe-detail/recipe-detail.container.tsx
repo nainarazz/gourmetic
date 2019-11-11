@@ -1,5 +1,6 @@
 import React from 'react';
 import { DEFAULT_IMAGE_PLACEHOLDER_PUBLIC_ID } from '../../constants/recipe.constants';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { Image as CloudinaryImage } from 'cloudinary-react';
 import { ImageWrapper, RecipeDetailWrapper } from './recipe-detail.styles';
 import { Ingredient } from '../../components/ingredients/ingredient.component';
@@ -17,7 +18,7 @@ interface RecipeDetailProps {
 export const RecipeDetailRoot: NextFunctionComponent<
 	RecipeDetailProps
 > = props => {
-	const { data, loading } = useQuery(RECIPE_DETAIL, {
+	const { data, loading, error } = useQuery(RECIPE_DETAIL, {
 		variables: { id: props.id },
 	});
 
@@ -59,6 +60,7 @@ export const RecipeDetailRoot: NextFunctionComponent<
 				/>
 				<Instruction instructions={instructions} />
 			</RecipeDetailWrapper>
+			{error && <ErrorToast message="Problem loading recipe." />}
 		</React.Fragment>
 	);
 };

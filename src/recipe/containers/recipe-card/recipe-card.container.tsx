@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { LIKE_RECIPE, RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeCard } from '../../components/recipe-card/recipe-card.component';
 import { useAuth0 } from 'src/authentication/react-auth0-wrapper';
@@ -29,7 +30,7 @@ export const RecipeCardContainer: React.SFC<
 		},
 	};
 
-	const [likeRecipe, { data }] = useMutation(LIKE_RECIPE, {
+	const [likeRecipe, { data, error }] = useMutation(LIKE_RECIPE, {
 		variables: likeRecipeInput,
 		// tslint:disable-next-line:no-shadowed-variable
 		update: (store, updatedData) => {
@@ -72,12 +73,15 @@ export const RecipeCardContainer: React.SFC<
 	}
 
 	return (
-		<RecipeCard
-			key={props.recipe._id}
-			recipe={recipe}
-			totalLikes={15}
-			likeRecipe={isAuthenticated ? likeRecipe : loginWithRedirect}
-			isOptimistic={isOptimistic}
-		/>
+		<React.Fragment>
+			<RecipeCard
+				key={props.recipe._id}
+				recipe={recipe}
+				totalLikes={15}
+				likeRecipe={isAuthenticated ? likeRecipe : loginWithRedirect}
+				isOptimistic={isOptimistic}
+			/>
+			{error && <ErrorToast message="A problem occured." />}
+		</React.Fragment>
 	);
 };

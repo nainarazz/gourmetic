@@ -1,6 +1,7 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React from 'react';
 import Router, { useRouter } from 'next/router';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { RECIPE_LIST_QUERY } from '../../recipe.graphql';
 import { RecipeEdge } from '../../types/recipe.interface';
 import { RecipeFilters } from 'src/recipe/components/recipe-filter/recipe-filter.component';
@@ -14,7 +15,7 @@ export const RecipeListRoot = () => {
 	const numberOfPagesToLoad = 15;
 	const { updateRecipeFilters } = useStateValue();
 	const userRouter = useRouter();
-	const { data, fetchMore, loading } = useQuery(RECIPE_LIST_QUERY, {
+	const { data, fetchMore, loading, error } = useQuery(RECIPE_LIST_QUERY, {
 		variables: { first: numberOfPagesToLoad },
 	});
 
@@ -74,6 +75,7 @@ export const RecipeListRoot = () => {
 			>
 				<RecipeList recipeEdges={edges} />
 			</InfiniteScroll>
+			{error && <ErrorToast message="Problem loading recipes." />}
 		</React.Fragment>
 	);
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Router, { useRouter } from 'next/router';
 import { Backdrop } from '../../../shared/components/backdrop/backdrop.component';
+import { ErrorBoundary } from 'src/shared/components/error-boundary/error-boundary.component';
 import { faPlus as plusIcon } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Header } from '../../components/header/header.component';
@@ -62,7 +63,9 @@ export const AppLayout: React.SFC = props => {
 				toggleSideDrawer={toggleSideDrawer}
 			/>
 
-			<Main>{props.children}</Main>
+			<ErrorBoundary>
+				<Main>{props.children}</Main>
+			</ErrorBoundary>
 
 			{newRecipeButton}
 			<ToastContainer hideProgressBar toastClassName="toast-container" />

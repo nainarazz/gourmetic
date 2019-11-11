@@ -1,5 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { MY_LIKED_RECIPES } from '../../recipe.graphql';
 import { MyLikedRecipes } from 'src/recipe/components/my-liked-recipes/my-liked-recipes.component';
 import { RecipeReactionEdge } from 'src/recipe/types/recipe.interface';
@@ -9,7 +10,7 @@ import { useQuery } from 'react-apollo';
 
 export const MyLikedRecipesContainer: FunctionComponent = () => {
 	const numberOfItemsToLoad = 15;
-	const { data, loading, fetchMore } = useQuery(MY_LIKED_RECIPES, {
+	const { data, loading, fetchMore, error } = useQuery(MY_LIKED_RECIPES, {
 		variables: { first: numberOfItemsToLoad },
 		fetchPolicy: 'cache-and-network',
 	});
@@ -60,6 +61,7 @@ export const MyLikedRecipesContainer: FunctionComponent = () => {
 			>
 				<MyLikedRecipes recipeEdges={edges} />
 			</InfiniteScroll>
+			{error && <ErrorToast message="Problem loading recipes." />}
 		</React.Fragment>
 	);
 };

@@ -1,5 +1,6 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import React, { FunctionComponent } from 'react';
+import { ErrorToast } from 'src/shared/components/error-toast/error-toast.component';
 import { MyRecipes } from 'src/recipe/components/my-recipes/my-recipes.component';
 import { Recipe, RecipeEdge } from 'src/recipe/types/recipe.interface';
 import { Spinner } from 'src/shared/components/spinner/spinner.component';
@@ -15,7 +16,7 @@ import {
 
 export const MyRecipesContainer: FunctionComponent = () => {
 	const numberOfItemsToLoad = 15;
-	const { data, fetchMore, loading: loadingRecipes } = useQuery(
+	const { data, fetchMore, loading: loadingRecipes, error } = useQuery(
 		MY_RECIPES_QUERY,
 		{
 			variables: { first: numberOfItemsToLoad },
@@ -111,6 +112,7 @@ export const MyRecipesContainer: FunctionComponent = () => {
 			>
 				<MyRecipes recipeEdges={edges} deleteHandler={deleteHandler} />
 			</InfiniteScroll>
+			{error && <ErrorToast message="Problem loading recipes." />}
 		</React.Fragment>
 	);
 };

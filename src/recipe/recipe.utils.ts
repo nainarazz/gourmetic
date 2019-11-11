@@ -1,7 +1,6 @@
 import {
 	FormValues,
 	Instruction,
-	Recipe,
 	ReactSelectOptions,
 	Ingredient,
 } from './types/recipe.interface';
