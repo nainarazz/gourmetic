@@ -109,7 +109,8 @@ export const deleteRecipe = async (input: DeleteRecipeInput) => {
 
 export const searchRecipe = async (
 	input: SearchRecipeInput,
-	{ first, after }: PaginationOptions
+	{ first, after }: PaginationOptions,
+	userOAuthIdentifier: string
 ) => {
 	const searchCondition = {
 		$or: [
@@ -118,11 +119,25 @@ export const searchRecipe = async (
 		],
 	};
 
+	const user = await getUserByOAuthAccountIdentifier(userOAuthIdentifier);
+
 	const filterCondition = { meal: { $in: input.meal } };
 
 	const conditions = {
-		...(input.name && searchCondition),
-		...(input.meal && input.meal.length > 0 && filterCondition),
+		// users should be able to search only approved public recipes or their own recipes
+		$or: [
+			{
+				isApproved: true,
+				isPublic: true,
+				...(input.name && searchCondition),
+				...(input.meal && input.meal.length > 0 && filterCondition),
+			},
+			{
+				createdBy: user && user._id,
+				...(input.name && searchCondition),
+				...(input.meal && input.meal.length > 0 && filterCondition),
+			},
+		],
 	};
 
 	const criteria = after
