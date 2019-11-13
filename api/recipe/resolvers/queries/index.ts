@@ -5,7 +5,6 @@ import { getRecipeList } from './recipe-list.query';
 import { recipeReaction } from './recipeReaction.query';
 import { User } from '../../../graphql-generated-types/resolvers-types';
 import {
-	getPaginatedRecipes,
 	getRecipeDetail,
 	getMyrecipes,
 	searchRecipe,
