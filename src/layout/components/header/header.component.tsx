@@ -43,13 +43,6 @@ export const Header: React.SFC<HeaderProps> = props => {
 						}
 					/>
 					<ActionButtons>
-						<HeaderButton>MEAL PLANNER</HeaderButton>
-						{!isAuthenticated && (
-							<HeaderButton onClick={loginWithRedirect}>
-								SIGN IN
-							</HeaderButton>
-						)}
-
 						<AvatarButton>
 							{isAuthenticated && (
 								<AvatarWithDropdown
