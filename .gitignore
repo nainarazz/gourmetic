@@ -11,3 +11,4 @@ node_modules
 build-api
 api/graphql-generated-types/resolvers-types.ts
 src/graphql-generated-types
+.vercel

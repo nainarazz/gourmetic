@@ -4,7 +4,7 @@
 		"seed": "cross-env DEBUG=seeding ts-node migrations/index.ts"
 	},
 	"engines": {
-		"node": "10.x"
+		"node": "12.x"
 	},
 	"dependencies": {
 		"@sentry/integrations": "^5.6.1",
