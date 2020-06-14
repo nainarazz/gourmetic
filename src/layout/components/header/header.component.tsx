@@ -38,11 +38,12 @@ export const Header: React.SFC<HeaderProps> = props => {
 					</Link>
 					<SearchBarComponent
 						searchInputExpanded={!inputExpanded}
-						toggleSearchInput={() =>
-							setInputExpanded(!inputExpanded)
-						}
+						toggleSearchInput={() => setInputExpanded(!inputExpanded)}
 					/>
 					<ActionButtons>
+						{!isAuthenticated && (
+							<HeaderButton onClick={loginWithRedirect}>SIGN IN</HeaderButton>
+						)}
 						<AvatarButton>
 							{isAuthenticated && (
 								<AvatarWithDropdown
