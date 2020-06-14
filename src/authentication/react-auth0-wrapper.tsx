@@ -37,9 +37,7 @@ export const Auth0Provider = ({
 			setAuth0(auth0FromHook);
 
 			if (window.location.search.includes('code=')) {
-				const {
-					appState,
-				} = await auth0FromHook.handleRedirectCallback();
+				const { appState } = await auth0FromHook.handleRedirectCallback();
 				onRedirectCallback(appState);
 			}
 
@@ -104,16 +102,11 @@ export const Auth0Provider = ({
 				loginWithPopup,
 				handleRedirectCallback,
 				getIdTokenClaims: (idTokens: getIdTokenClaimsOptions) =>
-					auth0Client &&
-					auth0Client.getIdTokenClaims({ ...idTokens }),
-				loginWithRedirect: (
-					redirectLoginOptions: RedirectLoginOptions
-				) =>
+					auth0Client && auth0Client.getIdTokenClaims({ ...idTokens }),
+				loginWithRedirect: (redirectLoginOptions: RedirectLoginOptions) =>
 					auth0Client &&
 					auth0Client.loginWithRedirect({ ...redirectLoginOptions }),
-				getTokenSilently: (
-					getTokenSilentlyOptions: GetTokenSilentlyOptions
-				) =>
+				getTokenSilently: (getTokenSilentlyOptions: GetTokenSilentlyOptions) =>
 					auth0Client &&
 					auth0Client.getTokenSilently({
 						...getTokenSilentlyOptions,
