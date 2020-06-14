@@ -28,7 +28,10 @@ export const Header: React.SFC<HeaderProps> = props => {
 		<React.Fragment>
 			<Container>
 				<HeaderItems>
-					<DrawerToggleButton onClick={props.drawerClickHandler}>
+					<DrawerToggleButton
+						data-cy="hamburger-icon"
+						onClick={props.drawerClickHandler}
+					>
 						<FontAwesomeIcon icon={bars} />
 					</DrawerToggleButton>
 					<Link href="/">

@@ -24,23 +24,13 @@ interface SideDrawerProps {
 
 export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 	// tslint:disable:no-any
-	const {
-		isAuthenticated,
-		loginWithRedirect,
-		logout,
-		user,
-	}: any = useAuth0();
+	const { isAuthenticated, loginWithRedirect, logout, user }: any = useAuth0();
 	return (
 		<React.Fragment>
 			<Container isOpen={props.isOpen}>
 				<SideDrawerLogo>
 					{isAuthenticated && (
-						<StyledAvatar
-							src={user.picture}
-							name={user.name}
-							round
-							size="40"
-						/>
+						<StyledAvatar src={user.picture} name={user.name} round size="40" />
 					)}
 				</SideDrawerLogo>
 				<SideDrawerItem>
@@ -57,9 +47,7 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 				</SideDrawerItem>
 				<SideDrawerItem
 					onClick={() => {
-						isAuthenticated
-							? Router.push('/recipe-form')
-							: loginWithRedirect();
+						isAuthenticated ? Router.push('/recipe-form') : loginWithRedirect();
 						props.toggleSideDrawer();
 					}}
 				>
@@ -68,9 +56,7 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 				</SideDrawerItem>
 				<SideDrawerItem
 					onClick={() => {
-						isAuthenticated
-							? Router.push('/profile')
-							: loginWithRedirect();
+						isAuthenticated ? Router.push('/profile') : loginWithRedirect();
 						props.toggleSideDrawer();
 					}}
 				>
@@ -78,6 +64,7 @@ export const SideDrawer: React.SFC<SideDrawerProps> = props => {
 					<span>My Profile</span>
 				</SideDrawerItem>
 				<SideDrawerItem
+					data-cy="sign-in"
 					onClick={() => {
 						isAuthenticated ? logout() : loginWithRedirect();
 						props.toggleSideDrawer();
